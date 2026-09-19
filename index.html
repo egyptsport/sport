@@ -3677,6 +3677,35 @@
             pointer-events: none;
         }
 
+        .splash-skip-btn {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(2, 132, 199, 0.12);
+            border: 1.5px solid rgba(2, 132, 199, 0.35);
+            color: #0284c7;
+            padding: 8px 24px;
+            border-radius: 999px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(8px);
+            z-index: 100000;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.1);
+        }
+
+        .splash-skip-btn:hover {
+            background: #0284c7;
+            color: #ffffff;
+            box-shadow: 0 6px 18px rgba(2, 132, 199, 0.35);
+            transform: translateX(-50%) translateY(-2px);
+        }
+
         .splash-logos-layout {
             display: flex;
             flex-direction: column;
@@ -3706,14 +3735,21 @@
             justify-content: center;
         }
 
-        .splash-logo-primary {
+        .splash-logo-primary,
+        .splash-logo-secondary {
             width: 125px;
             height: 125px;
         }
 
-        .splash-logo-secondary {
-            width: 88px;
-            height: 88px;
+        @media (max-width: 380px) {
+            .splash-logo-primary,
+            .splash-logo-secondary {
+                width: 105px;
+                height: 105px;
+            }
+            .splash-logo-bottom-row {
+                gap: 16px;
+            }
         }
 
         .splash-logo-ring {
@@ -4301,8 +4337,8 @@
 </head>
 <body>
 
-    <!-- شاشة البداية واللوجوهات الثلاثة مع الأنيميشن الدائري (تختفي بعد 3 ثوانٍ) -->
-    <div id="splashScreen" class="splash-screen-overlay">
+    <!-- شاشة البداية واللوجوهات الثلاثة مع الأنيميشن الدائري (تختفي بعد ثانيتين أو بالنقر) -->
+    <div id="splashScreen" class="splash-screen-overlay" onclick="dismissSplashScreen()" style="cursor:pointer;" title="انقر للدخول المباشر">
         <div class="splash-logos-layout">
             <!-- صف علوي: لوجو 1 (وزارة التربية والتعليم والتعليم الفني) بحجم أكبر وأبرز -->
             <div class="splash-logo-top-row">
@@ -4334,7 +4370,44 @@
         </div>
         <div class="splash-title-text">الإدارة العامة للتربية الرياضية والعسكرية</div>
         <div class="splash-sub-text">منظومة التسجيل الرقمي لبطولات الجمهورية</div>
+        <button type="button" class="splash-skip-btn" onclick="dismissSplashScreen(); event.stopPropagation();" title="تخطي والتوجه للواجهة الرئيسية">
+            <span>تخطي والدخول</span>
+            <i class="fas fa-arrow-left"></i>
+        </button>
     </div>
+
+    <!-- كود مستقل ومباشر لضمان انتقال الواجهة وإخفاء شاشة اللوجوهات تلقائياً وفوراً -->
+    <script>
+        (function () {
+            window.dismissSplashScreen = function () {
+                var s = document.getElementById('splashScreen');
+                if (s && !s._dismissed) {
+                    s._dismissed = true;
+                    s.classList.add('fade-out');
+                    setTimeout(function () {
+                        if (s) {
+                            s.style.display = 'none';
+                            s.style.pointerEvents = 'none';
+                        }
+                        if (typeof showLanding === 'function') {
+                            try { showLanding(); } catch(e){}
+                        }
+                    }, 500);
+                }
+            };
+            // إخفاء تلقائي بعد 2 ثانية
+            setTimeout(window.dismissSplashScreen, 2000);
+            // حماية قصوى: إخفاء قاطع بعد 3 ثوانٍ مهما كانت الظروف
+            setTimeout(function () {
+                var s = document.getElementById('splashScreen');
+                if (s && s.style.display !== 'none') {
+                    s.classList.add('fade-out');
+                    s.style.display = 'none';
+                    s.style.pointerEvents = 'none';
+                }
+            }, 3000);
+        })();
+    </script>
 
     <!-- زر الصعود لأعلى الصفحة العائم لجميع الشاشات -->
     <button type="button" id="floatingScrollTopBtn" class="floating-scroll-top-btn" onclick="scrollToPageTop()" title="الرجوع لأعلى الصفحة">
@@ -11426,13 +11499,13 @@
         // 11. تشغيل التطبيق عند اكتمال تحميل الصفحة
         // ==========================================
         window.addEventListener('DOMContentLoaded', function () {
-            initTheme();
-            loadSavedAdminAccounts();
-            populateAdminDropdown();
-            populateGamesList();
-            restoreSupervisorData();
-            setupSupervisorListeners();
-            setupDragAndDrop();
+            try { initTheme(); } catch (e) { console.error('initTheme error:', e); }
+            try { loadSavedAdminAccounts(); } catch (e) { console.error('loadSavedAdminAccounts error:', e); }
+            try { populateAdminDropdown(); } catch (e) { console.error('populateAdminDropdown error:', e); }
+            try { populateGamesList(); } catch (e) { console.error('populateGamesList error:', e); }
+            try { restoreSupervisorData(); } catch (e) { console.error('restoreSupervisorData error:', e); }
+            try { setupSupervisorListeners(); } catch (e) { console.error('setupSupervisorListeners error:', e); }
+            try { setupDragAndDrop(); } catch (e) { console.error('setupDragAndDrop error:', e); }
 
             // استرجاع جلسة الأدمن إن كانت نشطة مسبقاً
             try {
@@ -11452,51 +11525,61 @@
             } catch (e) {}
 
             // تهيئة المزامنة والتعميم السحابي المركزي (Google Apps Script)
-            updateCloudSyncStatusBadge();
-            fetchTemplatesOrderFromCloud();
+            try { updateCloudSyncStatusBadge(); } catch (e) {}
+            try { fetchTemplatesOrderFromCloud(); } catch (e) {}
 
             // الاستماع لحالة الاتصال بالإنترنت للمزامنة والتعميم التلقائي
             window.addEventListener('online', function () {
-                updateCloudSyncStatusBadge();
-                const pending = localStorage.getItem(PENDING_SYNC_STORAGE_KEY);
-                if (pending) {
-                    try {
-                        const parsed = JSON.parse(pending);
-                        syncTemplatesOrderToCloud(parsed);
-                    } catch (e) {}
-                }
-                fetchTemplatesOrderFromCloud();
+                try {
+                    updateCloudSyncStatusBadge();
+                    const pending = localStorage.getItem(PENDING_SYNC_STORAGE_KEY);
+                    if (pending) {
+                        try {
+                            const parsed = JSON.parse(pending);
+                            syncTemplatesOrderToCloud(parsed);
+                        } catch (e) {}
+                    }
+                    fetchTemplatesOrderFromCloud();
+                } catch (e) {}
             });
 
             window.addEventListener('offline', function () {
-                updateCloudSyncStatusBadge();
-                updateDownloadsSyncBadge(false);
+                try {
+                    updateCloudSyncStatusBadge();
+                    updateDownloadsSyncBadge(false);
+                } catch (e) {}
             });
 
             // 1. زر الصعود لأعلى الصفحة العائم لجميع الأجهزة والشاشات
-            const scrollBtn = document.getElementById('floatingScrollTopBtn');
-            window.addEventListener('scroll', function () {
-                if (window.scrollY > 250) {
-                    if (scrollBtn) scrollBtn.classList.add('visible');
+            try {
+                const scrollBtn = document.getElementById('floatingScrollTopBtn');
+                window.addEventListener('scroll', function () {
+                    if (window.scrollY > 250) {
+                        if (scrollBtn) scrollBtn.classList.add('visible');
+                    } else {
+                        if (scrollBtn) scrollBtn.classList.remove('visible');
+                    }
+                }, { passive: true });
+
+                window.scrollToPageTop = function () {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                };
+            } catch (e) {}
+
+            // 2. شاشة البداية والأنيميشن الدائري (Splash Screen) - إخفاء مؤكد
+            try {
+                if (typeof window.dismissSplashScreen === 'function') {
+                    setTimeout(window.dismissSplashScreen, 1800);
                 } else {
-                    if (scrollBtn) scrollBtn.classList.remove('visible');
+                    const splashEl = document.getElementById('splashScreen');
+                    if (splashEl) {
+                        splashEl.classList.add('fade-out');
+                        setTimeout(function () {
+                            splashEl.style.display = 'none';
+                        }, 500);
+                    }
                 }
-            }, { passive: true });
-
-            window.scrollToPageTop = function () {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            };
-
-            // 2. شاشة البداية والأنيميشن الدائري (Splash Screen) - إخفاء تلقائي بعد 3 ثوانٍ
-            const splashEl = document.getElementById('splashScreen');
-            if (splashEl) {
-                setTimeout(function () {
-                    splashEl.classList.add('fade-out');
-                    setTimeout(function () {
-                        splashEl.style.display = 'none';
-                    }, 650);
-                }, 3000);
-            }
+            } catch (e) {}
         });
     
         // =========================================================================
