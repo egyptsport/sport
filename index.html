@@ -1882,15 +1882,45 @@
             color: #ffffff !important;
         }
 
-        /* إجراءات أسفل القائمة الجانبية */
+        /* إجراءات أسفل القائمة الجانبية (بدون فراغ شاسع) */
         .admin-sidebar-actions {
             display: flex;
             flex-direction: column;
-            gap: 5px;
-            padding-top: 8px;
+            gap: 6px;
+            padding-top: 12px;
             border-top: 1px solid var(--border);
-            margin-top: auto;
+            margin-top: 14px;
             box-sizing: border-box;
+        }
+
+        /* شارة العدادات الرقمية بتوسيط الرقم فوق الكلمة */
+        .stacked-count-badge {
+            display: inline-flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+            padding: 2px 7px !important;
+            border-radius: 7px !important;
+            line-height: 1.1 !important;
+            min-width: 42px !important;
+            vertical-align: middle !important;
+            box-sizing: border-box !important;
+        }
+        .stacked-count-badge .badge-num {
+            font-size: 0.95rem !important;
+            font-weight: 800 !important;
+            display: block !important;
+            line-height: 1 !important;
+            text-align: center !important;
+        }
+        .stacked-count-badge .badge-label {
+            font-size: 0.62rem !important;
+            font-weight: 700 !important;
+            display: block !important;
+            line-height: 1 !important;
+            margin-top: 1px !important;
+            text-align: center !important;
         }
 
         .admin-sidebar-action-btn {
@@ -2037,19 +2067,52 @@
                 top: 0;
                 right: 0;
                 bottom: 0;
+                width: 275px !important;
+                max-width: 86vw !important;
                 height: 100vh;
                 max-height: 100vh;
                 z-index: 1050;
                 border-radius: 0;
                 box-shadow: -6px 0 24px rgba(0, 0, 0, 0.45);
                 transform: translateX(0);
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 14px 12px;
+                overflow-y: auto;
+                box-sizing: border-box;
+            }
+
+            .admin-sidebar-nav {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                flex: 0 0 auto;
+            }
+
+            .admin-sidebar-nav .admin-tab {
+                padding: 9px 12px !important;
+                font-size: 0.83rem !important;
+                gap: 9px !important;
+            }
+
+            .admin-sidebar-actions {
+                margin-top: 12px !important;
+                padding-top: 10px !important;
+                gap: 6px !important;
+                flex: 0 0 auto;
+            }
+
+            .admin-sidebar-action-btn {
+                padding: 9px 12px !important;
+                font-size: 0.80rem !important;
             }
 
             .admin-layout-container.sidebar-collapsed .admin-sidebar {
                 transform: translateX(100%) !important;
-                width: 250px !important;
-                min-width: 250px !important;
-                max-width: 250px !important;
+                width: 275px !important;
+                min-width: 275px !important;
+                max-width: 275px !important;
             }
 
             .admin-sidebar-backdrop {
@@ -2069,14 +2132,36 @@
             }
 
             .admin-workspace-header {
-                flex-wrap: wrap !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: stretch !important;
                 gap: 6px !important;
                 padding: 6px 8px !important;
             }
 
-            .admin-workspace-header > div {
-                flex-wrap: wrap !important;
-                gap: 4px !important;
+            .admin-workspace-header-primary {
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                width: 100% !important;
+                gap: 6px !important;
+            }
+
+            .admin-workspace-header-actions {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: stretch !important;
+                width: 100% !important;
+                gap: 5px !important;
+            }
+
+            .admin-workspace-header-actions .admin-sidebar-toggle-btn {
+                flex: 1 1 auto !important;
+                justify-content: center !important;
+                text-align: center !important;
+                padding: 5px 6px !important;
+                font-size: 0.73rem !important;
+                white-space: nowrap !important;
             }
 
             .admin-unified-controls-bar {
@@ -3195,9 +3280,59 @@
         .dist-filter-tab.active i {
             color: #ffffff !important;
         }
+        .dist-stat-cards-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
         .dist-stat-card-clickable {
             cursor: pointer;
             transition: all 0.2s ease;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 4px 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            height: 46px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+            box-sizing: border-box;
+        }
+        .dist-stat-card-clickable .stat-card-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.88rem;
+            flex-shrink: 0;
+        }
+        .dist-stat-card-clickable .stat-card-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1.1;
+        }
+        .dist-stat-card-clickable .stat-card-num {
+            font-size: 1.15rem;
+            font-weight: 800;
+            line-height: 1;
+            display: block;
+            text-align: center;
+        }
+        .dist-stat-card-clickable .stat-card-label {
+            font-size: 0.65rem;
+            color: #64748b;
+            font-weight: 700;
+            white-space: nowrap;
+            display: block;
+            text-align: center;
+            margin-top: 1px;
         }
         .dist-stat-card-clickable:hover {
             transform: translateY(-2px);
@@ -3217,6 +3352,19 @@
             border-color: #059669 !important;
             box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.25) !important;
             background: #ecfdf5 !important;
+        }
+        @media (max-width: 768px) {
+            .dist-stat-cards-wrapper {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 6px !important;
+                width: 100% !important;
+            }
+            .dist-stat-card-clickable {
+                width: 100% !important;
+                justify-content: center !important;
+                padding: 4px 8px !important;
+            }
         }
         [data-theme="dark"] .dist-filter-tab {
             background: #1e293b;
@@ -3365,6 +3513,45 @@
         .work-header-title i {
             color: #0284c7;
             font-size: 1.05rem;
+        }
+
+        .work-header-spacer {
+            width: 140px;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .work-header {
+                padding: 10px 12px !important;
+                border-radius: 10px !important;
+                margin-bottom: 6px !important;
+            }
+            .work-header-inner {
+                gap: 8px !important;
+                justify-content: space-between !important;
+            }
+            .work-header-spacer {
+                display: none !important;
+            }
+            .work-header-title {
+                font-size: 0.90rem !important;
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+                flex: 1 !important;
+                justify-content: center !important;
+                gap: 6px !important;
+            }
+            .work-header-title i {
+                font-size: 0.95rem !important;
+            }
+            .back-to-landing-btn {
+                padding: 6px 10px !important;
+                font-size: 0.75rem !important;
+                border-radius: 8px !important;
+                flex-shrink: 0 !important;
+                gap: 5px !important;
+            }
         }
 
         /* ================================================================
@@ -3837,7 +4024,7 @@
                     <i class="fas fa-cloud-arrow-up"></i>
                     <span id="workHeaderText">رفع كشف جديد</span>
                 </div>
-                <div style="width:140px;"></div>
+                <div class="work-header-spacer"></div>
             </div>
         </header>
 
@@ -4698,7 +4885,13 @@
                         </span>
                     </div>
 
-                    <div class="admin-top-actions">
+                    <div class="admin-top-actions" style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+                        <button type="button" class="admin-action-btn" onclick="openRegistrarDirectUpload('student')" style="background:#059669; color:#fff; border-color:#047857; font-weight:700; font-size:0.76rem;" title="رفع استمارة طالب جديدة للمحافظة">
+                            <i class="fas fa-user-plus"></i> رفع استمارة جديدة
+                        </button>
+                        <button type="button" class="admin-action-btn" onclick="openRegistrarDirectUpload('collective')" style="background:#7c3aed; color:#fff; border-color:#6d28d9; font-weight:700; font-size:0.76rem;" title="رفع كشف مجمع لمحافظتك">
+                            <i class="fas fa-file-circle-plus"></i> رفع كشف مجمع
+                        </button>
                         <button type="button" class="admin-action-btn logout" onclick="handleRegistrarLogout()">
                             <i class="fas fa-right-from-bracket"></i> خروج
                         </button>
@@ -5604,12 +5797,8 @@
                             </button>
                         </nav>
 
-                        <!-- إجراءات سريعة في أسفل القائمة الجانبية بالترتيب المطلوب (النتائج فوق كلمة المرور) -->
+                        <!-- إجراءات سريعة في أسفل القائمة الجانبية -->
                         <div class="admin-sidebar-actions">
-                            <button type="button" class="admin-sidebar-action-btn results-btn" id="sidebarResultsBtn" onclick="switchAdminSubtab('results')" title="استعراض وتوثيق نتائج ومراكز بطولات الجمهورية" style="background:rgba(245,158,11,0.15); color:#b45309; border-color:rgba(245,158,11,0.4); font-weight:800;">
-                                <i class="fas fa-trophy" style="color:#d97706;"></i>
-                                <span>نتائج البطولات</span>
-                            </button>
                             <button type="button" class="admin-sidebar-action-btn" onclick="openPasswordChangeModal()" title="تغيير كلمة المرور">
                                 <i class="fas fa-key"></i>
                                 <span>تغيير كلمة المرور</span>
@@ -5626,7 +5815,7 @@
                         
                         <!-- شريط علوي مختصر ومدمج لتوفير المساحة الرأسية -->
                         <div class="admin-workspace-header">
-                            <div style="display:flex; align-items:center; gap:8px;">
+                            <div class="admin-workspace-header-primary">
                                 <button type="button" class="admin-sidebar-toggle-btn" id="adminSidebarToggleBtn" onclick="toggleAdminSidebar()" title="إظهار / إخفاء القائمة الجانبية">
                                     <i class="fas fa-bars"></i>
                                     <span>القائمة</span>
@@ -5637,14 +5826,14 @@
                                 </div>
                             </div>
                             
-                            <div style="display:flex; align-items:center; gap:6px;">
+                            <div class="admin-workspace-header-actions">
                                 <button type="button" class="admin-sidebar-toggle-btn hidden" id="headerDistRefreshBtn" onclick="loadDistributionOverviewFromBackend()" title="تحديث اللوحة عبر السيرفر" style="padding:3px 10px; font-size:0.75rem; color:#0284c7; border-color:#bae6fd; background:#f0f9ff; font-weight:700;">
                                     <i class="fas fa-sync-alt" id="iconDistributionRefresh"></i>
-                                    <span>تحديث اللوحة عبر السيرفر</span>
+                                    <span>تحديث اللوحة</span>
                                 </button>
                                 <button type="button" class="admin-sidebar-toggle-btn hidden" id="headerDistNewTaskBtn" onclick="openAssignTaskModal()" title="تكليف مهمة جديدة لمراجع" style="padding:3px 10px; font-size:0.75rem; color:#0369a1; border-color:#bae6fd; background:#e0f2fe; font-weight:700;">
                                     <i class="fas fa-plus"></i>
-                                    <span>تكليف مهمة جديدة</span>
+                                    <span>تكليف مهمة</span>
                                 </button>
                                 <button type="button" class="admin-sidebar-toggle-btn" onclick="returnToHomePortal()" title="العودة للبوابة الرئيسية" style="padding:3px 8px; font-size:0.75rem;">
                                     <i class="fas fa-home"></i>
@@ -6113,48 +6302,48 @@
                         </div>
 
                         <!-- كروت المؤشرات السريعة المدمجة أفقياً بجانب العنوان لتوفير أقصى مساحة رأسية -->
-                        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                        <div class="dist-stat-cards-wrapper">
                             <!-- 1. إجمالي المحافظات والألعاب المضافة -->
-                            <div id="cardFilterAll" class="dist-stat-card-clickable active-all" onclick="setDistributionFilterType('all')" style="background:#fff; border:1px solid #cbd5e1; border-radius:8px; padding:4px 8px; display:flex; align-items:center; gap:8px; cursor:pointer; height:44px; box-shadow:0 1px 2px rgba(0,0,0,0.03);" title="عرض كافة المهام المضافة بالنظام">
-                                <div style="width:28px; height:28px; border-radius:6px; background:#e0f2fe; color:#0284c7; display:flex; align-items:center; justify-content:center; font-size:0.88rem; flex-shrink:0;">
+                            <div id="cardFilterAll" class="dist-stat-card-clickable active-all" onclick="setDistributionFilterType('all')" title="عرض كافة المهام المضافة بالنظام">
+                                <div class="stat-card-icon" style="background:#e0f2fe; color:#0284c7;">
                                     <i class="fas fa-map-location-dot"></i>
                                 </div>
-                                <div style="display:flex; flex-direction:column; line-height:1.15;">
-                                    <span style="font-size:0.67rem; color:#64748b; font-weight:700; white-space:nowrap;">إجمالي المحافظات والألعاب المضافة</span>
-                                    <span style="font-size:1.15rem; font-weight:800; color:#0f172a;" id="distStatTotalWorkloads">0</span>
+                                <div class="stat-card-content">
+                                    <span class="stat-card-num" id="distStatTotalWorkloads" style="color:#0f172a;">0</span>
+                                    <span class="stat-card-label">إجمالي المهام المضافة</span>
                                 </div>
                             </div>
 
                             <!-- 2. بانتظار الإسناد للمراجعين -->
-                            <div id="cardFilterUnassigned" class="dist-stat-card-clickable" onclick="setDistributionFilterType('unassigned')" style="background:#fff; border:1px solid #cbd5e1; border-radius:8px; padding:4px 8px; display:flex; align-items:center; gap:8px; cursor:pointer; height:44px; box-shadow:0 1px 2px rgba(0,0,0,0.03);" title="عرض المهام المراد إسنادها للمراجعين فقط (بانتظار التكليف)">
-                                <div style="width:28px; height:28px; border-radius:6px; background:#fef3c7; color:#d97706; display:flex; align-items:center; justify-content:center; font-size:0.88rem; flex-shrink:0;">
+                            <div id="cardFilterUnassigned" class="dist-stat-card-clickable" onclick="setDistributionFilterType('unassigned')" title="عرض المهام المراد إسنادها للمراجعين فقط (بانتظار التكليف)">
+                                <div class="stat-card-icon" style="background:#fef3c7; color:#d97706;">
                                     <i class="fas fa-hourglass-half"></i>
                                 </div>
-                                <div style="display:flex; flex-direction:column; line-height:1.15;">
-                                    <span style="font-size:0.67rem; color:#64748b; font-weight:700; white-space:nowrap;">بانتظار الإسناد للمراجعين</span>
-                                    <span style="font-size:1.15rem; font-weight:800; color:#d97706;" id="distStatUnassigned">0</span>
+                                <div class="stat-card-content">
+                                    <span class="stat-card-num" id="distStatUnassigned" style="color:#d97706;">0</span>
+                                    <span class="stat-card-label">بانتظار الإسناد</span>
                                 </div>
                             </div>
 
                             <!-- 3. مهام مسندة قيد العمل -->
-                            <div id="cardFilterAssigned" class="dist-stat-card-clickable" onclick="setDistributionFilterType('assigned')" style="background:#fff; border:1px solid #cbd5e1; border-radius:8px; padding:4px 8px; display:flex; align-items:center; gap:8px; cursor:pointer; height:44px; box-shadow:0 1px 2px rgba(0,0,0,0.03);" title="عرض المهام المسندة حالياً للمراجعين قيد العمل فقط">
-                                <div style="width:28px; height:28px; border-radius:6px; background:#ecfdf5; color:#059669; display:flex; align-items:center; justify-content:center; font-size:0.88rem; flex-shrink:0;">
+                            <div id="cardFilterAssigned" class="dist-stat-card-clickable" onclick="setDistributionFilterType('assigned')" title="عرض المهام المسندة حالياً للمراجعين قيد العمل فقط">
+                                <div class="stat-card-icon" style="background:#ecfdf5; color:#059669;">
                                     <i class="fas fa-user-check"></i>
                                 </div>
-                                <div style="display:flex; flex-direction:column; line-height:1.15;">
-                                    <span style="font-size:0.67rem; color:#64748b; font-weight:700; white-space:nowrap;">مهام مسندة قيد العمل</span>
-                                    <span style="font-size:1.15rem; font-weight:800; color:#059669;" id="distStatAssigned">0</span>
+                                <div class="stat-card-content">
+                                    <span class="stat-card-num" id="distStatAssigned" style="color:#059669;">0</span>
+                                    <span class="stat-card-label">مهام مسندة قيد العمل</span>
                                 </div>
                             </div>
 
                             <!-- 4. المراجعين المكلفين حالياً -->
-                            <div style="background:#fff; border:1px solid #cbd5e1; border-radius:8px; padding:4px 8px; display:flex; align-items:center; gap:8px; height:44px; box-shadow:0 1px 2px rgba(0,0,0,0.03);" title="عدد المراجعين الذين لديهم مهام حالياً">
-                                <div style="width:28px; height:28px; border-radius:6px; background:#f3e8ff; color:#7c3aed; display:flex; align-items:center; justify-content:center; font-size:0.88rem; flex-shrink:0;">
+                            <div class="dist-stat-card-clickable" style="cursor:default;" title="عدد المراجعين الذين لديهم مهام حالياً">
+                                <div class="stat-card-icon" style="background:#f3e8ff; color:#7c3aed;">
                                     <i class="fas fa-user-tie"></i>
                                 </div>
-                                <div style="display:flex; flex-direction:column; line-height:1.15;">
-                                    <span style="font-size:0.67rem; color:#64748b; font-weight:700; white-space:nowrap;">المراجعين المكلفين حالياً</span>
-                                    <span style="font-size:1.15rem; font-weight:800; color:#7c3aed;" id="distStatActiveReviewers">0</span>
+                                <div class="stat-card-content">
+                                    <span class="stat-card-num" id="distStatActiveReviewers" style="color:#7c3aed;">0</span>
+                                    <span class="stat-card-label">المراجعين المكلفين</span>
                                 </div>
                             </div>
                         </div>
@@ -6189,7 +6378,7 @@
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px;">
                             <div style="display:flex; align-items:center; gap:8px;">
                                 <span id="distWorkloadSectionTitle" style="font-weight:800; font-size:0.92rem; color:#0f172a;">1. المحافظات والألعاب المضافة بالنظام وحالة إسنادها</span>
-                                <span style="background:#e0f2fe; color:#0369a1; font-size:0.75rem; padding:2px 8px; border-radius:6px; font-weight:700;" id="distWorkloadCountBadge">0 عنصر</span>
+                                <span class="stacked-count-badge" style="background:#e0f2fe; color:#0369a1; border:1px solid #bae6fd;" id="distWorkloadCountBadge"><span class="badge-num">0</span><span class="badge-label">عنصر</span></span>
                             </div>
 
                             <!-- تبويبات التصفية بين المسندة وبانتظار الإسناد وكافة المهام -->
@@ -6238,7 +6427,7 @@
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
                             <div style="display:flex; align-items:center; gap:8px;">
                                 <span style="font-weight:800; font-size:0.9rem; color:#0f172a;">2. قائمة متابعة ما تم إنجازه من الزملاء المراجعين</span>
-                                <span style="background:#ecfdf5; color:#047857; font-size:0.75rem; padding:2px 8px; border-radius:6px; font-weight:700;" id="distReviewersCountBadge">0 مراجع</span>
+                                <span class="stacked-count-badge" style="background:#ecfdf5; color:#047857; border:1px solid #a7f3d0;" id="distReviewersCountBadge"><span class="badge-num">0</span><span class="badge-label">مراجع</span></span>
                             </div>
                             <span style="font-size:0.76rem; color:#64748b;">
                                 <i class="fas fa-info-circle"></i> يمكن إنهاء التكليف وإسناد مهام ومحافظات جديدة فور اكتمال العمل
@@ -6275,7 +6464,7 @@
                         <div style="display:flex; align-items:center; gap:8px;">
                             <i class="fas fa-trophy" style="color:#d97706; font-size:1.3rem;"></i>
                             <span style="font-weight:900; font-size:1.15rem; color:#0f172a;">نتائج ومراكز بطولات الجمهورية المعتمدة</span>
-                            <span class="role-badge" id="resultsCountBadge" style="background:#fef3c7; color:#b45309; font-weight:800;">0 فائز</span>
+                            <span class="stacked-count-badge" id="resultsCountBadge" style="background:#fef3c7; color:#b45309; border:1px solid #fde68a;"><span class="badge-num">0</span><span class="badge-label">فائز</span></span>
                         </div>
                         <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
                             <button type="button" id="btnOpenResultsOrderingModal" class="admin-action-btn" onclick="openChampionshipResultsOrderingModal()" style="font-size:0.78rem; padding:5px 12px; display:inline-flex; align-items:center; gap:6px; background:#ecfdf5; color:#065f46; border-color:#a7f3d0; font-weight:700;" title="إدارة وترتيب ظهور الألعاب والفائزين والمراحل بالسجلات أون لاين">
@@ -13353,10 +13542,52 @@
             }
         }
 
+        function isGovMatchClient(g1, g2) {
+            if (!g1 || !g2) return false;
+            const clean = s => normalizeArabicText(s).replace(/^محافظه\s*/, '').trim();
+            const s1 = clean(g1);
+            const s2 = clean(g2);
+            if (!s1 || !s2) return false;
+            return s1 === s2 || s1.includes(s2) || s2.includes(s1);
+        }
+
+        function openRegistrarDirectUpload(type) {
+            if (!currentRegistrarSession) return;
+            const myGov = currentRegistrarSession.governorate || '';
+            const myName = currentRegistrarSession.displayName || currentRegistrarSession.username || '';
+            const myPhone = currentRegistrarSession.phone || '';
+
+            changeTab('studentPdf');
+            setTimeout(() => {
+                const govSel = document.getElementById('pdfGovernorate');
+                if (govSel && myGov) {
+                    for (let i = 0; i < govSel.options.length; i++) {
+                        if (isGovMatchClient(govSel.options[i].value, myGov)) {
+                            govSel.selectedIndex = i;
+                            break;
+                        }
+                    }
+                }
+                const nameInput = document.getElementById('pdfSupervisorName');
+                if (nameInput && myName) nameInput.value = myName;
+                const phoneInput = document.getElementById('pdfSupervisorPhone');
+                if (phoneInput && myPhone) phoneInput.value = myPhone;
+
+                const formTarget = document.getElementById('studentPdfForm') || document.getElementById('studentPdfView');
+                if (formTarget) formTarget.scrollIntoView({ behavior: 'smooth' });
+            }, 200);
+        }
+
         function handleRegistrarLogout() {
             stopRegistrarAutoSync();
             currentRegistrarSession = null;
+            cachedRegistrarStudents = [];
+            cachedRegistrarCollectiveSheets = [];
             sessionStorage.removeItem('repChamps_activeRegistrar');
+            const tbodyStudents = document.getElementById('registrarStudentsTableBody');
+            if (tbodyStudents) tbodyStudents.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:18px; color:#64748b;">تم تسجيل الخروج.</td></tr>';
+            const tbodyColl = document.getElementById('registrarCollectiveTableBody');
+            if (tbodyColl) tbodyColl.innerHTML = '<tr><td colspan="9" style="text-align:center; padding:14px; color:#64748b;">تم تسجيل الخروج.</td></tr>';
             showRegistrarLogin();
         }
 
@@ -13407,6 +13638,8 @@
                 const res = await callBackendApi(payload);
                 if (res && res.submissions && Array.isArray(res.submissions)) {
                     cachedRegistrarStudents = res.submissions;
+                } else if (res && Array.isArray(res)) {
+                    cachedRegistrarStudents = res;
                 }
             } catch (e) {
                 console.warn('Could not load registrar students:', e);
@@ -13528,18 +13761,29 @@
                 let actionHtml = '';
                 if (isNeedsUpdate) {
                     actionHtml = `
-                        <button type="button" class="admin-action-btn" onclick="openReuploadModal('${escapeHtml(s.studentId)}', '${escapeHtml(s.studentName)}', '${escapeHtml(s.gameName)} - ${escapeHtml(s.stageName)}', '${escapeHtml(updateReasonsText)}', '${escapeHtml(s.governorate || '')}', '${escapeHtml(s.gameName || '')}', '${escapeHtml(s.stageName || '')}', '${escapeHtml(s.category || 'بنين')}')" style="background:#059669; color:#fff; border-color:#047857; font-weight:700; padding:4px 10px; font-size:0.76rem;" title="رفع ملف بديل للمراجعة بعد معالجة الأسباب">
-                            <i class="fas fa-file-arrow-up"></i> رفع ملف بديل
+                        <button type="button" class="admin-action-btn" onclick="openReuploadModal('${escapeHtml(s.studentId)}', '${escapeHtml(s.studentName)}', '${escapeHtml(s.gameName)} - ${escapeHtml(s.stageName)}', '${escapeHtml(updateReasonsText)}', '${escapeHtml(s.governorate || '')}', '${escapeHtml(s.gameName || '')}', '${escapeHtml(s.stageName || '')}', '${escapeHtml(s.category || 'بنين')}')" style="background:#059669; color:#fff; border-color:#047857; font-weight:700; padding:4px 10px; font-size:0.76rem;" title="رفع استمارة بديلة للمراجعة بعد معالجة الأسباب">
+                            <i class="fas fa-file-arrow-up"></i> رفع استمارة بديلة
                         </button>
                     `;
                 } else if (isUpdated) {
                     actionHtml = `
-                        <span style="font-size:0.74rem; color:#7e22ce; font-weight:700;">
-                            <i class="fas fa-check-circle"></i> تم رفع البديل (بانتظار المراجعة)
-                        </span>
+                        <div style="display:flex; flex-direction:column; gap:3px; align-items:center;">
+                            <span style="font-size:0.74rem; color:#7e22ce; font-weight:700;">
+                                <i class="fas fa-check-circle"></i> تم رفع البديل
+                            </span>
+                            <button type="button" class="admin-action-btn" onclick="openReuploadModal('${escapeHtml(s.studentId)}', '${escapeHtml(s.studentName)}', '${escapeHtml(s.gameName)} - ${escapeHtml(s.stageName)}', '${escapeHtml(updateReasonsText)}', '${escapeHtml(s.governorate || '')}', '${escapeHtml(s.gameName || '')}', '${escapeHtml(s.stageName || '')}', '${escapeHtml(s.category || 'بنين')}')" style="color:#7e22ce; border-color:#e9d5ff; padding:2px 8px; font-size:0.72rem;" title="إعادة رفع استمارة أخرى إن لزم">
+                                <i class="fas fa-arrows-rotate"></i> استبدال
+                            </button>
+                        </div>
                     `;
+                } else if (st === 'تمت المراجعة وتم السماح له بالاشتراك' || st === 'APPROVED' || st === 'معتمد') {
+                    actionHtml = `<span style="font-size:0.74rem; color:#059669; font-weight:700;"><i class="fas fa-circle-check"></i> معتمد ومقبول</span>`;
                 } else {
-                    actionHtml = `<span style="font-size:0.74rem; color:#94a3b8;">لا يتطلب إجراء</span>`;
+                    actionHtml = `
+                        <button type="button" class="admin-action-btn" onclick="openReuploadModal('${escapeHtml(s.studentId)}', '${escapeHtml(s.studentName)}', '${escapeHtml(s.gameName)} - ${escapeHtml(s.stageName)}', '${escapeHtml(updateReasonsText)}', '${escapeHtml(s.governorate || '')}', '${escapeHtml(s.gameName || '')}', '${escapeHtml(s.stageName || '')}', '${escapeHtml(s.category || 'بنين')}')" style="color:#0284c7; border-color:#bae6fd; background:#f0f9ff; padding:4px 8px; font-size:0.74rem; font-weight:600;" title="تحديث أو استبدال ملف الاستمارة">
+                            <i class="fas fa-arrows-rotate"></i> استبدال الاستمارة
+                        </button>
+                    `;
                 }
 
                 let fileCellHtml = '';
@@ -13643,15 +13887,17 @@
             }
 
             try {
-                // جلب حسابات المراجعين لتعبئة القوائم المنسدلة إن لم تكن متوفرة
-                if (!cachedAdminReviewersList || cachedAdminReviewersList.length === 0) {
-                    const accRes = await callBackendApi({ action: 'getAllAccountsForSuperAdmin' });
-                    if (accRes && accRes.success && accRes.reviewers) {
-                        cachedAdminReviewersList = accRes.reviewers;
-                    }
+                // جلب حسابات المراجعين وبيانات التوزيع في آن واحد (Parallel Fetching لسرعة قصوى)
+                const needsAccounts = (!cachedAdminReviewersList || cachedAdminReviewersList.length === 0);
+                const overviewPromise = callBackendApi({ action: 'getDistributionOverview' });
+                const accPromise = needsAccounts ? callBackendApi({ action: 'getAllAccountsForSuperAdmin' }) : Promise.resolve(null);
+
+                const [res, accRes] = await Promise.all([overviewPromise, accPromise]);
+
+                if (accRes && accRes.success && accRes.reviewers) {
+                    cachedAdminReviewersList = accRes.reviewers;
                 }
 
-                const res = await callBackendApi({ action: 'getDistributionOverview' });
                 if (res && res.success) {
                     cachedDistributionWorkloads = res.workloadList || [];
                     cachedDistributionReviewers = res.reviewersProgressList || [];
@@ -13780,7 +14026,7 @@
             if (tabAssigned) tabAssigned.textContent = assignedCount;
 
             const badgeR = document.getElementById('distReviewersCountBadge');
-            if (badgeR) badgeR.textContent = `${reviewers.length} مراجع`;
+            if (badgeR) badgeR.innerHTML = `<span class="badge-num">${reviewers.length}</span><span class="badge-label">مراجع</span>`;
         }
 
         function filterDistributionWorkloadsTable() {
@@ -13821,7 +14067,7 @@
             }
 
             const badgeW = document.getElementById('distWorkloadCountBadge');
-            if (badgeW) badgeW.textContent = `${filtered.length} عنصر`;
+            if (badgeW) badgeW.innerHTML = `<span class="badge-num">${filtered.length}</span><span class="badge-label">عنصر</span>`;
 
             renderDistributionWorkloadsTable(filtered);
         }
@@ -15033,7 +15279,17 @@
                     ];
                     govSel.innerHTML = govs.map(g => `<option value="${g}">${g}</option>`).join('');
                 }
-                if (acc && acc.governorate) govSel.value = acc.governorate;
+                if (acc && acc.governorate) {
+                    let matched = false;
+                    for (let i = 0; i < govSel.options.length; i++) {
+                        if (typeof isGovMatchClient === 'function' && isGovMatchClient(govSel.options[i].value, acc.governorate)) {
+                            govSel.selectedIndex = i;
+                            matched = true;
+                            break;
+                        }
+                    }
+                    if (!matched) govSel.value = acc.governorate;
+                }
                 document.getElementById('accRegPhoneInput').value = acc ? (acc.phone || '') : '';
                 document.getElementById('accRegStatusSelect').value = acc ? (acc.status || 'نشط') : 'نشط';
             }
@@ -15453,7 +15709,7 @@
             filtered = applyOrderingToChampionshipResults(filtered, cachedResultsOrderConfig);
 
             const countBadge = document.getElementById('resultsCountBadge');
-            if (countBadge) countBadge.textContent = `${filtered.length} فائز`;
+            if (countBadge) countBadge.innerHTML = `<span class="badge-num">${filtered.length}</span><span class="badge-label">فائز</span>`;
 
             renderChampionshipResultsTable(filtered);
         }
@@ -16067,7 +16323,7 @@
                 list.forEach(item => {
                     totalPages += (parseInt(item.pageCount || item.pagesCount || 1, 10) || 1);
                 });
-                countBadge.textContent = `${totalPages || list.length} كشف`;
+                countBadge.innerHTML = `<span class="badge-num">${totalPages || list.length}</span><span class="badge-label">كشف</span>`;
             }
 
             if (!list || list.length === 0) {
@@ -16260,6 +16516,10 @@
                 });
                 if (res && res.success && Array.isArray(res.sheets)) {
                     cachedRegistrarCollectiveSheets = res.sheets;
+                } else if (res && Array.isArray(res.sheets)) {
+                    cachedRegistrarCollectiveSheets = res.sheets;
+                } else if (Array.isArray(res)) {
+                    cachedRegistrarCollectiveSheets = res;
                 }
             } catch (err) {
                 console.warn('Could not load registrar collective sheets:', err);
@@ -16271,10 +16531,10 @@
 
         function renderRegistrarCollectiveTable() {
             const tbody = document.getElementById('registrarCollectiveTableBody');
-            const countBadge = document.getElementById('registrarCollectiveCountBadge');
+            const countBadge = document.getElementById('registrarCollectiveBadge') || document.getElementById('registrarCollectiveCountBadge');
             if (!tbody) return;
 
-            if (countBadge) countBadge.textContent = `${cachedRegistrarCollectiveSheets.length} كشف`;
+            if (countBadge) countBadge.innerHTML = `<span class="badge-num">${cachedRegistrarCollectiveSheets.length}</span><span class="badge-label">كشف</span>`;
 
             if (!cachedRegistrarCollectiveSheets || cachedRegistrarCollectiveSheets.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:16px; color:#64748b;">لم يتم رفع كشوف مجمعة لمحافظتك حتى الآن.</td></tr>';
