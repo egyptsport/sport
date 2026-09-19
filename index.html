@@ -2431,6 +2431,7 @@
         /* جدول ملفات المشرف */
         .table-responsive {
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
             border-radius: 8px;
             border: 1px solid var(--border);
             background: var(--card-bg);
@@ -3752,24 +3753,6 @@
                     </div>
                 </button>
 
-                <!-- كرت 8: نتائج ومراكز بطولات الجمهورية (صلاحيات المراجعين والأدمن) -->
-                <button type="button" class="landing-card landing-card-results" onclick="changeTab('resultsView')">
-                    <div class="landing-card-icon-wrap">
-                        <i class="fas fa-trophy"></i>
-                    </div>
-                    <div class="landing-card-body">
-                        <span class="landing-card-title" style="display:flex; align-items:center; justify-content:center; gap:6px;">
-                            <span>نتائج ومراكز البطولات</span>
-                            <i class="fas fa-lock" style="font-size:0.75rem; color:#d97706;" title="مخصص للمراجعين والإدارة"></i>
-                        </span>
-                        <span class="landing-card-desc">توثيق واستعراض نتائج الطلاب الفائزين (للمراجعين والإدارة)</span>
-                    </div>
-                    <div class="landing-card-arrow">
-                        <span class="landing-card-arrow-text">دخول</span>
-                        <i class="fas fa-arrow-left"></i>
-                    </div>
-                </button>
-
             </div>
         </div>
 
@@ -4663,6 +4646,9 @@
                         <button type="button" class="admin-action-btn" onclick="loadChampionshipResults()" style="font-size:0.78rem; padding:5px 12px;">
                             <i class="fas fa-rotate" id="iconResultsRefresh"></i> تحديث النتائج
                         </button>
+                        <button type="button" class="admin-action-btn" onclick="changeTab('admin')" style="font-size:0.78rem; padding:5px 12px; background:#f0f9ff; color:#0284c7; border-color:#bae6fd; font-weight:700;">
+                            <i class="fas fa-arrow-left"></i> لوحة الإدارة
+                        </button>
                     </div>
                 </div>
 
@@ -5475,27 +5461,11 @@
                             </button>
                         </div>
 
-                        <!-- التبويبات الرأسية للمشرف والمراجعين -->
+                        <!-- التبويبات الرأسية للمشرف والمراجعين بالترتيب المعتمد -->
                         <nav class="admin-sidebar-nav" id="adminSubNav">
-                            <button type="button" class="admin-tab active" id="subtabBoys" onclick="switchAdminSubtab('boys')">
-                                <i class="fas fa-mars"></i>
-                                <span>إحصائيات البنين</span>
-                            </button>
-                            <button type="button" class="admin-tab" id="subtabGirls" onclick="switchAdminSubtab('girls')">
-                                <i class="fas fa-venus"></i>
-                                <span>إحصائيات البنات</span>
-                            </button>
-                            <button type="button" class="admin-tab" id="subtabAudit" onclick="switchAdminSubtab('audit')">
-                                <i class="fas fa-list-check"></i>
-                                <span>سجل العمليات</span>
-                            </button>
-                            <button type="button" class="admin-tab" id="subtabGamesOrder" onclick="switchAdminSubtab('games_order')" style="display:none;">
-                                <i class="fas fa-medal"></i>
-                                <span>إدارة وترتيب الألعاب</span>
-                            </button>
-                            <button type="button" class="admin-tab" id="subtabTemplatesOrder" onclick="switchAdminSubtab('templates_order')" style="display:none;">
-                                <i class="fas fa-folder-tree"></i>
-                                <span>إدارة مركز النماذج</span>
+                            <button type="button" class="admin-tab active" id="subtabTaskDistribution" onclick="switchAdminSubtab('task_distribution')">
+                                <i class="fas fa-network-wired"></i>
+                                <span>توزيع ومتابعة المهام</span>
                             </button>
                             <button type="button" class="admin-tab" id="subtabAccountsManage" onclick="switchAdminSubtab('accounts_manage')" style="display:none;">
                                 <i class="fas fa-user-gear"></i>
@@ -5505,9 +5475,25 @@
                                 <i class="fas fa-trophy"></i>
                                 <span>إذن وصلاحية تسجيل المراكز</span>
                             </button>
-                            <button type="button" class="admin-tab" id="subtabTaskDistribution" onclick="switchAdminSubtab('task_distribution')" style="display:none;">
-                                <i class="fas fa-network-wired"></i>
-                                <span>توزيع ومتابعة المهام</span>
+                            <button type="button" class="admin-tab" id="subtabTemplatesOrder" onclick="switchAdminSubtab('templates_order')" style="display:none;">
+                                <i class="fas fa-folder-tree"></i>
+                                <span>إدارة مركز النماذج</span>
+                            </button>
+                            <button type="button" class="admin-tab" id="subtabGamesOrder" onclick="switchAdminSubtab('games_order')" style="display:none;">
+                                <i class="fas fa-medal"></i>
+                                <span>إدارة وترتيب الألعاب</span>
+                            </button>
+                            <button type="button" class="admin-tab" id="subtabAudit" onclick="switchAdminSubtab('audit')">
+                                <i class="fas fa-list-check"></i>
+                                <span>سجل العمليات</span>
+                            </button>
+                            <button type="button" class="admin-tab" id="subtabBoys" onclick="switchAdminSubtab('boys')">
+                                <i class="fas fa-mars"></i>
+                                <span>إحصائيات البنين</span>
+                            </button>
+                            <button type="button" class="admin-tab" id="subtabGirls" onclick="switchAdminSubtab('girls')">
+                                <i class="fas fa-venus"></i>
+                                <span>إحصائيات البنات</span>
                             </button>
                         </nav>
 
@@ -5515,11 +5501,11 @@
                         <div class="admin-sidebar-actions">
                             <button type="button" class="admin-sidebar-action-btn" onclick="openPasswordChangeModal()" title="تغيير كلمة المرور">
                                 <i class="fas fa-key"></i>
-                                <span>تغيير المرور</span>
+                                <span>تغيير كلمة المرور</span>
                             </button>
-                            <button type="button" class="admin-sidebar-action-btn" onclick="returnToHomePortal()" title="العودة للبوابة الرئيسية">
-                                <i class="fas fa-arrow-left"></i>
-                                <span>الرئيسية</span>
+                            <button type="button" class="admin-sidebar-action-btn results-btn" onclick="changeTab('resultsView')" title="استعراض وتوثيق نتائج ومراكز بطولات الجمهورية" style="background:rgba(245,158,11,0.12); color:#b45309; border-color:rgba(245,158,11,0.35); font-weight:800;">
+                                <i class="fas fa-trophy" style="color:#d97706;"></i>
+                                <span>نتائج البطولات</span>
                             </button>
                             <button type="button" class="admin-sidebar-action-btn logout" onclick="handleAdminLogout()" title="تسجيل الخروج">
                                 <i class="fas fa-right-from-bracket"></i>
@@ -6064,6 +6050,27 @@
                                     <span style="font-size:1.15rem; font-weight:800; color:#7c3aed;" id="distStatActiveReviewers">0</span>
                                 </div>
                             </div>
+                    <!-- شريط تحديد فئة التوزيع والظهور من البداية (بنين / بنات / الكل) -->
+                    <div id="distCategorySelectorContainer" style="display:flex; align-items:center; justify-content:space-between; background:#f8fafc; border:1px solid #cbd5e1; border-radius:10px; padding:6px 12px; flex-wrap:wrap; gap:8px;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <span style="font-size:0.8rem; font-weight:800; color:#1e293b; display:flex; align-items:center; gap:6px;">
+                                <i class="fas fa-venus-mars" style="color:#0284c7;"></i> تصنيف المهام والظهور:
+                            </span>
+                            <div style="display:flex; gap:4px; align-items:center;" id="distCategoryButtonGroup">
+                                <button type="button" id="distCatBtnBoys" class="dist-filter-tab" onclick="setDistributionActiveCategory('بنين')" style="padding:4px 12px; font-size:0.78rem; font-weight:700;">
+                                    <i class="fas fa-mars" style="color:#0284c7;"></i> بنين (طلاب)
+                                </button>
+                                <button type="button" id="distCatBtnGirls" class="dist-filter-tab" onclick="setDistributionActiveCategory('بنات')" style="padding:4px 12px; font-size:0.78rem; font-weight:700;">
+                                    <i class="fas fa-venus" style="color:#db2777;"></i> بنات (طالبات)
+                                </button>
+                                <button type="button" id="distCatBtnAll" class="dist-filter-tab active" onclick="setDistributionActiveCategory('all')" style="padding:4px 12px; font-size:0.78rem; font-weight:700;">
+                                    <i class="fas fa-layer-group"></i> كافة الفئات
+                                </button>
+                            </div>
+                            <span id="distCatLockedBadge" class="role-badge" style="display:none; font-size:0.8rem; font-weight:800; padding:4px 10px;"></span>
+                        </div>
+                        <div style="font-size:0.75rem; color:#64748b;">
+                            <i class="fas fa-circle-info"></i> يتم تصفية كل من جدول المهام وجدول المراجعين تلقائياً وفق الفئة المختارة
                         </div>
                     </div>
 
@@ -8702,23 +8709,30 @@
             const subtabWinnersPermission = document.getElementById('subtabWinnersPermission');
             const subtabTaskDistribution = document.getElementById('subtabTaskDistribution');
 
+            const catBtnGroup = document.getElementById('distCategoryButtonGroup');
+            const catLockedBadge = document.getElementById('distCatLockedBadge');
+
             if (u.role === 'SUPER_ADMIN') {
                 roleBadge.className = 'role-badge super';
                 roleBadge.textContent = 'مسؤول شامل';
-                subtabBoys.style.display = 'flex';
-                subtabGirls.style.display = 'flex';
-                if (subtabAudit) subtabAudit.style.display = 'flex';
-                if (subtabGamesOrder) subtabGamesOrder.style.display = 'flex';
-                if (subtabTemplatesOrder) subtabTemplatesOrder.style.display = 'flex';
+                if (subtabTaskDistribution) subtabTaskDistribution.style.display = 'flex';
                 if (subtabAccountsManage) subtabAccountsManage.style.display = 'flex';
                 if (subtabWinnersPermission) subtabWinnersPermission.style.display = 'flex';
-                if (subtabTaskDistribution) subtabTaskDistribution.style.display = 'flex';
+                if (subtabTemplatesOrder) subtabTemplatesOrder.style.display = 'flex';
+                if (subtabGamesOrder) subtabGamesOrder.style.display = 'flex';
+                if (subtabAudit) subtabAudit.style.display = 'flex';
+                subtabBoys.style.display = 'flex';
+                subtabGirls.style.display = 'flex';
                 if (statBoysCard) statBoysCard.style.display = 'flex';
                 if (statGirlsCard) statGirlsCard.style.display = 'flex';
-                switchAdminSubtab('boys');
+                if (catBtnGroup) catBtnGroup.style.display = 'flex';
+                if (catLockedBadge) catLockedBadge.style.display = 'none';
+                if (typeof setDistributionActiveCategory === 'function') setDistributionActiveCategory('all');
+                switchAdminSubtab('task_distribution');
             } else if (u.role === 'BOYS_ADMIN') {
                 roleBadge.className = 'role-badge boys';
                 roleBadge.textContent = 'مسؤول بنين';
+                if (subtabTaskDistribution) subtabTaskDistribution.style.display = 'flex';
                 subtabBoys.style.display = 'flex';
                 subtabGirls.style.display = 'none'; // حجب كشوفات البنات
                 if (subtabAudit) subtabAudit.style.display = 'none'; // حجب سجل العمليات
@@ -8726,13 +8740,20 @@
                 if (subtabTemplatesOrder) subtabTemplatesOrder.style.display = 'none'; // حجب ترتيب النماذج
                 if (subtabAccountsManage) subtabAccountsManage.style.display = 'none';
                 if (subtabWinnersPermission) subtabWinnersPermission.style.display = 'none';
-                if (subtabTaskDistribution) subtabTaskDistribution.style.display = 'none';
                 if (statBoysCard) statBoysCard.style.display = 'flex';
                 if (statGirlsCard) statGirlsCard.style.display = 'none';
-                switchAdminSubtab('boys');
+                if (catBtnGroup) catBtnGroup.style.display = 'none';
+                if (catLockedBadge) {
+                    catLockedBadge.style.display = 'inline-block';
+                    catLockedBadge.className = 'role-badge boys';
+                    catLockedBadge.innerHTML = '<i class="fas fa-mars"></i> مخصص لفئة البنين تلقائياً';
+                }
+                if (typeof setDistributionActiveCategory === 'function') setDistributionActiveCategory('بنين');
+                switchAdminSubtab('task_distribution');
             } else if (u.role === 'GIRLS_ADMIN') {
                 roleBadge.className = 'role-badge girls';
                 roleBadge.textContent = 'مسؤولة بنات';
+                if (subtabTaskDistribution) subtabTaskDistribution.style.display = 'flex';
                 subtabBoys.style.display = 'none';  // حجب كشوفات البنين
                 subtabGirls.style.display = 'flex';
                 if (subtabAudit) subtabAudit.style.display = 'none'; // حجب سجل العمليات
@@ -8740,10 +8761,16 @@
                 if (subtabTemplatesOrder) subtabTemplatesOrder.style.display = 'none'; // حجب ترتيب النماذج
                 if (subtabAccountsManage) subtabAccountsManage.style.display = 'none';
                 if (subtabWinnersPermission) subtabWinnersPermission.style.display = 'none';
-                if (subtabTaskDistribution) subtabTaskDistribution.style.display = 'none';
                 if (statBoysCard) statBoysCard.style.display = 'none';
                 if (statGirlsCard) statGirlsCard.style.display = 'flex';
-                switchAdminSubtab('girls');
+                if (catBtnGroup) catBtnGroup.style.display = 'none';
+                if (catLockedBadge) {
+                    catLockedBadge.style.display = 'inline-block';
+                    catLockedBadge.className = 'role-badge girls';
+                    catLockedBadge.innerHTML = '<i class="fas fa-venus"></i> مخصص لفئة البنات تلقائياً';
+                }
+                if (typeof setDistributionActiveCategory === 'function') setDistributionActiveCategory('بنات');
+                switchAdminSubtab('task_distribution');
             }
 
             // استعادة حالة القائمة الجانبية (طي أو إظهار) المحفوظة للمستخدم
@@ -11668,10 +11695,17 @@
             }
 
             try {
+                // إضافة طابع زمني دائم لمنع أي تخزين مؤقت (No Cache) وضمان جلب البيانات أونلاين مباشرة
+                const payload = Object.assign({}, data, { _ts: Date.now() });
                 const response = await fetch(gasUrl, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify(data)
+                    cache: 'no-store',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8',
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache'
+                    },
+                    body: JSON.stringify(payload)
                 });
                 const resJson = await response.json();
                 return resJson;
@@ -12905,6 +12939,38 @@
         let currentRegistrarSession = null;
         let cachedRegistrarStudents = [];
         let selectedReuploadStudent = null;
+        let registrarAutoSyncTimer = null;
+
+        function startRegistrarAutoSync() {
+            stopRegistrarAutoSync();
+            // تحديث دوري تلقائي كل 20 ثانية ما دامت بوابة مسؤول المحافظة مفتوحة
+            registrarAutoSyncTimer = setInterval(() => {
+                if (currentRegistrarSession && !document.getElementById('registrarPortalView')?.classList.contains('hidden')) {
+                    loadRegistrarStudents(false, true);
+                    loadRegistrarCollectiveSheets(false, true);
+                }
+            }, 20000);
+        }
+
+        function stopRegistrarAutoSync() {
+            if (registrarAutoSyncTimer) {
+                clearInterval(registrarAutoSyncTimer);
+                registrarAutoSyncTimer = null;
+            }
+        }
+
+        // تحديث البيانات فور عودة المستخدم للتبويب أو فتح قفل شاشة الموبايل
+        if (typeof document !== 'undefined' && !window._regVisibilityAttached) {
+            window._regVisibilityAttached = true;
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'visible') {
+                    if (currentRegistrarSession && !document.getElementById('registrarPortalView')?.classList.contains('hidden')) {
+                        loadRegistrarStudents(true, true);
+                        loadRegistrarCollectiveSheets(true, true);
+                    }
+                }
+            });
+        }
 
         function initRegistrarPortalView() {
             const savedRegistrar = sessionStorage.getItem('repChamps_activeRegistrar');
@@ -12926,6 +12992,7 @@
         }
 
         function showRegistrarLogin() {
+            stopRegistrarAutoSync();
             const loginCard = document.getElementById('registrarLoginCard');
             const dashPanel = document.getElementById('registrarDashboardPanel');
             if (loginCard) loginCard.classList.remove('hidden');
@@ -12943,12 +13010,13 @@
 
             if (currentRegistrarSession) {
                 if (nameEl) nameEl.textContent = currentRegistrarSession.displayName || currentRegistrarSession.username;
-                if (govEl) govEl.innerHTML = `<i class="fas fa-location-dot"></i> المحافظة: <strong style="color:#059669;">${currentRegistrarSession.governorate || 'عام'}</strong>`;
+                if (govEl) govEl.innerHTML = `<i class="fas fa-location-dot"></i> المحافظة: <strong style="color:#059669;">${currentRegistrarSession.governorate || 'عام'}</strong> <span style="display:inline-flex; align-items:center; gap:4px; font-size:0.7rem; color:#0284c7; background:#e0f2fe; padding:2px 6px; border-radius:4px; margin-right:6px;"><i class="fas fa-tower-broadcast fa-fade"></i> تحديث مباشر أونلاين</span>`;
             }
 
             populateRegistrarFilterDropdowns();
-            loadRegistrarStudents();
-            loadRegistrarCollectiveSheets();
+            loadRegistrarStudents(true);
+            loadRegistrarCollectiveSheets(true);
+            startRegistrarAutoSync();
         }
 
         async function handleRegistrarLogin(e) {
@@ -12995,6 +13063,7 @@
         }
 
         function handleRegistrarLogout() {
+            stopRegistrarAutoSync();
             currentRegistrarSession = null;
             sessionStorage.removeItem('repChamps_activeRegistrar');
             showRegistrarLogin();
@@ -13025,29 +13094,17 @@
             }
         }
 
-        async function loadRegistrarStudents(forceRefresh) {
-            setSpinning('iconRegistrarStudentsRefresh', true);
+        async function loadRegistrarStudents(forceRefresh, isSilent) {
+            if (!isSilent) setSpinning('iconRegistrarStudentsRefresh', true);
             const tbody = document.getElementById('registrarStudentsTableBody');
             const myGov = currentRegistrarSession ? currentRegistrarSession.governorate : '';
             const cacheKey = 'repChamps_registrar_students_' + (myGov || 'all');
 
-            // 1. عرض فوري وسريع من الذاكرة المؤقتة (0ms Instant Load) إن لم يكن تحديثاً إجبارياً
-            if (!forceRefresh) {
-                try {
-                    const cached = sessionStorage.getItem(cacheKey);
-                    if (cached) {
-                        const parsed = JSON.parse(cached);
-                        if (Array.isArray(parsed) && parsed.length > 0) {
-                            cachedRegistrarStudents = parsed;
-                            updateRegistrarStatsCounters();
-                            filterRegistrarTable();
-                        }
-                    }
-                } catch (eC) {}
-            }
+            // مسح أي كاش قديم بالمتصفح دائماً لضمان جلب البيانات أون لاين مباشرة
+            try { sessionStorage.removeItem(cacheKey); } catch (eC) {}
 
-            if (!cachedRegistrarStudents || cachedRegistrarStudents.length === 0 || forceRefresh) {
-                if (tbody) tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:18px; color:#64748b;"><i class="fas fa-circle-notch fa-spin"></i> جاري استدعاء وتحديث استمارات المحافظة...</td></tr>';
+            if ((!cachedRegistrarStudents || cachedRegistrarStudents.length === 0) && !isSilent) {
+                if (tbody) tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:18px; color:#64748b;"><i class="fas fa-circle-notch fa-spin"></i> جاري استدعاء وتحديث استمارات المحافظة أونلاين من السيرفر...</td></tr>';
             }
 
             const payload = {
@@ -13059,12 +13116,11 @@
                 const res = await callBackendApi(payload);
                 if (res && res.submissions && Array.isArray(res.submissions)) {
                     cachedRegistrarStudents = res.submissions;
-                    try { sessionStorage.setItem(cacheKey, JSON.stringify(res.submissions)); } catch (eS) {}
                 }
             } catch (e) {
                 console.warn('Could not load registrar students:', e);
             } finally {
-                setSpinning('iconRegistrarStudentsRefresh', false);
+                if (!isSilent) setSpinning('iconRegistrarStudentsRefresh', false);
                 handleRegistrarGameOrStageChange();
                 updateRegistrarStatsCounters();
                 filterRegistrarTable();
@@ -13198,21 +13254,23 @@
                 let fileCellHtml = '';
                 if (s.previousFileUrl) {
                     fileCellHtml = `
-                        <div style="display:flex; flex-direction:column; gap:2px; align-items:center;">
-                            <a href="${s.previousFileUrl}" target="_blank" class="file-tag old" title="الملف السابق">
+                        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
+                            <a href="${s.previousFileUrl}" target="_blank" class="file-tag old" title="الملف السابق" style="display:inline-flex; align-items:center; gap:3px; padding:3px 8px; border-radius:6px; font-size:0.75rem; text-decoration:none;">
                                 <i class="fas fa-file-pdf"></i> السابق
                             </a>
-                            <a href="${s.fileUrl || '#'}" target="_blank" class="file-tag new" title="الملف البديل المحدث">
+                            <a href="${s.fileUrl || '#'}" target="_blank" class="file-tag new" title="الملف البديل المحدث" style="display:inline-flex; align-items:center; gap:3px; padding:3px 8px; border-radius:6px; font-size:0.75rem; text-decoration:none;">
                                 <i class="fas fa-file-circle-check"></i> المحدث
                             </a>
                         </div>
                     `;
-                } else {
+                } else if (s.fileUrl) {
                     fileCellHtml = `
-                        <a href="${s.fileUrl || '#'}" target="_blank" class="admin-action-btn" style="padding:3px 8px; font-size:0.75rem; color:#e11d48; border-color:#fecdd3;">
-                            <i class="fas fa-file-pdf"></i> عرض
+                        <a href="${s.fileUrl}" target="_blank" class="admin-action-btn" style="padding:4px 10px; font-size:0.78rem; font-weight:700; color:#e11d48; border-color:#fecdd3; background:#fff1f2; border-radius:6px; display:inline-flex; align-items:center; gap:4px; text-decoration:none; white-space:nowrap;" title="فتح ملف الاستمارة PDF">
+                            <i class="fas fa-file-pdf"></i> عرض PDF
                         </a>
                     `;
+                } else {
+                    fileCellHtml = `<span style="font-size:0.74rem; color:#94a3b8;">غير متوفر</span>`;
                 }
 
                 let reasonsDisplay = `<span style="color:#64748b; font-size:0.78rem;">${escapeHtml(updateReasonsText)}</span>`;
@@ -13331,6 +13389,23 @@
         }
 
         let currentDistributionFilterType = 'all'; // 'all' | 'unassigned' | 'assigned'
+        let currentDistributionCategory = 'all'; // 'all' | 'بنين' | 'بنات'
+
+        function setDistributionActiveCategory(cat) {
+            currentDistributionCategory = cat || 'all';
+
+            const btnBoys = document.getElementById('distCatBtnBoys');
+            const btnGirls = document.getElementById('distCatBtnGirls');
+            const btnAll = document.getElementById('distCatBtnAll');
+
+            if (btnBoys) btnBoys.classList.toggle('active', currentDistributionCategory === 'بنين');
+            if (btnGirls) btnGirls.classList.toggle('active', currentDistributionCategory === 'بنات');
+            if (btnAll) btnAll.classList.toggle('active', currentDistributionCategory === 'all');
+
+            updateDistributionStatsCards();
+            filterDistributionWorkloadsTable();
+            renderDistributionReviewersTable();
+        }
 
         function setDistributionFilterType(type) {
             currentDistributionFilterType = type || 'all';
@@ -13372,14 +13447,22 @@
             let workloads = cachedDistributionWorkloads || [];
             let reviewers = cachedDistributionReviewers || [];
 
+            // تصفية حصرية حسب فئة المشرف (بنين / بنات) أو اختيار السوبر أدمن
+            let activeCat = currentDistributionCategory;
             if (typeof adminSession !== 'undefined' && adminSession && adminSession.user) {
                 if (adminSession.user.role === 'BOYS_ADMIN' || adminSession.user.scope === 'BOYS') {
-                    workloads = workloads.filter(w => w.category === 'بنين');
-                    reviewers = reviewers.filter(r => (r.category === 'بنين' || r.category === 'الكل' || !r.category));
+                    activeCat = 'بنين';
                 } else if (adminSession.user.role === 'GIRLS_ADMIN' || adminSession.user.scope === 'GIRLS') {
-                    workloads = workloads.filter(w => w.category === 'بنات');
-                    reviewers = reviewers.filter(r => (r.category === 'بنات' || r.category === 'الكل' || !r.category));
+                    activeCat = 'بنات';
                 }
+            }
+
+            if (activeCat === 'بنين') {
+                workloads = workloads.filter(w => (w.category || 'بنين') === 'بنين');
+                reviewers = reviewers.filter(r => (r.category || 'بنين') === 'بنين');
+            } else if (activeCat === 'بنات') {
+                workloads = workloads.filter(w => w.category === 'بنات');
+                reviewers = reviewers.filter(r => r.category === 'بنات');
             }
 
             const totalWorkloads = workloads.length;
@@ -13412,13 +13495,20 @@
         function filterDistributionWorkloadsTable() {
             let filtered = cachedDistributionWorkloads || [];
 
-            // تصفية حسب فئة المشرف (بنين / بنات)
+            // تصفية حسب فئة المشرف (بنين / بنات) أو تصنيف السوبر أدمن
+            let activeCat = currentDistributionCategory;
             if (typeof adminSession !== 'undefined' && adminSession && adminSession.user) {
                 if (adminSession.user.role === 'BOYS_ADMIN' || adminSession.user.scope === 'BOYS') {
-                    filtered = filtered.filter(w => w.category === 'بنين');
+                    activeCat = 'بنين';
                 } else if (adminSession.user.role === 'GIRLS_ADMIN' || adminSession.user.scope === 'GIRLS') {
-                    filtered = filtered.filter(w => w.category === 'بنات');
+                    activeCat = 'بنات';
                 }
+            }
+
+            if (activeCat === 'بنين') {
+                filtered = filtered.filter(w => (w.category || 'بنين') === 'بنين');
+            } else if (activeCat === 'بنات') {
+                filtered = filtered.filter(w => w.category === 'بنات');
             }
 
             // 1. التصفية حسب النوع المختار (الكل / بانتظار الإسناد / مسندة حالياً)
@@ -13516,13 +13606,21 @@
                 });
             }
 
-            // تصفية حسب فئة المشرف (بنين / بنات)
-            if (typeof adminSession !== 'undefined' && adminSession && adminSession.user) {
-                if (adminSession.user.role === 'BOYS_ADMIN' || adminSession.user.scope === 'BOYS') {
-                    list = list.filter(r => (r.category === 'بنين' || r.category === 'الكل' || !r.category));
-                } else if (adminSession.user.role === 'GIRLS_ADMIN' || adminSession.user.scope === 'GIRLS') {
-                    list = list.filter(r => (r.category === 'بنات' || r.category === 'الكل' || !r.category));
-                }
+            // تصفية مراجعي التوزيع بحسب فئة المشرف (بنين / بنات) أو الفئة المختارة للسوبر أدمن
+            const currentAdminRole = (typeof adminSession !== 'undefined' && adminSession && adminSession.user && adminSession.user.role) ? adminSession.user.role : 'SUPER_ADMIN';
+            let effectiveReviewerCat = 'الكل';
+            if (currentAdminRole === 'BOYS_ADMIN' || (adminSession && adminSession.user && adminSession.user.scope === 'BOYS')) {
+                effectiveReviewerCat = 'بنين';
+            } else if (currentAdminRole === 'GIRLS_ADMIN' || (adminSession && adminSession.user && adminSession.user.scope === 'GIRLS')) {
+                effectiveReviewerCat = 'بنات';
+            } else {
+                effectiveReviewerCat = (typeof currentDistributionCategory !== 'undefined' && currentDistributionCategory) ? currentDistributionCategory : 'الكل';
+            }
+
+            if (effectiveReviewerCat === 'بنين') {
+                list = list.filter(r => (r.category || 'بنين').trim() === 'بنين');
+            } else if (effectiveReviewerCat === 'بنات') {
+                list = list.filter(r => (r.category || '').trim() === 'بنات');
             }
 
             if (!list || list.length === 0) {
@@ -13618,8 +13716,8 @@
 
             const targetCat = (category || 'بنين').trim();
             reviewers = reviewers.filter(r => {
-                if (!r.category || r.category === 'الكل') return true;
-                return r.category === targetCat;
+                const rCat = (r.category || 'بنين').trim();
+                return rCat === targetCat;
             });
 
             // فرز تصاعدي حسب عبء العمل (أقل عبئاً أولاً)
@@ -13674,7 +13772,11 @@
             let activeCat = prefillCat;
             if (currentAdminRole === 'BOYS_ADMIN') activeCat = 'بنين';
             else if (currentAdminRole === 'GIRLS_ADMIN') activeCat = 'بنات';
-            else if (!activeCat) activeCat = 'بنين';
+            else if (!activeCat) {
+                activeCat = (typeof currentDistributionCategory !== 'undefined' && currentDistributionCategory && currentDistributionCategory !== 'الكل')
+                    ? currentDistributionCategory
+                    : 'بنين';
+            }
 
             // 1. تعبئة وضبط الفئة
             const catSelect = document.getElementById('assignCategorySelect');
@@ -15809,29 +15911,18 @@
             }
         }
 
-        // مسجل المحافظة: الكشوف المجمعة
-        async function loadRegistrarCollectiveSheets(forceRefresh) {
-            setSpinning('iconRegistrarCollectiveRefresh', true);
+        // مسجل المحافظة: الكشوف المجمعة (مباشرة أون لاين من السيرفر بدون كاش)
+        async function loadRegistrarCollectiveSheets(forceRefresh, isSilent) {
+            if (!isSilent) setSpinning('iconRegistrarCollectiveRefresh', true);
             const tbody = document.getElementById('registrarCollectiveTableBody');
             const g = currentRegistrarSession ? currentRegistrarSession.governorate : '';
             const cacheKey = 'repChamps_registrar_collective_' + (g || 'all');
 
-            // 1. عرض فوري وسريع من الذاكرة المؤقتة (0ms Instant Load) إن لم يكن تحديثاً إجبارياً
-            if (!forceRefresh) {
-                try {
-                    const cached = sessionStorage.getItem(cacheKey);
-                    if (cached) {
-                        const parsed = JSON.parse(cached);
-                        if (Array.isArray(parsed) && parsed.length > 0) {
-                            cachedRegistrarCollectiveSheets = parsed;
-                            renderRegistrarCollectiveTable();
-                        }
-                    }
-                } catch (eC) {}
-            }
+            // مسح أي كاش قديم
+            try { sessionStorage.removeItem(cacheKey); } catch (eC) {}
 
-            if (!cachedRegistrarCollectiveSheets || cachedRegistrarCollectiveSheets.length === 0 || forceRefresh) {
-                if (tbody) tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:14px;"><i class="fas fa-circle-notch fa-spin"></i> جاري استدعاء الكشوف المجمعة للمحافظة...</td></tr>';
+            if ((!cachedRegistrarCollectiveSheets || cachedRegistrarCollectiveSheets.length === 0) && !isSilent) {
+                if (tbody) tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; padding:14px;"><i class="fas fa-circle-notch fa-spin"></i> جاري استدعاء الكشوف المجمعة للمحافظة مباشرة من السيرفر...</td></tr>';
             }
 
             try {
@@ -15841,12 +15932,11 @@
                 });
                 if (res && res.success && Array.isArray(res.sheets)) {
                     cachedRegistrarCollectiveSheets = res.sheets;
-                    try { sessionStorage.setItem(cacheKey, JSON.stringify(res.sheets)); } catch (eS) {}
                 }
             } catch (err) {
                 console.warn('Could not load registrar collective sheets:', err);
             } finally {
-                setSpinning('iconRegistrarCollectiveRefresh', false);
+                if (!isSilent) setSpinning('iconRegistrarCollectiveRefresh', false);
                 renderRegistrarCollectiveTable();
             }
         }
