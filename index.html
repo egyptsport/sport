@@ -2439,14 +2439,26 @@
         }
 
         .reviewer-task-tab.active {
-            background: #f0f9ff;
-            border-color: #0284c7 !important;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.22);
+            background: #ecfdf5 !important;
+            border-color: #059669 !important;
+            box-shadow: 0 4px 14px rgba(5, 150, 105, 0.28) !important;
+        }
+
+        .reviewer-task-tab.active .reviewer-task-tab-title i {
+            color: #059669 !important;
         }
 
         [data-theme="dark"] .reviewer-task-tab.active {
-            background: rgba(2, 132, 199, 0.2);
-            border-color: #38bdf8 !important;
+            background: rgba(5, 150, 105, 0.22) !important;
+            border-color: #10b981 !important;
+        }
+
+        #reviewerTasksWorkflowHeader .admin-tab.active,
+        #reviewerTaskFilterGroup .admin-tab.active {
+            background: linear-gradient(135deg, #059669, #10b981) !important;
+            border-color: #059669 !important;
+            color: #ffffff !important;
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.3) !important;
         }
 
         .reviewer-task-tab.completed {
@@ -2461,7 +2473,7 @@
 
         .reviewer-task-tab.completed.active {
             border-color: #059669 !important;
-            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+            box-shadow: 0 4px 14px rgba(5, 150, 105, 0.32) !important;
         }
 
         .reviewer-task-tab-title {
@@ -3280,6 +3292,31 @@
         .dist-filter-tab.active i {
             color: #ffffff !important;
         }
+        .dist-filter-tabs-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        @media (max-width: 768px) {
+            .dist-filter-tabs-wrapper {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 4px !important;
+                width: 100% !important;
+            }
+            .dist-filter-tabs-wrapper .dist-filter-tab {
+                padding: 5px 3px !important;
+                font-size: 0.70rem !important;
+                justify-content: center !important;
+                text-align: center !important;
+                white-space: nowrap !important;
+                gap: 3px !important;
+            }
+            .dist-filter-tabs-wrapper .dist-filter-tab i {
+                font-size: 0.70rem !important;
+            }
+        }
         .dist-stat-cards-wrapper {
             display: flex;
             align-items: center;
@@ -3434,16 +3471,40 @@
            ================================================================ */
         .landing-header {
             text-align: center;
-            padding: 14px 16px 8px;
+            padding: 16px 16px 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+        }
+
+        .landing-main-org-title {
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: #0f172a;
+            margin: 0;
+            letter-spacing: -0.2px;
+            line-height: 1.3;
+            font-family: 'Cairo', sans-serif;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        [data-theme="dark"] .landing-main-org-title {
+            color: #f8fafc;
+        }
+
+        @media (max-width: 768px) {
+            .landing-main-org-title {
+                font-size: 1.05rem;
+                font-weight: 800;
+                line-height: 1.35;
+                padding: 0 8px;
+            }
         }
 
         .landing-header .main-official-badge {
             font-size: 0.92rem;
-            padding: 5px 18px;
+            padding: 5px 20px;
             border-radius: 24px;
             letter-spacing: 0.2px;
             box-shadow: 0 2px 8px rgba(2, 132, 199, 0.12);
@@ -3454,6 +3515,171 @@
             color: #64748b;
             font-weight: 700;
             margin: 0;
+        }
+
+        /* زر الصعود لأعلى الصفحة العائم (Scroll to Top) */
+        .floating-scroll-top-btn {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            cursor: pointer;
+            z-index: 1090;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .floating-scroll-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .floating-scroll-top-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 18px rgba(2, 132, 199, 0.55);
+        }
+
+        @media (max-width: 768px) {
+            .floating-scroll-top-btn {
+                bottom: 18px;
+                left: 18px;
+                width: 40px;
+                height: 40px;
+                font-size: 0.95rem;
+            }
+        }
+
+        /* ================================================================
+           شاشة الترحيب واللوجوهات الثلاثة مع الأنيميشن الدائري (Splash Screen)
+           ================================================================ */
+        .splash-screen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, #0f172a 0%, #030712 100%);
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .splash-screen-overlay.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .splash-logos-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .splash-logo-item {
+            position: relative;
+            width: 105px;
+            height: 105px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .splash-logo-ring {
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: #38bdf8;
+            border-right-color: #818cf8;
+            animation: rotateCircularRing 3s linear infinite;
+        }
+
+        .splash-logo-ring-pulse {
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            right: -12px;
+            bottom: -12px;
+            border-radius: 50%;
+            border: 1px dashed rgba(56, 189, 248, 0.4);
+            animation: pulseGlowRing 2s ease-in-out infinite alternate;
+        }
+
+        .splash-logo-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
+            padding: 8px;
+        }
+
+        .splash-logo-inner img {
+            max-width: 85%;
+            max-height: 85%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        .splash-logo-inner i {
+            font-size: 2.5rem;
+            color: #38bdf8;
+        }
+
+        .splash-title-text {
+            color: #ffffff;
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-top: 24px;
+            text-align: center;
+            letter-spacing: 0.3px;
+            opacity: 0.95;
+        }
+
+        .splash-sub-text {
+            color: #94a3b8;
+            font-size: 0.84rem;
+            margin-top: 6px;
+            text-align: center;
+        }
+
+        @keyframes rotateCircularRing {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulseGlowRing {
+            0% { transform: scale(0.95); opacity: 0.4; }
+            100% { transform: scale(1.08); opacity: 0.85; }
         }
 
         /* ================================================================
@@ -4005,12 +4231,49 @@
 </head>
 <body>
 
+    <!-- شاشة البداية واللوجوهات الثلاثة مع الأنيميشن الدائري (تختفي بعد 3 ثوانٍ) -->
+    <div id="splashScreen" class="splash-screen-overlay">
+        <div class="splash-logos-container">
+            <!-- 1. لوجو وزارة التربية والتعليم -->
+            <div class="splash-logo-item" title="وزارة التربية والتعليم والتعليم الفني">
+                <div class="splash-logo-ring"></div>
+                <div class="splash-logo-ring-pulse"></div>
+                <div class="splash-logo-inner">
+                    <img src="assets/logos/ministry_logo.png" alt="وزارة التربية والتعليم" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fas fa-landmark\'></i>';">
+                </div>
+            </div>
+            <!-- 2. لوجو الإدارة المركزية للأنشطة الطلابية -->
+            <div class="splash-logo-item" title="الإدارة المركزية للأنشطة الطلابية">
+                <div class="splash-logo-ring"></div>
+                <div class="splash-logo-ring-pulse"></div>
+                <div class="splash-logo-inner">
+                    <img src="assets/logos/activities_logo.png" alt="الإدارة المركزية للأنشطة الطلابية" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fas fa-users-rays\'></i>';">
+                </div>
+            </div>
+            <!-- 3. لوجو الإدارة العامة للتربية الرياضية -->
+            <div class="splash-logo-item" title="الإدارة العامة للتربية الرياضية والعسكرية">
+                <div class="splash-logo-ring"></div>
+                <div class="splash-logo-ring-pulse"></div>
+                <div class="splash-logo-inner">
+                    <img src="assets/logos/sports_edu_logo.png" alt="الإدارة العامة للتربية الرياضية" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fas fa-medal\'></i>';">
+                </div>
+            </div>
+        </div>
+        <div class="splash-title-text">الإدارة العامة للتربية الرياضية والعسكرية</div>
+        <div class="splash-sub-text">منظومة التسجيل الرقمي لبطولات الجمهورية</div>
+    </div>
+
+    <!-- زر الصعود لأعلى الصفحة العائم لجميع الشاشات -->
+    <button type="button" id="floatingScrollTopBtn" class="floating-scroll-top-btn" onclick="scrollToPageTop()" title="الرجوع لأعلى الصفحة">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <div class="container">
         <!-- Header -->
         <!-- هيدر شاشة الاختيار (يظهر فقط في شاشة الكروت) -->
         <header class="portal-header landing-header" id="landingHeader">
+            <h1 class="landing-main-org-title">الإدارة العامة للتربية الرياضية والعسكرية</h1>
             <div class="main-official-badge">التسجيل الرقمي لبطولات الجمهورية</div>
-            <p class="landing-subtitle">اختر القسم المطلوب للمتابعة</p>
         </header>
 
         <!-- هيدر صفحات العمل (يظهر بعد اختيار قسم) -->
@@ -4021,8 +4284,8 @@
                     <span>القائمة الرئيسية</span>
                 </button>
                 <div class="work-header-title" id="workHeaderTitle">
-                    <i class="fas fa-cloud-arrow-up"></i>
-                    <span id="workHeaderText">رفع كشف جديد</span>
+                    <i class="fas fa-file-excel" style="color:#10b981;"></i>
+                    <span id="workHeaderText">رفع ملف الإكسل</span>
                 </div>
                 <div class="work-header-spacer"></div>
             </div>
@@ -4034,14 +4297,14 @@
         <div id="landingView">
             <div class="landing-cards-grid">
 
-                <!-- كرت 1: رفع كشف جديد -->
+                <!-- كرت 1: رفع ملف الإكسل -->
                 <button type="button" class="landing-card landing-card-upload" onclick="changeTab('upload')">
-                    <div class="landing-card-icon-wrap">
-                        <i class="fas fa-cloud-arrow-up"></i>
+                    <div class="landing-card-icon-wrap" style="color:#10b981;">
+                        <i class="fas fa-file-excel"></i>
                     </div>
                     <div class="landing-card-body">
-                        <span class="landing-card-title">رفع كشف جديد</span>
-                        <span class="landing-card-desc">رفع وتسجيل ملف كشف المشاركة لأي لعبة ومرحلة</span>
+                        <span class="landing-card-title">رفع ملف الإكسل</span>
+                        <span class="landing-card-desc">رفع وتسجيل ملف الإكسل للكشف لأي لعبة ومرحلة</span>
                     </div>
                     <div class="landing-card-arrow">
                         <span class="landing-card-arrow-text">دخول</span>
@@ -4367,22 +4630,6 @@
                     يمكن للسادة المشرفين والمسجلين تحميل النماذج والنتائج واللوائح المنظمة المعتمدة لبطولات الجمهورية (بنين – بنات):
                 </p>
 
-                <!-- شريط أدوات التحديد والتحميل الجماعي للمستخدمين على صف واحد -->
-                <div class="downloads-toolbar-row">
-                    <label class="checkbox-container select-all-label" style="background:transparent; border:none; padding:0; margin:0; font-weight:700;">
-                        <input type="checkbox" id="selectAllPublicTemplates" onchange="toggleSelectAllPublicTemplates(this)">
-                        <span>تحديد الكل</span>
-                    </label>
-                    <button type="button" class="btn-direct-download" id="btnDownloadSelectedTemplates" onclick="downloadSelectedPublicTemplates()" disabled style="background:linear-gradient(135deg, #4f46e5, #4338ca);">
-                        <i class="fas fa-check-double"></i>
-                        <span>تحميل المحدد (<span id="selectedPublicCountText">0</span>)</span>
-                    </button>
-                    <button type="button" class="zip-btn" id="btnDownloadAllTemplates" onclick="downloadAllTemplatesAsZip()">
-                        <i class="fas fa-file-zipper"></i>
-                        <span>تحميل الجميع (RAR)</span>
-                    </button>
-                </div>
-
                 <!-- قائمة الملفات والنماذج القابلة للتنزيل -->
                 <div class="modal-templates-list" id="publicTemplatesList">
                     <!-- Populated via JS -->
@@ -4464,17 +4711,17 @@
                 </div>
 
                 <!-- كشف المشاركة المجمع للعبة (PDF) -->
-                <div class="card" style="border:1.5px dashed #a855f7; background:rgba(168, 85, 247, 0.02); margin-bottom:8px;">
+                <div class="card" style="border:1.5px dashed #fda4af; background:rgba(244, 63, 94, 0.02); margin-bottom:8px;">
                     <div class="card-title" style="margin-bottom:6px;">
-                        <i class="fas fa-file-invoice" style="color:#7c3aed;"></i>
-                        <span style="color:#6b21a8; font-weight:800;">كشف المشاركة المجمع للعبة والمرحلة (PDF)</span>
-                        <span class="saved-hint" style="margin-right:auto; font-size:0.75rem; color:#6b21a8;">
+                        <i class="fas fa-file-invoice" style="color:#e11d48;"></i>
+                        <span style="color:#9f1239; font-weight:800;">كشف المشاركة المجمع للعبة والمرحلة (PDF)</span>
+                        <span class="saved-hint" style="display:none; margin-right:auto; font-size:0.75rem; color:#9f1239;">
                             * اسم الملف تلقائي: [المحافظة] - [اللعبة] - [المرحلة] - كشف مجمع.pdf
                         </span>
                     </div>
                     <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
                         <input type="file" id="pdfCollectiveSheetInput" accept=".pdf,application/pdf" style="display:none" onchange="handleCollectiveSheetSelect(this)">
-                        <button type="button" class="admin-action-btn" onclick="document.getElementById('pdfCollectiveSheetInput').click()" style="background:#7c3aed; color:#fff; border-color:#6d28d9; padding:6px 16px; font-size:0.82rem;">
+                        <button type="button" class="admin-action-btn" onclick="document.getElementById('pdfCollectiveSheetInput').click()" style="background:#e11d48; color:#fff; border-color:#be123c; padding:6px 16px; font-size:0.82rem; font-weight:700;">
                             <i class="fas fa-file-arrow-up"></i> اختيار الكشف المجمع (PDF)
                         </button>
                         <span id="collectiveSheetFileNameDisplay" style="font-size:0.82rem; color:#64748b; font-weight:600;">لم يتم اختيار ملف كشف مجمع بعد (اختياري - يرفع تلقائياً بالزر الأحمر أدناه)</span>
@@ -4652,11 +4899,11 @@
                     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:4px 8px;">
                         <!-- أزرار تصفية التبويبات -->
                         <div style="display:flex; align-items:center; gap:4px;">
-                            <button type="button" class="admin-tab active" id="btnTaskTabFilterAll" onclick="setReviewerTaskViewFilter('all')" style="font-size:0.72rem; padding:3px 7px;">
-                                <i class="fas fa-layer-group"></i> كافة المهام (<span id="countFilterAll">0</span>)
-                            </button>
-                            <button type="button" class="admin-tab" id="btnTaskTabFilterPending" onclick="setReviewerTaskViewFilter('pending')" style="font-size:0.72rem; padding:3px 7px;">
+                            <button type="button" class="admin-tab active" id="btnTaskTabFilterPending" onclick="setReviewerTaskViewFilter('pending')" style="font-size:0.72rem; padding:3px 7px;">
                                 <i class="fas fa-hourglass-half"></i> قيد المراجعة (<span id="countFilterPending">0</span>)
+                            </button>
+                            <button type="button" class="admin-tab" id="btnTaskTabFilterAll" onclick="setReviewerTaskViewFilter('all')" style="font-size:0.72rem; padding:3px 7px;">
+                                <i class="fas fa-layer-group"></i> كافة المهام (<span id="countFilterAll">0</span>)
                             </button>
                             <button type="button" class="admin-tab" id="btnTaskTabFilterCompleted" onclick="setReviewerTaskViewFilter('completed')" style="font-size:0.72rem; padding:3px 7px;">
                                 <i class="fas fa-check-double"></i> المهام المنجزة (<span id="countFilterCompleted">0</span>)
@@ -6295,16 +6542,13 @@
                                 <h3 style="margin:0; font-size:0.95rem; font-weight:800; color:#0f172a; line-height:1.2;">
                                     منظومة توزيع ومتابعة مهام المراجعين (مسؤول التوزيع الأعلى)
                                 </h3>
-                                <p style="margin:2px 0 0 0; font-size:0.73rem; color:#64748b; line-height:1.2;">
-                                    إسناد وتوزيع محافظات الألعاب والمراحل على الزملاء المراجعين، ومتابعة ما تم إنجازه فورياً بالوقت والتاريخ.
-                                </p>
                             </div>
                         </div>
 
                         <!-- كروت المؤشرات السريعة المدمجة أفقياً بجانب العنوان لتوفير أقصى مساحة رأسية -->
                         <div class="dist-stat-cards-wrapper">
                             <!-- 1. إجمالي المحافظات والألعاب المضافة -->
-                            <div id="cardFilterAll" class="dist-stat-card-clickable active-all" onclick="setDistributionFilterType('all')" title="عرض كافة المهام المضافة بالنظام">
+                            <div id="cardFilterAll" class="dist-stat-card-clickable" onclick="setDistributionFilterType('all')" title="عرض كافة المهام المضافة بالنظام">
                                 <div class="stat-card-icon" style="background:#e0f2fe; color:#0284c7;">
                                     <i class="fas fa-map-location-dot"></i>
                                 </div>
@@ -6315,7 +6559,7 @@
                             </div>
 
                             <!-- 2. بانتظار الإسناد للمراجعين -->
-                            <div id="cardFilterUnassigned" class="dist-stat-card-clickable" onclick="setDistributionFilterType('unassigned')" title="عرض المهام المراد إسنادها للمراجعين فقط (بانتظار التكليف)">
+                            <div id="cardFilterUnassigned" class="dist-stat-card-clickable active-unassigned" onclick="setDistributionFilterType('unassigned')" title="عرض المهام المراد إسنادها للمراجعين فقط (بانتظار التكليف)">
                                 <div class="stat-card-icon" style="background:#fef3c7; color:#d97706;">
                                     <i class="fas fa-hourglass-half"></i>
                                 </div>
@@ -6368,29 +6612,26 @@
                             </div>
                             <span id="distCatLockedBadge" class="role-badge" style="display:none; font-size:0.8rem; font-weight:800; padding:4px 10px;"></span>
                         </div>
-                        <div style="font-size:0.75rem; color:#64748b;">
-                            <i class="fas fa-circle-info"></i> يتم تصفية كل من جدول المهام وجدول المراجعين تلقائياً وفق الفئة المختارة
-                        </div>
                     </div>
 
                     <!-- القسم الأول: جدول المحافظات والألعاب المضافة بالنظام وحالة إسنادها -->
                     <div style="border:1px solid #e2e8f0; border-radius:10px; padding:12px; background:#fff;">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px;">
                             <div style="display:flex; align-items:center; gap:8px;">
-                                <span id="distWorkloadSectionTitle" style="font-weight:800; font-size:0.92rem; color:#0f172a;">1. المحافظات والألعاب المضافة بالنظام وحالة إسنادها</span>
+                                <span id="distWorkloadSectionTitle" style="font-weight:800; font-size:0.92rem; color:#0f172a;">1. المهام المجهزة للتوزيع (بانتظار الإسناد)</span>
                                 <span class="stacked-count-badge" style="background:#e0f2fe; color:#0369a1; border:1px solid #bae6fd;" id="distWorkloadCountBadge"><span class="badge-num">0</span><span class="badge-label">عنصر</span></span>
                             </div>
 
                             <!-- تبويبات التصفية بين المسندة وبانتظار الإسناد وكافة المهام -->
-                            <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
-                                <button type="button" id="distFilterBtnAll" class="dist-filter-tab active" onclick="setDistributionFilterType('all')">
-                                    <i class="fas fa-layer-group"></i> كافة المهام (<span id="tabCountAll">0</span>)
-                                </button>
-                                <button type="button" id="distFilterBtnUnassigned" class="dist-filter-tab" onclick="setDistributionFilterType('unassigned')">
+                            <div class="dist-filter-tabs-wrapper">
+                                <button type="button" id="distFilterBtnUnassigned" class="dist-filter-tab active" onclick="setDistributionFilterType('unassigned')">
                                     <i class="fas fa-hourglass-half" style="color:#d97706;"></i> بانتظار الإسناد (<span id="tabCountUnassigned">0</span>)
                                 </button>
                                 <button type="button" id="distFilterBtnAssigned" class="dist-filter-tab" onclick="setDistributionFilterType('assigned')">
                                     <i class="fas fa-user-check" style="color:#059669;"></i> مسندة حالياً (<span id="tabCountAssigned">0</span>)
+                                </button>
+                                <button type="button" id="distFilterBtnAll" class="dist-filter-tab" onclick="setDistributionFilterType('all')">
+                                    <i class="fas fa-layer-group"></i> كافة المهام (<span id="tabCountAll">0</span>)
                                 </button>
                             </div>
 
@@ -9963,7 +10204,6 @@
                 return `
                     <div class="custom-file-download-card">
                         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-                            <input type="checkbox" class="public-tmpl-chk" value="${tmpl.id || tmpl.name}" onchange="updateSelectedPublicTemplatesCounter()" style="width:16px; height:16px; accent-color:var(--primary); cursor:pointer;">
                             <div class="file-icon-box" style="background:${iconBg}; color:${iconColor};">
                                 <i class="fas ${iconClass}"></i>
                             </div>
@@ -9981,13 +10221,13 @@
                             <button type="button" class="btn-direct-download" onclick="downloadSingleTemplate('${tmpl.id || tmpl.name}')" title="تنزيل هذا الملف">
                                 <i class="fas fa-download"></i> تنزيل
                             </button>
-                            ${tmpl.viewUrl ? `<a href="${tmpl.viewUrl}" target="_blank" class="btn-direct-download" style="background:rgba(56,189,248,0.15); color:#38bdf8;" title="معاينة في Drive"><i class="fab fa-google-drive"></i></a>` : ''}
+                            <button type="button" class="btn-direct-download" onclick="openTemplateFile('${tmpl.id || tmpl.name}')" style="background:#dc2626; color:#ffffff; border-color:#b91c1c; font-weight:700;" title="فتح واستعراض الملف مباشرة">
+                                <i class="fas fa-eye"></i> فتح
+                            </button>
                         </div>
                     </div>
                 `;
             }).join('');
-
-            updateSelectedPublicTemplatesCounter();
         }
 
         // عرض قائمة إعادة الترتيب الخاصة بالأدمن الأعلى (Admin 1)
@@ -10472,6 +10712,28 @@
                 }, 1200);
             } else {
                 showToast(`جاري تجهيز الملف: ${targetName} من السيرفر...`, 'info', 2500);
+            }
+        };
+
+        window.openTemplateFile = function (fileName) {
+            const item = (PUBLIC_TEMPLATES || []).find(t => t.name === fileName || t.id === fileName);
+            let viewUrl = '';
+            if (item) {
+                if (item.viewUrl && item.viewUrl !== '#' && !item.viewUrl.includes('drive.google.com/drive/folders')) {
+                    viewUrl = item.viewUrl;
+                } else if (item.downloadUrl && item.downloadUrl !== '#' && !item.downloadUrl.includes('drive.google.com/drive/folders')) {
+                    viewUrl = item.downloadUrl;
+                } else if (item.id && item.id.length > 15) {
+                    viewUrl = `https://drive.google.com/file/d/${item.id}/view?usp=sharing`;
+                }
+            } else if (fileName && fileName.length > 15) {
+                viewUrl = `https://drive.google.com/file/d/${fileName}/view?usp=sharing`;
+            }
+
+            if (viewUrl) {
+                window.open(viewUrl, '_blank', 'noopener,noreferrer');
+            } else {
+                showToast('تعذر العثور على رابط فتح الملف مباشرة.', 'warning', 2500);
             }
         };
 
@@ -11093,6 +11355,31 @@
                 updateCloudSyncStatusBadge();
                 updateDownloadsSyncBadge(false);
             });
+
+            // 1. زر الصعود لأعلى الصفحة العائم لجميع الأجهزة والشاشات
+            const scrollBtn = document.getElementById('floatingScrollTopBtn');
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 250) {
+                    if (scrollBtn) scrollBtn.classList.add('visible');
+                } else {
+                    if (scrollBtn) scrollBtn.classList.remove('visible');
+                }
+            }, { passive: true });
+
+            window.scrollToPageTop = function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            // 2. شاشة البداية والأنيميشن الدائري (Splash Screen) - إخفاء تلقائي بعد 3 ثوانٍ
+            const splashEl = document.getElementById('splashScreen');
+            if (splashEl) {
+                setTimeout(function () {
+                    splashEl.classList.add('fade-out');
+                    setTimeout(function () {
+                        splashEl.style.display = 'none';
+                    }, 650);
+                }, 3000);
+            }
         });
     
         // =========================================================================
@@ -11810,7 +12097,7 @@
             const btnUpload = document.getElementById('btnUploadCollectiveSheetOnly');
             if (disp) {
                 disp.textContent = `تم اختيار: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
-                disp.style.color = '#7c3aed';
+                disp.style.color = '#e11d48';
             }
             if (btnUpload) btnUpload.classList.remove('hidden');
         }
@@ -11861,7 +12148,7 @@
                                         <i class="fas fa-circle-check" style="color:#059669;"></i> تم توثيق الكشف المجمع: ${escapeHtml(res.fileName || 'كشف مجمع')}
                                     </span>
                                 </div>
-                                <a href="${res.fileUrl}" target="_blank" class="admin-action-btn" style="background:#7c3aed; color:#fff; border-color:#6d28d9; padding:6px 14px; font-size:0.8rem; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                                <a href="${res.fileUrl}" target="_blank" class="admin-action-btn" style="background:#e11d48; color:#fff; border-color:#be123c; padding:6px 14px; font-size:0.8rem; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
                                     <i class="fas fa-file-pdf"></i> فتح واستعراض الكشف فوراً
                                 </a>
                             </div>
@@ -12229,7 +12516,7 @@
         // ==========================================
         let reviewerTasksList = [];
         let activeReviewerTaskKey = null;
-        let activeReviewerTaskFilter = 'all'; // 'all', 'pending', 'completed'
+        let activeReviewerTaskFilter = 'pending'; // Default: 'pending' (المحافظات قيد المراجعة)
         let cachedReviewerMyTasks = [];
 
         function buildReviewerTasksList() {
@@ -12474,6 +12761,7 @@
 
             updateActiveTaskBanner();
             handleReviewerGovOrGameChange();
+            renderReviewerCollectiveTable();
             filterReviewerTable();
         }
 
@@ -12804,12 +13092,26 @@
                 }
             }
 
-            // فحص كشف المشاركة المجمع الفردي للمراجع
+            // فحص كشف المشاركة المجمع الفردي للمراجع (فحص لحظي من الذاكرة 0ms ثم تحقق من السيرفر)
             const statusText = document.getElementById('collectiveSheetStatusTextReview');
             const actionBtn = document.getElementById('collectiveSheetActionBtnReview');
 
             if (gov && selectedGame && stage) {
-                if (statusText) statusText.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> جاري فحص الكشف المجمع...';
+                // فحص فوري وسريع من الذاكرة المحلية للكشوف المسندة
+                const localSheet = (cachedReviewerCollectiveSheets || []).find(s => {
+                    const gMatch = typeof isGovMatchClient === 'function' ? isGovMatchClient(s.governorate, gov) : (s.governorate === gov);
+                    const gameMatch = !s.gameName || s.gameName === selectedGame;
+                    const stageMatch = !s.stageName || s.stageName === stage;
+                    return gMatch && gameMatch && stageMatch;
+                });
+
+                if (localSheet && localSheet.fileUrl) {
+                    if (statusText) statusText.innerHTML = `<span style="color:#059669;"><i class="fas fa-check-circle"></i> متوفر: <strong>${escapeHtml(localSheet.fileName || 'كشف مجمع')}</strong></span>`;
+                    if (actionBtn) actionBtn.innerHTML = `<a href="${localSheet.fileUrl}" target="_blank" class="admin-action-btn" style="background:#e11d48; color:#fff; border-color:#be123c; padding:4px 12px; font-size:0.76rem; font-weight:700;"><i class="fas fa-file-pdf"></i> فتح الكشف المجمع</a>`;
+                } else {
+                    if (statusText) statusText.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> جاري فحص الكشف المجمع...';
+                }
+
                 try {
                     const res = await callBackendApi({
                         action: 'getCollectiveGameSheet',
@@ -12819,14 +13121,16 @@
                     });
                     if (res && res.success && res.sheet) {
                         if (statusText) statusText.innerHTML = `<span style="color:#059669;"><i class="fas fa-check-circle"></i> متوفر: <strong>${escapeHtml(res.sheet.fileName)}</strong></span>`;
-                        if (actionBtn) actionBtn.innerHTML = `<a href="${res.sheet.fileUrl}" target="_blank" class="admin-action-btn" style="background:#7c3aed; color:#fff; border-color:#6d28d9; padding:4px 12px; font-size:0.76rem;"><i class="fas fa-file-pdf"></i> فتح الكشف المجمع</a>`;
-                    } else {
+                        if (actionBtn) actionBtn.innerHTML = `<a href="${res.sheet.fileUrl}" target="_blank" class="admin-action-btn" style="background:#e11d48; color:#fff; border-color:#be123c; padding:4px 12px; font-size:0.76rem; font-weight:700;"><i class="fas fa-file-pdf"></i> فتح الكشف المجمع</a>`;
+                    } else if (!localSheet) {
                         if (statusText) statusText.innerHTML = `<span style="color:#94a3b8;">لم يتم رفع كشف مجمع لهذه اللعبة والمرحلة حتى الآن.</span>`;
                         if (actionBtn) actionBtn.innerHTML = '';
                     }
                 } catch (e) {
-                    if (statusText) statusText.innerHTML = `<span style="color:#94a3b8;">لم يتم رفع كشف مجمع بعد.</span>`;
-                    if (actionBtn) actionBtn.innerHTML = '';
+                    if (!localSheet) {
+                        if (statusText) statusText.innerHTML = `<span style="color:#94a3b8;">لم يتم رفع كشف مجمع بعد.</span>`;
+                        if (actionBtn) actionBtn.innerHTML = '';
+                    }
                 }
             } else if (gov) {
                 if (statusText) statusText.innerHTML = `<span style="color:#0284c7;"><i class="fas fa-location-dot"></i> تم اختيار محافظة: <strong>${escapeHtml(gov)}</strong> - جاري جلب كشوفها واستماراتها...</span>`;
@@ -13925,7 +14229,7 @@
             }
         }
 
-        let currentDistributionFilterType = 'all'; // 'all' | 'unassigned' | 'assigned'
+        let currentDistributionFilterType = 'unassigned'; // Default: 'unassigned' (بانتظار الإسناد)
         let currentDistributionCategory = 'all'; // 'all' | 'بنين' | 'بنات'
 
         function setDistributionActiveCategory(cat) {
@@ -13945,7 +14249,7 @@
         }
 
         function setDistributionFilterType(type) {
-            currentDistributionFilterType = type || 'all';
+            currentDistributionFilterType = type || 'unassigned';
 
             // تحديث حالة أزرار التبويبات
             const btnAll = document.getElementById('distFilterBtnAll');
@@ -16268,6 +16572,7 @@
             const tbody = document.getElementById('reviewerCollectiveTableBody');
             const u = currentReviewerSession ? currentReviewerSession.username : '';
             const g = currentReviewerSession ? currentReviewerSession.assignedGovs : '';
+            const govParam = (g && g !== 'الكل' && g !== 'all') ? g : '';
             const cacheKey = 'repChamps_reviewer_collective_' + (u || 'all');
 
             // 1. عرض فوري وسريع من الذاكرة المؤقتة (0ms Instant Load)
@@ -16290,7 +16595,7 @@
                 const res = await callBackendApi({
                     action: 'getCollectiveSheets',
                     reviewerUsername: u,
-                    governorate: g
+                    governorate: govParam
                 });
                 if (res && res.success && Array.isArray(res.sheets)) {
                     cachedReviewerCollectiveSheets = res.sheets;
@@ -16312,9 +16617,15 @@
             const stageFilter = (document.getElementById('revFilterStage')?.value || '').trim();
 
             let list = (cachedReviewerCollectiveSheets || []).filter(item => {
-                if (govFilter && item.governorate !== govFilter) return false;
-                if (gameFilter && item.gameName !== gameFilter) return false;
-                if (stageFilter && item.stageName !== stageFilter) return false;
+                if (govFilter && govFilter !== 'الكل' && govFilter !== 'all') {
+                    if (typeof isGovMatchClient === 'function') {
+                        if (!isGovMatchClient(item.governorate, govFilter)) return false;
+                    } else if (item.governorate !== govFilter) {
+                        return false;
+                    }
+                }
+                if (gameFilter && gameFilter !== 'الكل' && gameFilter !== 'all' && item.gameName !== gameFilter) return false;
+                if (stageFilter && stageFilter !== 'الكل' && stageFilter !== 'all' && item.stageName !== stageFilter) return false;
                 return true;
             });
 
