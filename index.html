@@ -2067,7 +2067,43 @@
             .admin-sidebar-backdrop.active {
                 display: block;
             }
-        }
+
+            .admin-workspace-header {
+                flex-wrap: wrap !important;
+                gap: 6px !important;
+                padding: 6px 8px !important;
+            }
+
+            .admin-workspace-header > div {
+                flex-wrap: wrap !important;
+                gap: 4px !important;
+            }
+
+            .admin-unified-controls-bar {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 8px !important;
+            }
+
+            .admin-unified-controls-bar select,
+            .admin-unified-controls-bar input {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
+            .admin-portal-header {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 8px !important;
+            }
+
+            .reviewer-header-stats-row,
+            .registrar-header-stats-row {
+                margin-right: 0 !important;
+                width: 100% !important;
+                gap: 4px !important;
+            }
+
             .admin-filters-row {
                 gap: 4px;
             }
@@ -3615,6 +3651,169 @@
             }
         }
 
+        /* =========================================================================
+           تحسينات التجاوب الشاملة لجميع الصفحات (شاشات الموبايل والتابلت واللابتوب)
+           ========================================================================= */
+        @media (max-width: 768px) {
+            .container {
+                width: 100% !important;
+                padding: 0 4px !important;
+            }
+
+            /* بطاقات وحاويات العمل */
+            .card {
+                padding: 10px 8px !important;
+                border-radius: 10px !important;
+            }
+
+            /* أشرطة التحكم والفلاتر */
+            .admin-filters-row-unified {
+                grid-template-columns: 1fr !important;
+                gap: 6px !important;
+            }
+
+            .admin-filters-row-unified [style*="grid-column"] {
+                grid-column: span 1 !important;
+            }
+
+            /* شريط توزيع المهام والفئات */
+            #distCategorySelectorContainer {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 8px !important;
+            }
+
+            #distCategoryButtonGroup {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                width: 100% !important;
+                gap: 4px !important;
+            }
+
+            #distCategoryButtonGroup .dist-filter-tab {
+                flex: 1 1 auto !important;
+                text-align: center !important;
+                justify-content: center !important;
+                padding: 6px 8px !important;
+                font-size: 0.75rem !important;
+            }
+
+            #distWorkloadSearchInput {
+                width: 100% !important;
+            }
+
+            /* النوافذ المنبثقة (Modals) */
+            .modal-body {
+                width: 95% !important;
+                max-width: 95% !important;
+                padding: 14px 10px !important;
+                max-height: 92vh !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+
+            #assignTaskManualFields > div[style*="grid-template-columns"] {
+                grid-template-columns: 1fr !important;
+                gap: 8px !important;
+            }
+
+            /* الجداول وقابلية التمرير باللمس */
+            .table-responsive {
+                width: 100% !important;
+                max-width: 100% !important;
+                -webkit-overflow-scrolling: touch !important;
+                border-radius: 8px !important;
+                margin-top: 6px !important;
+            }
+
+            .admin-table {
+                font-size: 0.76rem !important;
+            }
+
+            .admin-table th,
+            .admin-table td {
+                padding: 6px 8px !important;
+            }
+
+            /* شريط رأس بوابة المراجع وبوابة مسؤولي المحافظات */
+            .admin-portal-header {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                padding: 8px 10px !important;
+                gap: 8px !important;
+            }
+
+            .admin-user-info {
+                width: 100% !important;
+                justify-content: space-between !important;
+            }
+
+            .reviewer-header-stats-row,
+            .registrar-header-stats-row {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                width: 100% !important;
+                margin: 4px 0 0 0 !important;
+                gap: 4px !important;
+            }
+
+            .reviewer-stat-chip,
+            .registrar-stat-chip {
+                flex: 1 1 calc(50% - 6px) !important;
+                justify-content: center !important;
+                padding: 5px 6px !important;
+                font-size: 0.72rem !important;
+                box-sizing: border-box !important;
+            }
+
+            .admin-top-actions {
+                width: 100% !important;
+                display: flex !important;
+                justify-content: flex-end !important;
+            }
+
+            /* الأزرار العلوية لمساحة العمل */
+            .admin-workspace-header {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 6px !important;
+            }
+
+            .admin-workspace-header > div {
+                justify-content: space-between !important;
+                width: 100% !important;
+            }
+
+            .admin-sidebar-toggle-btn {
+                padding: 5px 10px !important;
+                font-size: 0.74rem !important;
+            }
+
+            /* حقول الإدخال واللمس على الموبايل */
+            input[type="text"],
+            input[type="password"],
+            input[type="tel"],
+            select {
+                min-height: 38px !important;
+                font-size: 0.86rem !important;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            /* التابلت والأجهزة اللوحية */
+            .container {
+                width: 96% !important;
+            }
+
+            .reviewer-stat-chip,
+            .registrar-stat-chip {
+                flex: 1 1 auto !important;
+            }
+
+            .admin-filters-row-unified {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -4632,102 +4831,6 @@
                 </div>
             </div>
 
-            <div class="card" id="resultsMainCard">
-                <div class="card-title" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-                    <div style="display:flex; align-items:center; gap:8px;">
-                        <i class="fas fa-trophy" style="color:#d97706; font-size:1.3rem;"></i>
-                        <span style="font-weight:900; font-size:1.15rem; color:#0f172a;">نتائج ومراكز بطولات الجمهورية المعتمدة</span>
-                        <span class="role-badge" id="resultsCountBadge" style="background:#fef3c7; color:#b45309; font-weight:800;">0 فائز</span>
-                    </div>
-                    <div style="display:flex; gap:8px; align-items:center;">
-                        <button type="button" id="btnOpenResultsOrderingModal" class="admin-action-btn" onclick="openChampionshipResultsOrderingModal()" style="font-size:0.78rem; padding:5px 12px; display:inline-flex; align-items:center; gap:6px; background:#ecfdf5; color:#065f46; border-color:#a7f3d0; font-weight:700;" title="إدارة وترتيب ظهور الألعاب والفائزين والمراحل بالسجلات أون لاين">
-                            <i class="fas fa-arrow-down-up-across-line" style="color:#059669;"></i> ترتيب الفائزين والألعاب والمراحل
-                        </button>
-                        <button type="button" class="admin-action-btn" onclick="loadChampionshipResults()" style="font-size:0.78rem; padding:5px 12px;">
-                            <i class="fas fa-rotate" id="iconResultsRefresh"></i> تحديث النتائج
-                        </button>
-                        <button type="button" class="admin-action-btn" onclick="changeTab('admin')" style="font-size:0.78rem; padding:5px 12px; background:#f0f9ff; color:#0284c7; border-color:#bae6fd; font-weight:700;">
-                            <i class="fas fa-arrow-left"></i> لوحة الإدارة
-                        </button>
-                    </div>
-                </div>
-
-                <!-- شريط التصفية والبحث في النتائج -->
-                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:12px; margin-bottom:14px;">
-                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:10px; align-items:flex-end;">
-                        <div class="form-group" style="margin-bottom:0;">
-                            <label style="font-size:0.78rem; font-weight:700; color:#475569;">الفئة</label>
-                            <select id="resultsFilterCategory" onchange="filterChampionshipResultsTable()" style="padding:6px 10px; font-size:0.82rem; border-radius:8px; border:1px solid #cbd5e1; width:100%;">
-                                <option value="">كل الفئات</option>
-                                <option value="بنين">بنين</option>
-                                <option value="بنات">بنات</option>
-                            </select>
-                        </div>
-                        <div class="form-group" style="margin-bottom:0;">
-                            <label style="font-size:0.78rem; font-weight:700; color:#475569;">اللعبة الرياضية</label>
-                            <select id="resultsFilterGame" onchange="filterChampionshipResultsTable()" style="padding:6px 10px; font-size:0.82rem; border-radius:8px; border:1px solid #cbd5e1; width:100%;">
-                                <option value="">كل الألعاب</option>
-                            </select>
-                        </div>
-                        <div class="form-group" style="margin-bottom:0;">
-                            <label style="font-size:0.78rem; font-weight:700; color:#475569;">المرحلة</label>
-                            <select id="resultsFilterStage" onchange="filterChampionshipResultsTable()" style="padding:6px 10px; font-size:0.82rem; border-radius:8px; border:1px solid #cbd5e1; width:100%;">
-                                <option value="">كل المراحل</option>
-                                <option value="المرحلة الابتدائية">المرحلة الابتدائية</option>
-                                <option value="المرحلة الإعدادية">المرحلة الإعدادية</option>
-                                <option value="المرحلة الثانوية">المرحلة الثانوية</option>
-                            </select>
-                        </div>
-                        <div class="form-group" style="margin-bottom:0;">
-                            <label style="font-size:0.78rem; font-weight:700; color:#475569;">المحافظة</label>
-                            <select id="resultsFilterGov" onchange="filterChampionshipResultsTable()" style="padding:6px 10px; font-size:0.82rem; border-radius:8px; border:1px solid #cbd5e1; width:100%;">
-                                <option value="">كل المحافظات</option>
-                            </select>
-                        </div>
-                        <div class="form-group" style="margin-bottom:0;">
-                            <label style="font-size:0.78rem; font-weight:700; color:#475569;">المركز</label>
-                            <select id="resultsFilterRank" onchange="filterChampionshipResultsTable()" style="padding:6px 10px; font-size:0.82rem; border-radius:8px; border:1px solid #cbd5e1; width:100%;">
-                                <option value="">كل المراكز</option>
-                                <option value="الأول">المركز الأول</option>
-                                <option value="الثاني">المركز الثاني</option>
-                                <option value="الثالث">المركز الثالث</option>
-                                <option value="الرابع">المركز الرابع</option>
-                                <option value="الخامس">المركز الخامس</option>
-                                <option value="السادس">المركز السادس</option>
-                                <option value="السابع">المركز السابع</option>
-                                <option value="الثامن">المركز الثامن</option>
-                            </select>
-                        </div>
-                        <div class="form-group" style="margin-bottom:0; grid-column:span 2;">
-                            <label style="font-size:0.78rem; font-weight:700; color:#475569;">بحث بالاسم أو الرقم القومي</label>
-                            <input type="text" id="resultsSearchInput" placeholder="اكتب اسم الطالب أو الرقم القومي..." oninput="filterChampionshipResultsTable()" style="padding:6px 10px; font-size:0.82rem; border-radius:8px; border:1px solid #cbd5e1; width:100%;">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- جدول نتائج ومراكز الطلاب الفائزين -->
-                <div class="table-responsive">
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th style="width:36px; text-align:center;">#</th>
-                                <th style="width:130px; text-align:center;">المركز المحقق</th>
-                                <th>اسم الطالب الفائز</th>
-                                <th style="text-align:center;">الرقم القومي (14 رقم)</th>
-                                <th>المحافظة</th>
-                                <th>الفئة</th>
-                                <th>اللعبة</th>
-                                <th>المرحلة</th>
-                                <th>المدرسة / الإدارة</th>
-                                <th style="text-align:center; min-width:110px;">إجراءات المشرف</th>
-                            </tr>
-                        </thead>
-                        <tbody id="championshipResultsTableBody">
-                            <tr><td colspan="10" style="text-align:center; padding:18px; color:#64748b;">جاري تحميل نتائج البطولات...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
 
         <!-- نافذة إدارة وترتيب عرض النتائج والألعاب أون لاين (خاص بالإدارة العليا) -->
@@ -5443,7 +5546,7 @@
                 <!-- خلفية معتمة للقائمة الجانبية في شاشات الموبايل -->
                 <div class="admin-sidebar-backdrop" id="adminSidebarBackdrop" onclick="toggleAdminSidebar(false)"></div>
 
-                <div class="admin-layout-container" id="adminLayoutContainer">
+                <div class="admin-layout-container sidebar-collapsed" id="adminLayoutContainer">
                     
                     <!-- القائمة الرأسية الجانبية للمشرف (في اليمين قابلة للظهور والإخفاء) -->
                     <aside class="admin-sidebar" id="adminSidebar">
@@ -5475,6 +5578,10 @@
                                 <i class="fas fa-trophy"></i>
                                 <span>إذن وصلاحية تسجيل المراكز</span>
                             </button>
+                            <button type="button" class="admin-tab" id="subtabResults" onclick="switchAdminSubtab('results')">
+                                <i class="fas fa-trophy" style="color:#d97706;"></i>
+                                <span>نتائج ومراكز البطولات</span>
+                            </button>
                             <button type="button" class="admin-tab" id="subtabTemplatesOrder" onclick="switchAdminSubtab('templates_order')" style="display:none;">
                                 <i class="fas fa-folder-tree"></i>
                                 <span>إدارة مركز النماذج</span>
@@ -5497,15 +5604,15 @@
                             </button>
                         </nav>
 
-                        <!-- إجراءات سريعة في أسفل القائمة الجانبية -->
+                        <!-- إجراءات سريعة في أسفل القائمة الجانبية بالترتيب المطلوب (النتائج فوق كلمة المرور) -->
                         <div class="admin-sidebar-actions">
+                            <button type="button" class="admin-sidebar-action-btn results-btn" id="sidebarResultsBtn" onclick="switchAdminSubtab('results')" title="استعراض وتوثيق نتائج ومراكز بطولات الجمهورية" style="background:rgba(245,158,11,0.15); color:#b45309; border-color:rgba(245,158,11,0.4); font-weight:800;">
+                                <i class="fas fa-trophy" style="color:#d97706;"></i>
+                                <span>نتائج البطولات</span>
+                            </button>
                             <button type="button" class="admin-sidebar-action-btn" onclick="openPasswordChangeModal()" title="تغيير كلمة المرور">
                                 <i class="fas fa-key"></i>
                                 <span>تغيير كلمة المرور</span>
-                            </button>
-                            <button type="button" class="admin-sidebar-action-btn results-btn" onclick="changeTab('resultsView')" title="استعراض وتوثيق نتائج ومراكز بطولات الجمهورية" style="background:rgba(245,158,11,0.12); color:#b45309; border-color:rgba(245,158,11,0.35); font-weight:800;">
-                                <i class="fas fa-trophy" style="color:#d97706;"></i>
-                                <span>نتائج البطولات</span>
                             </button>
                             <button type="button" class="admin-sidebar-action-btn logout" onclick="handleAdminLogout()" title="تسجيل الخروج">
                                 <i class="fas fa-right-from-bracket"></i>
@@ -6050,6 +6157,9 @@
                                     <span style="font-size:1.15rem; font-weight:800; color:#7c3aed;" id="distStatActiveReviewers">0</span>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
                     <!-- شريط تحديد فئة التوزيع والظهور من البداية (بنين / بنات / الكل) -->
                     <div id="distCategorySelectorContainer" style="display:flex; align-items:center; justify-content:space-between; background:#f8fafc; border:1px solid #cbd5e1; border-radius:10px; padding:6px 12px; flex-wrap:wrap; gap:8px;">
                         <div style="display:flex; align-items:center; gap:8px;">
@@ -6156,6 +6266,101 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                </div>
+
+                <!-- قسم نتائج ومراكز بطولات الجمهورية المعتمدة في لوحة تحكم الإدارة -->
+                <div class="card hidden" id="resultsMainCard">
+                    <div class="card-title" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <i class="fas fa-trophy" style="color:#d97706; font-size:1.3rem;"></i>
+                            <span style="font-weight:900; font-size:1.15rem; color:#0f172a;">نتائج ومراكز بطولات الجمهورية المعتمدة</span>
+                            <span class="role-badge" id="resultsCountBadge" style="background:#fef3c7; color:#b45309; font-weight:800;">0 فائز</span>
+                        </div>
+                        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                            <button type="button" id="btnOpenResultsOrderingModal" class="admin-action-btn" onclick="openChampionshipResultsOrderingModal()" style="font-size:0.78rem; padding:5px 12px; display:inline-flex; align-items:center; gap:6px; background:#ecfdf5; color:#065f46; border-color:#a7f3d0; font-weight:700;" title="إدارة وترتيب ظهور الألعاب والفائزين والمراحل بالسجلات أون لاين">
+                                <i class="fas fa-arrow-down-up-across-line" style="color:#059669;"></i> ترتيب الفائزين والألعاب والمراحل
+                            </button>
+                            <button type="button" class="admin-action-btn" onclick="loadChampionshipResults()" style="font-size:0.78rem; padding:5px 12px;">
+                                <i class="fas fa-rotate" id="iconResultsRefresh"></i> تحديث النتائج
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- شريط التصفية والبحث في النتائج -->
+                    <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:12px; margin-bottom:14px;">
+                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:10px; align-items:flex-end;">
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label style="font-size:0.78rem; font-weight:700; color:#475569;">الفئة</label>
+                                <select id="resultsFilterCategory" onchange="filterChampionshipResultsTable()" style="padding:6px 10px; font-size:0.82rem; border-radius:8px; border:1px solid #cbd5e1; width:100%;">
+                                    <option value="">كل الفئات</option>
+                                    <option value="بنين">بنين</option>
+                                    <option value="بنات">بنات</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label style="font-size:0.78rem; font-weight:700; color:#475569;">اللعبة الرياضية</label>
+                                <select id="resultsFilterGame" onchange="filterChampionshipResultsTable()" style="padding:6px 10px; font-size:0.82rem; border-radius:8px; border:1px solid #cbd5e1; width:100%;">
+                                    <option value="">كل الألعاب</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label style="font-size:0.78rem; font-weight:700; color:#475569;">المرحلة</label>
+                                <select id="resultsFilterStage" onchange="filterChampionshipResultsTable()" style="padding:6px 10px; font-size:0.82rem; border-radius:8px; border:1px solid #cbd5e1; width:100%;">
+                                    <option value="">كل المراحل</option>
+                                    <option value="المرحلة الابتدائية">المرحلة الابتدائية</option>
+                                    <option value="المرحلة الإعدادية">المرحلة الإعدادية</option>
+                                    <option value="المرحلة الثانوية">المرحلة الثانوية</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label style="font-size:0.78rem; font-weight:700; color:#475569;">المحافظة</label>
+                                <select id="resultsFilterGov" onchange="filterChampionshipResultsTable()" style="padding:6px 10px; font-size:0.82rem; border-radius:8px; border:1px solid #cbd5e1; width:100%;">
+                                    <option value="">كل المحافظات</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label style="font-size:0.78rem; font-weight:700; color:#475569;">المركز</label>
+                                <select id="resultsFilterRank" onchange="filterChampionshipResultsTable()" style="padding:6px 10px; font-size:0.82rem; border-radius:8px; border:1px solid #cbd5e1; width:100%;">
+                                    <option value="">كل المراكز</option>
+                                    <option value="الأول">المركز الأول</option>
+                                    <option value="الثاني">المركز الثاني</option>
+                                    <option value="الثالث">المركز الثالث</option>
+                                    <option value="الرابع">المركز الرابع</option>
+                                    <option value="الخامس">المركز الخامس</option>
+                                    <option value="السادس">المركز السادس</option>
+                                    <option value="السابع">المركز السابع</option>
+                                    <option value="الثامن">المركز الثامن</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="margin-bottom:0; grid-column:span 2;">
+                                <label style="font-size:0.78rem; font-weight:700; color:#475569;">بحث بالاسم أو الرقم القومي</label>
+                                <input type="text" id="resultsSearchInput" placeholder="اكتب اسم الطالب أو الرقم القومي..." oninput="filterChampionshipResultsTable()" style="padding:6px 10px; font-size:0.82rem; border-radius:8px; border:1px solid #cbd5e1; width:100%;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- جدول نتائج ومراكز الطلاب الفائزين -->
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:36px; text-align:center;">#</th>
+                                    <th style="width:130px; text-align:center;">المركز المحقق</th>
+                                    <th>اسم الطالب الفائز</th>
+                                    <th style="text-align:center;">الرقم القومي (14 رقم)</th>
+                                    <th>المحافظة</th>
+                                    <th>الفئة</th>
+                                    <th>اللعبة</th>
+                                    <th>المرحلة</th>
+                                    <th>المدرسة / الإدارة</th>
+                                    <th style="text-align:center; min-width:110px;">إجراءات المشرف</th>
+                                </tr>
+                            </thead>
+                            <tbody id="championshipResultsTableBody">
+                                <tr><td colspan="10" style="text-align:center; padding:18px; color:#64748b;">جاري تحميل نتائج البطولات...</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -6783,6 +6988,12 @@
             const reviewPortalView = document.getElementById('reviewPortalView');
             const registrarPortalView = document.getElementById('registrarPortalView');
             const resultsView = document.getElementById('resultsView');
+
+            if (tab === 'resultsView' && adminSession && adminSession.user && adminSession.user.username) {
+                changeTab('admin');
+                switchAdminSubtab('results');
+                return;
+            }
 
             // إخفاء/إظهار الأقسام
             if (adminSection) adminSection.classList.add('hidden');
@@ -8708,9 +8919,12 @@
             const subtabAccountsManage = document.getElementById('subtabAccountsManage');
             const subtabWinnersPermission = document.getElementById('subtabWinnersPermission');
             const subtabTaskDistribution = document.getElementById('subtabTaskDistribution');
+            const subtabResults = document.getElementById('subtabResults');
 
             const catBtnGroup = document.getElementById('distCategoryButtonGroup');
             const catLockedBadge = document.getElementById('distCatLockedBadge');
+
+            if (subtabResults) subtabResults.style.display = 'flex';
 
             if (u.role === 'SUPER_ADMIN') {
                 roleBadge.className = 'role-badge super';
@@ -8829,11 +9043,24 @@
         window.switchAdminSubtab = function (subtab) {
             adminSession.activeSubtab = subtab;
 
-            const tabs = ['subtabBoys', 'subtabGirls', 'subtabAudit', 'subtabGamesOrder', 'subtabTemplatesOrder', 'subtabAccountsManage', 'subtabWinnersPermission', 'subtabTaskDistribution'];
+            const tabs = ['subtabBoys', 'subtabGirls', 'subtabAudit', 'subtabGamesOrder', 'subtabTemplatesOrder', 'subtabAccountsManage', 'subtabWinnersPermission', 'subtabTaskDistribution', 'subtabResults'];
             tabs.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.classList.remove('active');
             });
+
+            const sidebarResults = document.getElementById('sidebarResultsBtn');
+            if (sidebarResults) {
+                if (subtab === 'results') {
+                    sidebarResults.classList.add('active');
+                    sidebarResults.style.background = '#d97706';
+                    sidebarResults.style.color = '#ffffff';
+                } else {
+                    sidebarResults.classList.remove('active');
+                    sidebarResults.style.background = 'rgba(245,158,11,0.15)';
+                    sidebarResults.style.color = '#b45309';
+                }
+            }
 
             const activeBtnMap = {
                 boys: 'subtabBoys',
@@ -8843,7 +9070,8 @@
                 templates_order: 'subtabTemplatesOrder',
                 accounts_manage: 'subtabAccountsManage',
                 winners_permission: 'subtabWinnersPermission',
-                task_distribution: 'subtabTaskDistribution'
+                task_distribution: 'subtabTaskDistribution',
+                results: 'subtabResults'
             };
             if (activeBtnMap[subtab]) {
                 const el = document.getElementById(activeBtnMap[subtab]);
@@ -8859,7 +9087,8 @@
                 templates_order: { icon: 'fas fa-folder-tree', text: 'إدارة مركز النماذج' },
                 accounts_manage: { icon: 'fas fa-user-gear', text: 'إدارة الحسابات والصلاحيات' },
                 winners_permission: { icon: 'fas fa-trophy', text: 'إذن وصلاحية تسجيل المراكز' },
-                task_distribution: { icon: 'fas fa-network-wired', text: 'توزيع ومتابعة المهام' }
+                task_distribution: { icon: 'fas fa-network-wired', text: 'توزيع ومتابعة المهام' },
+                results: { icon: 'fas fa-trophy', text: 'نتائج ومراكز بطولات الجمهورية المعتمدة' }
             };
             const currentBadge = document.getElementById('adminCurrentSectionBadge');
             if (currentBadge && sectionMeta[subtab]) {
@@ -8878,6 +9107,7 @@
             const accountsCard = document.getElementById('adminAccountsManageCard');
             const winnersCard = document.getElementById('adminWinnersPermissionCard');
             const distCard = document.getElementById('adminTaskDistributionCard');
+            const resultsCard = document.getElementById('resultsMainCard');
 
             browserCard.classList.add('hidden');
             auditCard.classList.add('hidden');
@@ -8886,6 +9116,7 @@
             if (accountsCard) accountsCard.classList.add('hidden');
             if (winnersCard) winnersCard.classList.add('hidden');
             if (distCard) distCard.classList.add('hidden');
+            if (resultsCard) resultsCard.classList.add('hidden');
 
             const headerDistRefreshBtn = document.getElementById('headerDistRefreshBtn');
             const headerDistNewTaskBtn = document.getElementById('headerDistNewTaskBtn');
@@ -8936,6 +9167,12 @@
                 if (distCard) {
                     distCard.classList.remove('hidden');
                     loadDistributionOverviewFromBackend();
+                }
+            } else if (subtab === 'results') {
+                if (resultsCard) {
+                    resultsCard.classList.remove('hidden');
+                    initResultsView();
+                    loadChampionshipResults();
                 }
             }
         };
@@ -11688,29 +11925,83 @@
             });
         }
 
+        function normalizeAuthDigits(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/[\u0660-\u0669]/g, function (d) { return String(d.charCodeAt(0) - 1632); })
+                .replace(/[\u06F0-\u06F9]/g, function (d) { return String(d.charCodeAt(0) - 1776); })
+                .trim();
+        }
+
         async function callBackendApi(data) {
             const gasUrl = getGasWebAppUrl();
             if (!gasUrl) {
                 throw new Error('لم يتم تكوين رابط السيرفر المركزي.');
             }
 
+            // إضافة طابع زمني دائم على الرابط لمنع الكاش دون ترويسات تكسر الـ CORS
+            const separator = gasUrl.indexOf('?') === -1 ? '?' : '&';
+            const liveUrl = gasUrl + separator + '_ts=' + Date.now();
+
             try {
-                // إضافة طابع زمني دائم لمنع أي تخزين مؤقت (No Cache) وضمان جلب البيانات أونلاين مباشرة
-                const payload = Object.assign({}, data, { _ts: Date.now() });
-                const response = await fetch(gasUrl, {
+                const response = await fetch(liveUrl, {
                     method: 'POST',
-                    cache: 'no-store',
                     headers: {
-                        'Content-Type': 'text/plain;charset=utf-8',
-                        'Cache-Control': 'no-cache, no-store, must-revalidate',
-                        'Pragma': 'no-cache'
+                        'Content-Type': 'text/plain;charset=utf-8'
                     },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify(data)
                 });
                 const resJson = await response.json();
                 return resJson;
             } catch (e) {
-                console.error('API Error:', e);
+                console.warn('POST fetch error, trying JSONP fallback:', e);
+
+                // دعم بديل فوري عبر JSONP لعمليات تسجيل الدخول وقراءة البيانات في حال وجود قيود CORS أو بالمتصفح
+                const jsonpActions = [
+                    'loginReviewer', 'loginRegistrar', 'getStudentSubmissions', 'getDistributionOverview',
+                    'getReviewerDashboardStats', 'getCollectiveGameSheet', 'getCollectiveSheets',
+                    'getTournamentResults', 'getChampionshipResults', 'getTournamentResultsOrderConfig',
+                    'getGameResultsPermissions', 'getResultsEntryStatus'
+                ];
+                if (data && data.action && jsonpActions.includes(data.action)) {
+                    return new Promise((resolve, reject) => {
+                        const cbName = 'onGasApi_' + data.action + '_' + Date.now() + '_' + Math.floor(Math.random() * 10000);
+                        const script = document.createElement('script');
+                        const timeoutTimer = setTimeout(() => {
+                            if (window[cbName]) {
+                                delete window[cbName];
+                                try { script.remove(); } catch (ex) {}
+                                reject(new Error('انتهت مهلة استجابة السيرفر. يرجى التحقق من اتصال الإنترنت.'));
+                            }
+                        }, 12000);
+
+                        window[cbName] = function (res) {
+                            clearTimeout(timeoutTimer);
+                            delete window[cbName];
+                            try { script.remove(); } catch (ex) {}
+                            resolve(res);
+                        };
+
+                        let parts = ['action=' + encodeURIComponent(data.action), 'callback=' + encodeURIComponent(cbName), '_ts=' + Date.now()];
+                        for (let key in data) {
+                            if (key !== 'action' && key !== 'callback' && data[key] !== undefined && data[key] !== null) {
+                                if (typeof data[key] === 'object') {
+                                    parts.push(encodeURIComponent(key) + '=' + encodeURIComponent(JSON.stringify(data[key])));
+                                } else {
+                                    parts.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+                                }
+                            }
+                        }
+                        script.src = gasUrl + (gasUrl.indexOf('?') === -1 ? '?' : '&') + parts.join('&');
+                        script.onerror = function () {
+                            clearTimeout(timeoutTimer);
+                            delete window[cbName];
+                            try { script.remove(); } catch (ex) {}
+                            reject(new Error('تعذر الاتصال بالسيرفر.'));
+                        };
+                        document.body.appendChild(script);
+                    });
+                }
                 throw new Error('تعذر الاتصال بالسيرفر المركزي: ' + (e.message || e));
             }
         }
@@ -12151,8 +12442,8 @@
 
         async function handleReviewerLogin(e) {
             e.preventDefault();
-            const u = document.getElementById('reviewerUsername').value.trim();
-            const p = document.getElementById('reviewerPassword').value.trim();
+            const u = normalizeAuthDigits(document.getElementById('reviewerUsername').value).trim();
+            const p = normalizeAuthDigits(document.getElementById('reviewerPassword').value).trim();
 
             if (!u || !p) {
                 showToast('يرجى إدخال اسم المستخدم وكلمة المرور للمراجع.', 'warning');
@@ -13021,8 +13312,8 @@
 
         async function handleRegistrarLogin(e) {
             e.preventDefault();
-            const u = document.getElementById('registrarUsername').value.trim();
-            const p = document.getElementById('registrarPassword').value.trim();
+            const u = normalizeAuthDigits(document.getElementById('registrarUsername').value).trim();
+            const p = normalizeAuthDigits(document.getElementById('registrarPassword').value).trim();
 
             if (!u || !p) {
                 showToast('يرجى إدخال اسم المستخدم وكلمة المرور لمسؤول المحافظة.', 'warning');
@@ -14907,14 +15198,17 @@
             const authGate = document.getElementById('resultsAuthGateCard');
             const mainCard = document.getElementById('resultsMainCard');
 
-            if (!isAuthorizedForResults()) {
+            if (adminSession && adminSession.user && adminSession.user.username) {
+                if (authGate) authGate.classList.add('hidden');
+                if (mainCard) mainCard.classList.remove('hidden');
+            } else if (!isAuthorizedForResults()) {
                 if (authGate) authGate.classList.remove('hidden');
                 if (mainCard) mainCard.classList.add('hidden');
                 return;
+            } else {
+                if (authGate) authGate.classList.add('hidden');
+                if (mainCard) mainCard.classList.remove('hidden');
             }
-
-            if (authGate) authGate.classList.add('hidden');
-            if (mainCard) mainCard.classList.remove('hidden');
 
             // ملء القوائم المنسدلة للفلترة
             const gameFilter = document.getElementById('resultsFilterGame');
@@ -15090,6 +15384,40 @@
                 } catch (eOrd) {
                     console.warn('Could not load results order config:', eOrd);
                 }
+            }
+
+            // في حال كانت قائمة النتائج فارغة، فحص الاستمارات المحملة مسبقاً لاستخراج أي طلاب فائزين بمراكز
+            if (!cachedChampionshipResults || cachedChampionshipResults.length === 0) {
+                try {
+                    const fallbackList = [];
+                    const checkArr = (typeof cachedReviewerSubmissions !== 'undefined' && Array.isArray(cachedReviewerSubmissions) && cachedReviewerSubmissions.length > 0)
+                        ? cachedReviewerSubmissions
+                        : ((typeof cachedStudentSubmissions !== 'undefined' && Array.isArray(cachedStudentSubmissions)) ? cachedStudentSubmissions : []);
+                    checkArr.forEach(item => {
+                        const r = cleanRankTitle(item.tournamentRank || item.rank || '');
+                        if (r && r !== '-' && !r.includes('لا يوجد')) {
+                            fallbackList.push({
+                                studentId: item.studentId || item.id || '',
+                                studentName: item.studentName || item.name || '',
+                                nationalId: item.nationalId || '',
+                                tournamentRank: r,
+                                rank: r,
+                                category: item.category || 'بنين',
+                                gameName: item.gameName || '',
+                                stageName: item.stageName || '',
+                                governorate: item.governorate || '',
+                                schoolName: item.schoolName || item.school || '',
+                                edAdmin: item.educationalAdmin || item.edAdmin || '',
+                                fileUrl: item.fileUrl || '',
+                                fileName: item.fileName || '',
+                                notes: item.notes || ''
+                            });
+                        }
+                    });
+                    if (fallbackList.length > 0) {
+                        cachedChampionshipResults = fallbackList;
+                    }
+                } catch (eFb) {}
             }
 
             cachedChampionshipResults = applyOrderingToChampionshipResults(cachedChampionshipResults, cachedResultsOrderConfig);
