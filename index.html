@@ -4563,7 +4563,7 @@
                             <span style="color:#065f46; font-weight:800;">كشوف المشاركة المجمعة المسجلة للمحافظة (PDF)</span>
                             <span class="role-badge" id="registrarCollectiveBadge" style="background:#ecfdf5; color:#047857;">0 كشف</span>
                         </div>
-                        <button type="button" class="admin-action-btn" onclick="loadRegistrarCollectiveSheets()" style="font-size:0.76rem; padding:4px 10px;">
+                        <button type="button" class="admin-action-btn" onclick="loadRegistrarCollectiveSheets(true)" style="font-size:0.76rem; padding:4px 10px;">
                             <i class="fas fa-rotate" id="iconRegistrarCollectiveRefresh"></i> تحديث الكشوف
                         </button>
                     </div>
@@ -4595,7 +4595,7 @@
                     <div class="card-title">
                         <i class="fas fa-users-viewfinder"></i>
                         <span>قائمة استمارات الطلاب بالمحافظة</span>
-                        <button type="button" class="admin-action-btn" onclick="loadRegistrarStudents()" style="margin-right:auto;">
+                        <button type="button" class="admin-action-btn" onclick="loadRegistrarStudents(true)" style="margin-right:auto;">
                             <i class="fas fa-rotate" id="iconRegistrarStudentsRefresh"></i> تحديث
                         </button>
                     </div>
@@ -13025,27 +13025,29 @@
             }
         }
 
-        async function loadRegistrarStudents() {
+        async function loadRegistrarStudents(forceRefresh) {
             setSpinning('iconRegistrarStudentsRefresh', true);
             const tbody = document.getElementById('registrarStudentsTableBody');
             const myGov = currentRegistrarSession ? currentRegistrarSession.governorate : '';
             const cacheKey = 'repChamps_registrar_students_' + (myGov || 'all');
 
-            // 1. عرض فوري وسريع من الذاكرة المؤقتة (0ms Instant Load)
-            try {
-                const cached = sessionStorage.getItem(cacheKey);
-                if (cached) {
-                    const parsed = JSON.parse(cached);
-                    if (Array.isArray(parsed) && parsed.length > 0) {
-                        cachedRegistrarStudents = parsed;
-                        updateRegistrarStatsCounters();
-                        filterRegistrarTable();
+            // 1. عرض فوري وسريع من الذاكرة المؤقتة (0ms Instant Load) إن لم يكن تحديثاً إجبارياً
+            if (!forceRefresh) {
+                try {
+                    const cached = sessionStorage.getItem(cacheKey);
+                    if (cached) {
+                        const parsed = JSON.parse(cached);
+                        if (Array.isArray(parsed) && parsed.length > 0) {
+                            cachedRegistrarStudents = parsed;
+                            updateRegistrarStatsCounters();
+                            filterRegistrarTable();
+                        }
                     }
-                }
-            } catch (eC) {}
+                } catch (eC) {}
+            }
 
-            if (!cachedRegistrarStudents || cachedRegistrarStudents.length === 0) {
-                if (tbody) tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:18px; color:#64748b;"><i class="fas fa-circle-notch fa-spin"></i> جاري استدعاء استمارات المحافظة...</td></tr>';
+            if (!cachedRegistrarStudents || cachedRegistrarStudents.length === 0 || forceRefresh) {
+                if (tbody) tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:18px; color:#64748b;"><i class="fas fa-circle-notch fa-spin"></i> جاري استدعاء وتحديث استمارات المحافظة...</td></tr>';
             }
 
             const payload = {
@@ -13063,11 +13065,10 @@
                 console.warn('Could not load registrar students:', e);
             } finally {
                 setSpinning('iconRegistrarStudentsRefresh', false);
+                handleRegistrarGameOrStageChange();
+                updateRegistrarStatsCounters();
+                filterRegistrarTable();
             }
-
-            handleRegistrarGameOrStageChange();
-            updateRegistrarStatsCounters();
-            filterRegistrarTable();
         }
 
         function setRegistrarStatusFilter(st) {
@@ -13148,17 +13149,19 @@
             if (gameFilter) filtered = filtered.filter(s => s.gameName === gameFilter);
             if (stageFilter) filtered = filtered.filter(s => s.stageName === stageFilter);
             if (statusFilter) {
+                const targetFilter = String(statusFilter).trim();
                 filtered = filtered.filter(s => {
-                    if (statusFilter === 'ضرورة التحديث') {
-                        return s.status === 'ضرورة التحديث' || s.status === 'مطلوب التحديث';
+                    const st = String(s.status || '').trim();
+                    if (targetFilter === 'ضرورة التحديث') {
+                        return st === 'ضرورة التحديث' || st === 'مطلوب التحديث';
                     }
-                    if (statusFilter === 'يحتاج المراجعة') {
-                        return s.status === 'يحتاج المراجعة' || s.status === 'قيد المراجعة' || s.status === 'تم التسجيل' || !s.status;
+                    if (targetFilter === 'يحتاج المراجعة') {
+                        return st === 'يحتاج المراجعة' || st === 'قيد المراجعة' || st === 'تم التسجيل' || !st;
                     }
-                    if (statusFilter === 'تمت المراجعة وتم السماح له بالاشتراك') {
-                        return s.status === 'تمت المراجعة وتم السماح له بالاشتراك' || s.status === 'APPROVED' || s.status === 'معتمد';
+                    if (targetFilter === 'تمت المراجعة وتم السماح له بالاشتراك') {
+                        return st === 'تمت المراجعة وتم السماح له بالاشتراك' || st === 'APPROVED' || st === 'معتمد';
                     }
-                    return s.status === statusFilter;
+                    return st === targetFilter;
                 });
             }
             if (searchVal) filtered = filtered.filter(s => s.studentName.toLowerCase().includes(searchVal));
@@ -13169,9 +13172,10 @@
             }
 
             tbody.innerHTML = filtered.map((s, idx) => {
-                const statusBadge = getStatusBadgeHtml(s.status);
-                const isNeedsUpdate = s.status === 'ضرورة التحديث' || s.status === 'مطلوب التحديث';
-                const isUpdated = s.status === 'تم التحديث';
+                const st = String(s.status || '').trim();
+                const statusBadge = getStatusBadgeHtml(st);
+                const isNeedsUpdate = st === 'ضرورة التحديث' || st === 'مطلوب التحديث';
+                const isUpdated = st === 'تم التحديث';
                 const updateReasonsText = s.updateReasons || (isNeedsUpdate ? 'يرجى مراجعة وتحديث الملف وفق ملاحظات المراجع المعتمد' : '-');
 
                 let actionHtml = '';
@@ -15806,25 +15810,27 @@
         }
 
         // مسجل المحافظة: الكشوف المجمعة
-        async function loadRegistrarCollectiveSheets() {
+        async function loadRegistrarCollectiveSheets(forceRefresh) {
             setSpinning('iconRegistrarCollectiveRefresh', true);
             const tbody = document.getElementById('registrarCollectiveTableBody');
             const g = currentRegistrarSession ? currentRegistrarSession.governorate : '';
             const cacheKey = 'repChamps_registrar_collective_' + (g || 'all');
 
-            // 1. عرض فوري وسريع من الذاكرة المؤقتة (0ms Instant Load)
-            try {
-                const cached = sessionStorage.getItem(cacheKey);
-                if (cached) {
-                    const parsed = JSON.parse(cached);
-                    if (Array.isArray(parsed) && parsed.length > 0) {
-                        cachedRegistrarCollectiveSheets = parsed;
-                        renderRegistrarCollectiveTable();
+            // 1. عرض فوري وسريع من الذاكرة المؤقتة (0ms Instant Load) إن لم يكن تحديثاً إجبارياً
+            if (!forceRefresh) {
+                try {
+                    const cached = sessionStorage.getItem(cacheKey);
+                    if (cached) {
+                        const parsed = JSON.parse(cached);
+                        if (Array.isArray(parsed) && parsed.length > 0) {
+                            cachedRegistrarCollectiveSheets = parsed;
+                            renderRegistrarCollectiveTable();
+                        }
                     }
-                }
-            } catch (eC) {}
+                } catch (eC) {}
+            }
 
-            if (!cachedRegistrarCollectiveSheets || cachedRegistrarCollectiveSheets.length === 0) {
+            if (!cachedRegistrarCollectiveSheets || cachedRegistrarCollectiveSheets.length === 0 || forceRefresh) {
                 if (tbody) tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:14px;"><i class="fas fa-circle-notch fa-spin"></i> جاري استدعاء الكشوف المجمعة للمحافظة...</td></tr>';
             }
 
@@ -15981,7 +15987,7 @@
                 if (res && res.success) {
                     showCustomAlert('اكتمل التحديث', `تم رفع الكشف المجمع البديل لمحافظة (${selectedCollectiveForReupload.governorate}) بنجاح وإحالته للمراجعة.`, 'success');
                     closeReuploadCollectiveModal();
-                    loadRegistrarCollectiveSheets();
+                    loadRegistrarCollectiveSheets(true);
                 } else {
                     showToast(res ? res.message : 'فشل رفع الكشف المجمع البديل.', 'error');
                 }
