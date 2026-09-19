@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="ar">
+<html dir="rtl" lang="ar" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,20 +8,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         :root {
-            --bg-color: #0d1322;
-            --card-bg: #162035;
-            --input-bg: #0b111e;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --input-bg: #ffffff;
             --primary: #0284c7;
             --primary-hover: #0369a1;
-            --text-main: #ffffff;
-            --text-muted: #94a3b8;
-            --border: #233354;
+            --text-main: #000000;
+            --text-muted: #475569;
+            --border: #cbd5e1;
             --boys-glow: #10b981;
-            --boys-bg: rgba(16, 185, 129, 0.22);
+            --boys-bg: rgba(16, 185, 129, 0.12);
             --girls-glow: #ef4444;
-            --girls-bg: rgba(239, 68, 68, 0.22);
-            --danger: #ef4444;
-            --success: #10b981;
+            --girls-bg: rgba(239, 68, 68, 0.12);
+            --danger: #dc2626;
+            --success: #059669;
             --radius: 12px;
         }
 
@@ -3677,35 +3677,6 @@
             pointer-events: none;
         }
 
-        .splash-skip-btn {
-            position: absolute;
-            bottom: 32px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(2, 132, 199, 0.12);
-            border: 1.5px solid rgba(2, 132, 199, 0.35);
-            color: #0284c7;
-            padding: 8px 24px;
-            border-radius: 999px;
-            font-size: 0.92rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            backdrop-filter: blur(8px);
-            z-index: 100000;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.1);
-        }
-
-        .splash-skip-btn:hover {
-            background: #0284c7;
-            color: #ffffff;
-            box-shadow: 0 6px 18px rgba(2, 132, 199, 0.35);
-            transform: translateX(-50%) translateY(-2px);
-        }
-
         .splash-logos-layout {
             display: flex;
             flex-direction: column;
@@ -3928,8 +3899,7 @@
         }
 
         /* ================================================================
-           شاشة الاختيار بالكروت الدائرية المجسمة ثلاثية الأبعاد (3D Orb Cards)
-           تحتوي على حلقات أنيميشن متحركة مثل اللوجوهات بدون نصوص توضيحية
+           شاشة الاختيار بالكروت الرئيسية المربعة المتناسقة لشاشة اللابتوب والموبايل
            ================================================================ */
         #landingView {
             padding: 10px 0 24px;
@@ -3939,234 +3909,290 @@
         }
 
         .landing-cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 20px 14px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
             width: 100%;
-            max-width: 1100px;
+            max-width: 1260px;
             margin: 0 auto;
-            padding: 8px;
-            justify-items: center;
+            padding: 6px;
+            box-sizing: border-box;
         }
 
-        /* كرت التنقل الدائري المجسم */
+        /* كرت التنقل المربع المعتمد - أبعاد متطابقة 100% لكافة الكروت السبعة */
         .landing-card {
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            background: none;
-            border: none;
+            justify-content: space-between;
+            padding: 22px 14px 16px;
+            min-height: 215px;
+            width: calc(25% - 16px);
+            max-width: calc(25% - 16px);
+            min-width: 250px;
+            box-sizing: border-box;
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 18px;
             cursor: pointer;
+            transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+            font-family: 'Cairo', sans-serif;
+            position: relative;
+            overflow: hidden;
             text-decoration: none;
             outline: none;
-            padding: 6px;
-            width: 100%;
-            max-width: 145px;
-            transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .landing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 4px;
+            background: var(--card-accent, #0284c7);
+            border-radius: 18px 18px 0 0;
+            opacity: 0.95;
+            transition: height 0.25s ease;
+        }
+
+        .landing-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, var(--card-icon-bg, rgba(2, 132, 199, 0.06)), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            pointer-events: none;
         }
 
         .landing-card:hover {
-            transform: translateY(-6px) scale(1.04);
+            transform: translateY(-5px);
+            border-color: var(--card-accent, #0284c7);
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.09), 0 0 18px var(--card-glow, rgba(2, 132, 199, 0.18));
         }
 
-        /* الجسم الدائري الثلاثي الأبعاد */
-        .landing-card-orb {
-            position: relative;
-            width: 90px;
-            height: 90px;
+        .landing-card:hover::before {
+            height: 5px;
+        }
+
+        .landing-card:hover::after {
+            opacity: 1;
+        }
+
+        /* أيقونة الكرت */
+        .landing-card-icon-wrap {
             display: flex;
             align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            margin-bottom: 10px;
+            font-size: 1.6rem;
+            transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+            background: var(--card-icon-bg, rgba(2, 132, 199, 0.10));
+            color: var(--card-accent, #0284c7);
+            flex-shrink: 0;
+            pointer-events: none;
+        }
+
+        .landing-card:hover .landing-card-icon-wrap {
+            transform: scale(1.10) rotate(-2deg);
+        }
+
+        /* محتوى نص الكرت */
+        .landing-card-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+            width: 100%;
             justify-content: center;
             margin-bottom: 10px;
+            pointer-events: none;
         }
 
-        /* حلقة الدوران المتحركة */
-        .landing-card-ring {
-            position: absolute;
-            top: -6px;
-            left: -6px;
-            right: -6px;
-            bottom: -6px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            border-top-color: var(--card-accent, #0284c7);
-            border-right-color: var(--card-accent-secondary, #38bdf8);
-            animation: rotateCircularRing 3.5s linear infinite;
-        }
-
-        /* حلقة النبض والتوهج */
-        .landing-card-ring-pulse {
-            position: absolute;
-            top: -11px;
-            left: -11px;
-            right: -11px;
-            bottom: -11px;
-            border-radius: 50%;
-            border: 1px dashed var(--card-glow, rgba(2, 132, 199, 0.45));
-            animation: pulseGlowRing 2.2s ease-in-out infinite alternate;
-        }
-
-        /* النواة المجسمة الدائرية للكرت */
-        .landing-card-orb-inner {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f8fafc 60%, #e2e8f0 100%);
-            border: 2px solid var(--card-border, rgba(2, 132, 199, 0.22));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08), inset 0 2px 5px rgba(255, 255, 255, 0.9), inset 0 -3px 6px rgba(0, 0, 0, 0.06);
-            transition: all 0.28s ease;
-        }
-
-        .landing-card:hover .landing-card-orb-inner {
-            box-shadow: 0 12px 26px rgba(15, 23, 42, 0.14), 0 0 20px var(--card-glow, rgba(2, 132, 199, 0.35)), inset 0 2px 6px rgba(255, 255, 255, 1);
-            border-color: var(--card-accent, #0284c7);
-        }
-
-        .landing-card-orb-inner i {
-            font-size: 2rem;
-            color: var(--card-accent, #0284c7);
-            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.10));
-            transition: transform 0.28s ease;
-        }
-
-        .landing-card:hover .landing-card-orb-inner i {
-            transform: scale(1.15);
-        }
-
-        /* العنوان أسفل الكرت الدائري */
         .landing-card-title {
-            font-family: 'Cairo', sans-serif;
-            font-size: 0.85rem;
+            font-size: 1.02rem;
             font-weight: 800;
-            color: #1e293b;
+            color: #0f172a;
             line-height: 1.35;
-            padding: 5px 8px;
-            border-radius: 12px;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-            transition: all 0.25s ease;
-            width: 100%;
-            display: block;
-            text-align: center;
+            margin-bottom: 5px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            transition: color 0.22s ease;
+            pointer-events: none;
         }
 
         .landing-card:hover .landing-card-title {
             color: var(--card-accent, #0284c7);
+        }
+
+        .landing-card-desc {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #64748b;
+            line-height: 1.45;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            pointer-events: none;
+        }
+
+        /* زر دخول / سهم الكرت */
+        .landing-card-arrow {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: #64748b;
+            font-size: 0.76rem;
+            font-weight: 700;
+            transition: all 0.25s ease;
+            margin-top: auto;
+            flex-shrink: 0;
+            pointer-events: none;
+        }
+
+        .landing-card-arrow-text {
+            font-size: 0.76rem;
+            font-weight: 700;
+            pointer-events: none;
+        }
+
+        .landing-card:hover .landing-card-arrow {
+            background: var(--card-accent, #0284c7);
             border-color: var(--card-accent, #0284c7);
-            background: #f0f9ff;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
+            color: #ffffff;
+            box-shadow: 0 4px 12px var(--card-glow, rgba(2, 132, 199, 0.3));
         }
 
-        body.dark-mode .landing-card-orb-inner {
-            background: radial-gradient(circle at 35% 30%, #334155 0%, #1e293b 65%, #0f172a 100%);
-            border-color: rgba(255, 255, 255, 0.12);
+        .landing-card:hover .landing-card-arrow i {
+            transform: translateX(-3px);
         }
 
-        body.dark-mode .landing-card-title {
-            background: #1e293b;
-            color: #f1f5f9;
-            border-color: #334155;
+        .landing-card-arrow i {
+            font-size: 0.72rem;
+            transition: transform 0.22s ease;
+            pointer-events: none;
         }
 
-        body.dark-mode .landing-card:hover .landing-card-title {
-            background: #0f172a;
-            color: #38bdf8;
-            border-color: #38bdf8;
-        }
-
-        /* هويات الألوان لكل كرت دائري */
+        /* تلوين الهوية الخاصة بكل كرت */
         .landing-card-upload {
-            --card-accent: #059669;
-            --card-accent-secondary: #10b981;
-            --card-glow: rgba(16, 185, 129, 0.40);
-            --card-border: rgba(16, 185, 129, 0.30);
+            --card-accent: #0284c7;
+            --card-icon-bg: rgba(2, 132, 199, 0.12);
+            --card-glow: rgba(2, 132, 199, 0.25);
         }
 
         .landing-card-pdf {
             --card-accent: #e11d48;
-            --card-accent-secondary: #f43f5e;
-            --card-glow: rgba(225, 29, 72, 0.40);
-            --card-border: rgba(225, 29, 72, 0.30);
+            --card-icon-bg: rgba(225, 29, 72, 0.12);
+            --card-glow: rgba(225, 29, 72, 0.25);
         }
 
         .landing-card-registrar {
-            --card-accent: #0284c7;
-            --card-accent-secondary: #38bdf8;
-            --card-glow: rgba(2, 132, 199, 0.40);
-            --card-border: rgba(2, 132, 199, 0.30);
+            --card-accent: #059669;
+            --card-icon-bg: rgba(5, 150, 105, 0.12);
+            --card-glow: rgba(5, 150, 105, 0.25);
         }
 
         .landing-card-history {
-            --card-accent: #d97706;
-            --card-accent-secondary: #fbbf24;
-            --card-glow: rgba(217, 119, 6, 0.40);
-            --card-border: rgba(217, 119, 6, 0.30);
+            --card-accent: #0d9488;
+            --card-icon-bg: rgba(13, 148, 136, 0.12);
+            --card-glow: rgba(13, 148, 136, 0.25);
         }
 
         .landing-card-downloads {
-            --card-accent: #0d9488;
-            --card-accent-secondary: #14b8a6;
-            --card-glow: rgba(13, 148, 136, 0.40);
-            --card-border: rgba(13, 148, 136, 0.30);
+            --card-accent: #6366f1;
+            --card-icon-bg: rgba(99, 102, 241, 0.12);
+            --card-glow: rgba(99, 102, 241, 0.25);
         }
 
         .landing-card-review {
-            --card-accent: #7c3aed;
-            --card-accent-secondary: #a855f7;
-            --card-glow: rgba(124, 58, 237, 0.40);
-            --card-border: rgba(124, 58, 237, 0.30);
+            --card-accent: #0ea5e9;
+            --card-icon-bg: rgba(14, 165, 233, 0.12);
+            --card-glow: rgba(14, 165, 233, 0.25);
         }
 
         .landing-card-admin {
-            --card-accent: #2563eb;
-            --card-accent-secondary: #6366f1;
-            --card-glow: rgba(37, 99, 235, 0.40);
-            --card-border: rgba(37, 99, 235, 0.30);
+            --card-accent: #b45309;
+            --card-icon-bg: rgba(180, 83, 9, 0.12);
+            --card-glow: rgba(180, 83, 9, 0.25);
         }
 
-        /* استجابة الموبايل والشاشات الصغيرة للكروت الدائرية */
-        @media (max-width: 640px) {
+        .landing-card-results {
+            --card-accent: #d97706;
+            --card-icon-bg: rgba(245, 158, 11, 0.14);
+            --card-glow: rgba(217, 119, 6, 0.25);
+        }
+
+        /* توافق الشاشات المتوسطة واللوحية */
+        @media (max-width: 991px) and (min-width: 641px) {
             .landing-cards-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 16px 10px;
-                padding: 4px;
+                gap: 14px;
+                max-width: 720px;
             }
             .landing-card {
-                max-width: 135px;
-            }
-            .landing-card-orb {
-                width: 78px;
-                height: 78px;
-                margin-bottom: 8px;
-            }
-            .landing-card-orb-inner i {
-                font-size: 1.7rem;
-            }
-            .landing-card-title {
-                font-size: 0.80rem;
-                padding: 4px 6px;
+                width: calc(50% - 14px);
+                max-width: calc(50% - 14px);
+                min-width: 200px;
+                min-height: 195px;
+                padding: 18px 12px 14px;
             }
         }
 
-        @media (max-width: 360px) {
+        /* استجابة الموبايل */
+        @media (max-width: 640px) {
             .landing-cards-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px 8px;
+                gap: 10px;
+                padding: 0 2px;
             }
-            .landing-card-orb {
-                width: 68px;
-                height: 68px;
+            .landing-card {
+                width: calc(50% - 10px);
+                max-width: calc(50% - 10px);
+                min-width: 140px;
+                padding: 14px 10px 12px;
+                min-height: 180px;
+                border-radius: 15px;
             }
-            .landing-card-orb-inner i {
-                font-size: 1.5rem;
+            .landing-card-icon-wrap {
+                width: 46px;
+                height: 46px;
+                font-size: 1.3rem;
+                border-radius: 12px;
+                margin-bottom: 6px;
             }
             .landing-card-title {
-                font-size: 0.74rem;
+                font-size: 0.88rem;
+                margin-bottom: 3px;
+            }
+            .landing-card-desc {
+                font-size: 0.72rem;
+                line-height: 1.35;
+            }
+            .landing-card-arrow {
+                padding: 3px 10px;
+                font-size: 0.70rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .landing-card {
+                width: 100%;
+                max-width: 100%;
             }
         }
 
@@ -4337,10 +4363,10 @@
 </head>
 <body>
 
-    <!-- شاشة البداية واللوجوهات الثلاثة مع الأنيميشن الدائري (تختفي بعد ثانيتين أو بالنقر) -->
-    <div id="splashScreen" class="splash-screen-overlay" onclick="dismissSplashScreen()" style="cursor:pointer;" title="انقر للدخول المباشر">
+    <!-- شاشة البداية واللوجوهات الثلاثة مع الأنيميشن الدائري (ظهور لمدة 4 ثوانٍ ثم انتقال تلقائي للواجهة) -->
+    <div id="splashScreen" class="splash-screen-overlay">
         <div class="splash-logos-layout">
-            <!-- صف علوي: لوجو 1 (وزارة التربية والتعليم والتعليم الفني) بحجم أكبر وأبرز -->
+            <!-- صف علوي: لوجو 1 (وزارة التربية والتعليم والتعليم الفني) بحجم كبير وأبرز -->
             <div class="splash-logo-top-row">
                 <div class="splash-logo-item splash-logo-primary" title="وزارة التربية والتعليم والتعليم الفني">
                     <div class="splash-logo-ring"></div>
@@ -4350,7 +4376,7 @@
                     </div>
                 </div>
             </div>
-            <!-- صف سفلي: لوجو 2 ولوجو 3 جنباً إلى جنب بحجم متوسط متناسق -->
+            <!-- صف سفلي: لوجو 2 ولوجو 3 جنباً إلى جنب بنفس الحجم الكبير المتناسق -->
             <div class="splash-logo-bottom-row">
                 <div class="splash-logo-item splash-logo-secondary" title="الإدارة المركزية للأنشطة الطلابية">
                     <div class="splash-logo-ring"></div>
@@ -4370,13 +4396,9 @@
         </div>
         <div class="splash-title-text">الإدارة العامة للتربية الرياضية والعسكرية</div>
         <div class="splash-sub-text">منظومة التسجيل الرقمي لبطولات الجمهورية</div>
-        <button type="button" class="splash-skip-btn" onclick="dismissSplashScreen(); event.stopPropagation();" title="تخطي والتوجه للواجهة الرئيسية">
-            <span>تخطي والدخول</span>
-            <i class="fas fa-arrow-left"></i>
-        </button>
     </div>
 
-    <!-- كود مستقل ومباشر لضمان انتقال الواجهة وإخفاء شاشة اللوجوهات تلقائياً وفوراً -->
+    <!-- كود مؤكد ومستقل لإظهار اللوجوهات لمدة 4 ثوانٍ ثم الانتقال التلقائي للواجهة الفاتحة -->
     <script>
         (function () {
             window.dismissSplashScreen = function () {
@@ -4392,12 +4414,12 @@
                         if (typeof showLanding === 'function') {
                             try { showLanding(); } catch(e){}
                         }
-                    }, 500);
+                    }, 650);
                 }
             };
-            // إخفاء تلقائي بعد 2 ثانية
-            setTimeout(window.dismissSplashScreen, 2000);
-            // حماية قصوى: إخفاء قاطع بعد 3 ثوانٍ مهما كانت الظروف
+            // الانتقال التلقائي للواجهة بعد 4 ثوانٍ بدقة
+            setTimeout(window.dismissSplashScreen, 4000);
+            // حماية مؤكدة بعد 4.6 ثوانٍ
             setTimeout(function () {
                 var s = document.getElementById('splashScreen');
                 if (s && s.style.display !== 'none') {
@@ -4405,7 +4427,7 @@
                     s.style.display = 'none';
                     s.style.pointerEvents = 'none';
                 }
-            }, 3000);
+            }, 4600);
         })();
     </script>
 
@@ -4438,93 +4460,114 @@
         </header>
 
         <!-- ======================================================
-             شاشة الاختيار بالكروت الدائرية المجسمة (3D Orb Cards)
+             شاشة الاختيار الرئيسية بالكروت (Landing View)
              ====================================================== -->
         <div id="landingView">
             <div class="landing-cards-grid">
 
-                <!-- كرت 1: رفع ملف الإكسل -->
+                <!-- كرت 1: رفع كشف جديد -->
                 <button type="button" class="landing-card landing-card-upload" onclick="changeTab('upload')">
-                    <div class="landing-card-orb">
-                        <div class="landing-card-ring"></div>
-                        <div class="landing-card-ring-pulse"></div>
-                        <div class="landing-card-orb-inner">
-                            <i class="fas fa-file-excel"></i>
-                        </div>
+                    <div class="landing-card-icon-wrap">
+                        <i class="fas fa-cloud-arrow-up"></i>
                     </div>
-                    <span class="landing-card-title">رفع ملف الإكسل</span>
+                    <div class="landing-card-body">
+                        <span class="landing-card-title">رفع كشف جديد</span>
+                        <span class="landing-card-desc">رفع وتسجيل ملف كشف المشاركة لأي لعبة ومرحلة</span>
+                    </div>
+                    <div class="landing-card-arrow">
+                        <span class="landing-card-arrow-text">دخول</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
                 </button>
 
                 <!-- كرت 2: استمارات الطلاب (PDF) -->
                 <button type="button" class="landing-card landing-card-pdf" onclick="changeTab('studentPdf')">
-                    <div class="landing-card-orb">
-                        <div class="landing-card-ring"></div>
-                        <div class="landing-card-ring-pulse"></div>
-                        <div class="landing-card-orb-inner">
-                            <i class="fas fa-file-pdf"></i>
-                        </div>
+                    <div class="landing-card-icon-wrap">
+                        <i class="fas fa-file-pdf"></i>
                     </div>
-                    <span class="landing-card-title">استمارات الطلاب (PDF)</span>
+                    <div class="landing-card-body">
+                        <span class="landing-card-title">استمارات الطلاب (PDF)</span>
+                        <span class="landing-card-desc">طباعة واستخراج استمارات الطلاب وتصاريح المشاركة المعتمدة</span>
+                    </div>
+                    <div class="landing-card-arrow">
+                        <span class="landing-card-arrow-text">دخول</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
                 </button>
 
                 <!-- كرت 3: بوابة مشرفي المحافظات -->
                 <button type="button" class="landing-card landing-card-registrar" onclick="changeTab('registrarPortal')">
-                    <div class="landing-card-orb">
-                        <div class="landing-card-ring"></div>
-                        <div class="landing-card-ring-pulse"></div>
-                        <div class="landing-card-orb-inner">
-                            <i class="fas fa-id-card-clip"></i>
-                        </div>
+                    <div class="landing-card-icon-wrap">
+                        <i class="fas fa-id-card-clip"></i>
                     </div>
-                    <span class="landing-card-title">بوابة مشرفي المحافظات</span>
+                    <div class="landing-card-body">
+                        <span class="landing-card-title">بوابة مشرفي المحافظات</span>
+                        <span class="landing-card-desc">متابعة حالة استمارات ومشاركات المحافظة المسجلة</span>
+                    </div>
+                    <div class="landing-card-arrow">
+                        <span class="landing-card-arrow-text">دخول</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
                 </button>
 
                 <!-- كرت 4: ملفاتي السابقة -->
                 <button type="button" class="landing-card landing-card-history" onclick="changeTab('history')">
-                    <div class="landing-card-orb">
-                        <div class="landing-card-ring"></div>
-                        <div class="landing-card-ring-pulse"></div>
-                        <div class="landing-card-orb-inner">
-                            <i class="fas fa-clock-rotate-left"></i>
-                        </div>
+                    <div class="landing-card-icon-wrap">
+                        <i class="fas fa-clock-rotate-left"></i>
                     </div>
-                    <span class="landing-card-title">ملفاتي السابقة</span>
+                    <div class="landing-card-body">
+                        <span class="landing-card-title">ملفاتي السابقة</span>
+                        <span class="landing-card-desc">استعراض وتنزيل كافة الملفات والكشوفات المرفوعة سابقاً</span>
+                    </div>
+                    <div class="landing-card-arrow">
+                        <span class="landing-card-arrow-text">دخول</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
                 </button>
 
                 <!-- كرت 5: النماذج واللوائح -->
                 <button type="button" class="landing-card landing-card-downloads" onclick="changeTab('downloads')">
-                    <div class="landing-card-orb">
-                        <div class="landing-card-ring"></div>
-                        <div class="landing-card-ring-pulse"></div>
-                        <div class="landing-card-orb-inner">
-                            <i class="fas fa-file-arrow-down"></i>
-                        </div>
+                    <div class="landing-card-icon-wrap">
+                        <i class="fas fa-file-arrow-down"></i>
                     </div>
-                    <span class="landing-card-title">النماذج واللوائح</span>
+                    <div class="landing-card-body">
+                        <span class="landing-card-title">النماذج واللوائح</span>
+                        <span class="landing-card-desc">تحميل اللوائح الرسمية ونماذج التسجيل المعتمدة</span>
+                    </div>
+                    <div class="landing-card-arrow">
+                        <span class="landing-card-arrow-text">دخول</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
                 </button>
 
                 <!-- كرت 6: مراجعة واعتماد الاستمارات -->
                 <button type="button" class="landing-card landing-card-review" onclick="changeTab('reviewPortal')">
-                    <div class="landing-card-orb">
-                        <div class="landing-card-ring"></div>
-                        <div class="landing-card-ring-pulse"></div>
-                        <div class="landing-card-orb-inner">
-                            <i class="fas fa-clipboard-check"></i>
-                        </div>
+                    <div class="landing-card-icon-wrap">
+                        <i class="fas fa-clipboard-check"></i>
                     </div>
-                    <span class="landing-card-title">مراجعة واعتماد الاستمارات</span>
+                    <div class="landing-card-body">
+                        <span class="landing-card-title">مراجعة واعتماد الاستمارات</span>
+                        <span class="landing-card-desc">تدقيق استمارات الطلاب وبيانات المشاركة واعتمادها للمراجعين</span>
+                    </div>
+                    <div class="landing-card-arrow">
+                        <span class="landing-card-arrow-text">دخول</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
                 </button>
 
                 <!-- كرت 7: بوابة الإدارة الشاملة -->
                 <button type="button" class="landing-card landing-card-admin" onclick="changeTab('admin')">
-                    <div class="landing-card-orb">
-                        <div class="landing-card-ring"></div>
-                        <div class="landing-card-ring-pulse"></div>
-                        <div class="landing-card-orb-inner">
-                            <i class="fas fa-user-shield"></i>
-                        </div>
+                    <div class="landing-card-icon-wrap">
+                        <i class="fas fa-user-shield"></i>
                     </div>
-                    <span class="landing-card-title">بوابة الإدارة الشاملة</span>
+                    <div class="landing-card-body">
+                        <span class="landing-card-title">بوابة الإدارة الشاملة</span>
+                        <span class="landing-card-desc">إدارة النظام والمستخدمين وتوزيع المهام وصلاحيات المنظومة</span>
+                    </div>
+                    <div class="landing-card-arrow">
+                        <span class="landing-card-arrow-text">دخول</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
                 </button>
 
             </div>
@@ -6428,6 +6471,68 @@
 
                 <!-- قسم إدارة الحسابات والصلاحيات (Admin 1 فقط - الأدمن الأعلى) -->
                 <div class="card hidden" id="adminAccountsManageCard" style="display:flex; flex-direction:column; gap:16px;">
+
+                    <!-- لوحة التحكم المركزية في التوزيع التلقائي للمهام (بنين / بنات) -->
+                    <div style="background: linear-gradient(135deg, #f8fafc, #f1f5f9); border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 14px 18px; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);">
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom: 12px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 10px;">
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <div style="width:38px; height:38px; border-radius:10px; background:#e0f2fe; color:#0284c7; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0;">
+                                    <i class="fas fa-sliders"></i>
+                                </div>
+                                <div>
+                                    <h4 style="margin:0; font-size:0.96rem; font-weight:800; color:#0f172a;">صلاحيات وإعدادات التوزيع التلقائي لمهام المراجعة</h4>
+                                    <p style="margin:2px 0 0 0; font-size:0.76rem; color:#64748b;">
+                                        التحكم المركزي في توجيه المهام تلقائياً؛ عند التعطيل يظل المراجع بدون مهام بانتظار توجيه المشرف العام، وعند التفعيل تُسند مهام الفئة فقط لمراجعيها بنظام توازن الأعباء.
+                                    </p>
+                                </div>
+                            </div>
+                            <div style="display:flex; gap:8px; align-items:center;">
+                                <button type="button" class="admin-action-btn" onclick="loadAutoDistributionStatus(true)" style="padding:5px 12px; font-size:0.78rem; background:#fff; color:#0284c7; border:1px solid #cbd5e1;">
+                                    <i class="fas fa-rotate" id="iconAutoDistRefresh"></i> تحديث الحالة
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- شبكة أزرار التحكم للفئتين: بنين / بنات -->
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
+                            <!-- فئة البنين -->
+                            <div style="background:#ffffff; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 12px 14px; display:flex; align-items:center; justify-content:space-between; gap:12px;">
+                                <div style="display:flex; align-items:center; gap:10px;">
+                                    <div style="width:36px; height:36px; border-radius:8px; background:#e0f2fe; color:#0284c7; display:flex; align-items:center; justify-content:center; font-size:1.15rem; flex-shrink:0;">
+                                        <i class="fas fa-mars"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-size:0.88rem; font-weight:800; color:#0f172a;">التوزيع التلقائي (فئة البنين)</div>
+                                        <div id="statusTextAutoBoys" style="font-size:0.75rem; color:#dc2626; font-weight:700; margin-top:2px;">
+                                            معطّل - بانتظار توجيه الأدمن السوبر
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" id="btnToggleAutoBoys" class="submit-btn" onclick="toggleAutoDistribution('بنين')" style="width:auto; padding:6px 14px; font-size:0.78rem; background:linear-gradient(135deg, #0284c7, #0369a1); border:none; display:inline-flex; align-items:center; gap:6px;">
+                                    <i class="fas fa-bolt"></i> <span>تفعيل البنين</span>
+                                </button>
+                            </div>
+
+                            <!-- فئة البنات -->
+                            <div style="background:#ffffff; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 12px 14px; display:flex; align-items:center; justify-content:space-between; gap:12px;">
+                                <div style="display:flex; align-items:center; gap:10px;">
+                                    <div style="width:36px; height:36px; border-radius:8px; background:#fce7f3; color:#db2777; display:flex; align-items:center; justify-content:center; font-size:1.15rem; flex-shrink:0;">
+                                        <i class="fas fa-venus"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-size:0.88rem; font-weight:800; color:#0f172a;">التوزيع التلقائي (فئة البنات)</div>
+                                        <div id="statusTextAutoGirls" style="font-size:0.75rem; color:#dc2626; font-weight:700; margin-top:2px;">
+                                            معطّل - بانتظار توجيه الأدمن السوبر
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" id="btnToggleAutoGirls" class="submit-btn" onclick="toggleAutoDistribution('بنات')" style="width:auto; padding:6px 14px; font-size:0.78rem; background:linear-gradient(135deg, #db2777, #be185d); border:none; display:inline-flex; align-items:center; gap:6px;">
+                                    <i class="fas fa-bolt"></i> <span>تفعيل البنات</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- تبويبات فرعية لإدارة الحسابات: مشرفين / مراجعين / مسجلين -->
                     <div style="display:flex; gap:8px; border-bottom:1px solid #e2e8f0; padding-bottom:8px; flex-wrap:wrap; align-items:center;">
                         <button type="button" class="admin-tab active" id="accSubtabReviewers" onclick="switchAccountSubtab('reviewers')">
@@ -6750,6 +6855,30 @@
                                 </button>
                             </div>
                             <span id="distCatLockedBadge" class="role-badge" style="display:none; font-size:0.8rem; font-weight:800; padding:4px 10px;"></span>
+                        </div>
+                    </div>
+
+                    <!-- شريط التوزيع التلقائي المباشر لمهام البنين والبنات -->
+                    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:10px; padding:6px 12px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+                        <div style="display:flex; align-items:center; gap:8px; font-size:0.8rem; font-weight:800; color:#1e293b;">
+                            <i class="fas fa-sliders" style="color:#0284c7;"></i>
+                            <span>صلاحيات التوزيع التلقائي:</span>
+                        </div>
+                        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                            <!-- تحكم بنين -->
+                            <div style="display:inline-flex; align-items:center; gap:6px; background:#fff; border:1px solid #cbd5e1; border-radius:6px; padding:4px 10px;">
+                                <i class="fas fa-mars" style="color:#0284c7;"></i>
+                                <span style="font-size:0.75rem; font-weight:700;">البنين:</span>
+                                <span id="distBadgeAutoBoys" style="font-size:0.72rem; font-weight:800; color:#dc2626;">معطّل</span>
+                                <button type="button" id="btnDistToggleAutoBoys" onclick="toggleAutoDistribution('بنين')" class="admin-action-btn" style="padding:2px 8px; font-size:0.72rem; border-color:#0284c7; color:#0284c7;">تفعيل</button>
+                            </div>
+                            <!-- تحكم بنات -->
+                            <div style="display:inline-flex; align-items:center; gap:6px; background:#fff; border:1px solid #cbd5e1; border-radius:6px; padding:4px 10px;">
+                                <i class="fas fa-venus" style="color:#db2777;"></i>
+                                <span style="font-size:0.75rem; font-weight:700;">البنات:</span>
+                                <span id="distBadgeAutoGirls" style="font-size:0.72rem; font-weight:800; color:#dc2626;">معطّل</span>
+                                <button type="button" id="btnDistToggleAutoGirls" onclick="toggleAutoDistribution('بنات')" class="admin-action-btn" style="padding:2px 8px; font-size:0.72rem; border-color:#db2777; color:#db2777;">تفعيل</button>
+                            </div>
                         </div>
                     </div>
 
@@ -7478,6 +7607,100 @@
                     ${timePart ? `<span style="font-size:0.7rem; color:#64748b; font-weight:600; direction:rtl; display:inline-flex; align-items:center; gap:3px;"><i class="fas fa-clock" style="color:#94a3b8; font-size:0.68rem;"></i> ${timePart}</span>` : ''}
                 </div>
             `;
+        }
+
+        // دالة تنسيق التاريخ والوقت لسجل التدقيق التاريخي وبطاقات الاستعلام (صيغة رسمية YYYY-MM-DD ووقت عربي 12 ساعة)
+        function formatAuditDateTime(dateVal, timeVal) {
+            let dateStr = '';
+            let timeStr = '';
+
+            const rawDate = String(dateVal || '').trim();
+            const rawTime = String(timeVal || '').trim();
+
+            // 1. معالجة التاريخ بدقة عالية
+            if (rawDate && rawDate !== '-' && rawDate !== 'undefined' && rawDate !== 'null') {
+                if (/^\d{4}[-/.]\d{1,2}[-/.]\d{1,2}$/.test(rawDate)) {
+                    const parts = rawDate.split(/[-/.]/);
+                    dateStr = parts[0] + '-' + parts[1].padStart(2, '0') + '-' + parts[2].padStart(2, '0');
+                } else if (rawDate.includes('T') || rawDate.includes('Z')) {
+                    const d = new Date(rawDate);
+                    if (!isNaN(d.getTime()) && d.getFullYear() > 1900) {
+                        const y = d.getFullYear();
+                        const m = String(d.getMonth() + 1).padStart(2, '0');
+                        const day = String(d.getDate()).padStart(2, '0');
+                        dateStr = `${y}-${m}-${day}`;
+                    } else {
+                        dateStr = rawDate.split('T')[0];
+                    }
+                } else {
+                    const d = new Date(rawDate);
+                    if (!isNaN(d.getTime()) && d.getFullYear() > 1900) {
+                        const y = d.getFullYear();
+                        const m = String(d.getMonth() + 1).padStart(2, '0');
+                        const day = String(d.getDate()).padStart(2, '0');
+                        dateStr = `${y}-${m}-${day}`;
+                    } else {
+                        dateStr = rawDate;
+                    }
+                }
+            }
+
+            // 2. معالجة الوقت وتنسيقه بنظام 12 ساعة مع ص / م
+            if (rawTime && rawTime !== '-' && rawTime !== 'undefined' && rawTime !== 'null') {
+                if (rawTime.includes('ص') || rawTime.includes('م')) {
+                    timeStr = rawTime;
+                } else if (rawTime.includes('1899') || rawTime.startsWith('1899') || (rawTime.includes('T') && rawTime.endsWith('Z'))) {
+                    const m = rawTime.match(/T(\d{1,2}):(\d{2})(?::(\d{2}))?/);
+                    if (m) {
+                        const utcHours = parseInt(m[1], 10);
+                        const utcMins = parseInt(m[2], 10);
+                        const secs = m[3] ? (':' + m[3]) : '';
+                        const offsetMinutes = -new Date().getTimezoneOffset();
+                        let totalMinutes = utcHours * 60 + utcMins + offsetMinutes;
+                        totalMinutes = ((totalMinutes % 1440) + 1440) % 1440;
+                        let localHours = Math.floor(totalMinutes / 60);
+                        const localMins = String(totalMinutes % 60).padStart(2, '0');
+                        const ampm = localHours >= 12 ? 'م' : 'ص';
+                        localHours = localHours % 12 || 12;
+                        timeStr = `${String(localHours).padStart(2, '0')}:${localMins}${secs} ${ampm}`;
+                    } else {
+                        timeStr = rawTime;
+                    }
+                } else {
+                    const timeMatch = rawTime.match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?/);
+                    if (timeMatch) {
+                        let h = parseInt(timeMatch[1], 10);
+                        const mins = timeMatch[2];
+                        const secs = timeMatch[3] ? (':' + timeMatch[3]) : '';
+                        const ampm = h >= 12 ? 'م' : 'ص';
+                        h = h % 12 || 12;
+                        timeStr = `${String(h).padStart(2, '0')}:${mins}${secs} ${ampm}`;
+                    } else {
+                        timeStr = rawTime;
+                    }
+                }
+            }
+
+            // في حال كان الوقت خالياً ولكن التاريخ يحتوي على وقت بعد المسافة
+            if ((!timeStr || timeStr === '-') && rawDate.includes(' ')) {
+                const spaceParts = rawDate.split(' ');
+                if (spaceParts.length > 1) {
+                    const tMatch = spaceParts[1].match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?/);
+                    if (tMatch) {
+                        let h = parseInt(tMatch[1], 10);
+                        const mins = tMatch[2];
+                        const secs = tMatch[3] ? (':' + tMatch[3]) : '';
+                        const ampm = h >= 12 ? 'م' : 'ص';
+                        h = h % 12 || 12;
+                        timeStr = `${String(h).padStart(2, '0')}:${mins}${secs} ${ampm}`;
+                    }
+                }
+            }
+
+            return {
+                date: dateStr || '-',
+                time: timeStr || '-'
+            };
         }
 
         // ==========================================
@@ -8837,8 +9060,8 @@
                                 const isGirls = item.category === 'بنات';
                                 const badgeClass = isGirls ? 'girls' : 'boys';
                                 const catText = isGirls ? 'فئة البنات' : 'فئة البنين';
-                                const teamBadge = item.teamName ? `<span style="color:#fbbf24; font-weight:700;"> - ${escapeHtml(item.teamName)}</span>` : '';
-                                const dateStr = item.date ? `${item.date} ${item.time || ''}` : 'موثق بالسيرفر';
+                                const dtHist = formatAuditDateTime(item.date, item.time);
+                                const dateStr = (dtHist.date !== '-' || dtHist.time !== '-') ? `${dtHist.date}${dtHist.time !== '-' ? (' | ' + dtHist.time) : ''}` : 'موثق بالسيرفر';
                                 const regId = item.registrationId || item.operationId || '-';
                                 const fileStatus = item.fileStatus || 'تم الاستلام والتوثيق بالسيرفر';
 
@@ -11566,17 +11789,19 @@
                 };
             } catch (e) {}
 
-            // 2. شاشة البداية والأنيميشن الدائري (Splash Screen) - إخفاء مؤكد
+            // 2. شاشة البداية والأنيميشن الدائري (Splash Screen) - إخفاء مؤكد بعد 4 ثوانٍ
             try {
                 if (typeof window.dismissSplashScreen === 'function') {
-                    setTimeout(window.dismissSplashScreen, 1800);
+                    setTimeout(window.dismissSplashScreen, 4000);
                 } else {
                     const splashEl = document.getElementById('splashScreen');
                     if (splashEl) {
-                        splashEl.classList.add('fade-out');
                         setTimeout(function () {
-                            splashEl.style.display = 'none';
-                        }, 500);
+                            splashEl.classList.add('fade-out');
+                            setTimeout(function () {
+                                splashEl.style.display = 'none';
+                            }, 650);
+                        }, 4000);
                     }
                 }
             } catch (e) {}
@@ -12657,7 +12882,7 @@
 
             // إجراءات تسجيل الدخول والقراءة المباشرة تنفذ عبر JSONP فوراً بدون تأخير فحص الـ POST المسبق
             const directFastActions = ['loginReviewer', 'loginRegistrar', 'getResultsEntryStatus'];
-            const shouldUseDirectFast = data && data.action && (directFastActions.includes(data.action) || window.location.protocol === 'file:');
+            const shouldUseDirectFast = data && data.action && directFastActions.includes(data.action);
 
             if (shouldUseDirectFast) {
                 try {
@@ -12688,7 +12913,8 @@
                     'loginReviewer', 'loginRegistrar', 'getStudentSubmissions', 'getDistributionOverview',
                     'getReviewerDashboardStats', 'getCollectiveGameSheet', 'getCollectiveSheets',
                     'getTournamentResults', 'getChampionshipResults', 'getTournamentResultsOrderConfig',
-                    'getGameResultsPermissions', 'getResultsEntryStatus'
+                    'getGameResultsPermissions', 'getResultsEntryStatus',
+                    'getAutoDistributionStatus', 'setAutoDistributionStatus'
                 ];
                 if (data && data.action && jsonpActions.includes(data.action)) {
                     return await callBackendApiJsonp(data, gasUrl);
@@ -12735,21 +12961,22 @@
         let cachedReviewerMyTasks = [];
 
         function buildReviewerTasksList() {
-            const currentU = currentReviewerSession ? (currentReviewerSession.username || '').toLowerCase() : '';
-            const currentD = currentReviewerSession ? (currentReviewerSession.displayName || '') : '';
+            const currentU = currentReviewerSession ? (currentReviewerSession.username || '').toLowerCase().trim() : '';
+            const currentD = currentReviewerSession ? (currentReviewerSession.displayName || '').trim() : '';
+            const isSuper = currentReviewerSession && currentReviewerSession.role === 'SUPER_ADMIN';
             const tasksMap = new Map();
 
             // 1. استخراج المهام المسندة من جدول توزيع الأعباء المعتمد (cachedDistributionWorkloads)
             if (Array.isArray(cachedDistributionWorkloads) && cachedDistributionWorkloads.length > 0) {
                 cachedDistributionWorkloads.forEach(w => {
                     const assignedTo = (w.assignedReviewer || '').trim();
-                    const isMyTask = assignedTo && (
-                        assignedTo.toLowerCase() === currentU ||
-                        assignedTo === currentD ||
-                        (currentReviewerSession && currentReviewerSession.role === 'SUPER_ADMIN')
+                    const assignedUser = (w.assignedReviewerUsername || '').toLowerCase().trim();
+                    const isMyTask = isSuper || (
+                        (assignedTo && (assignedTo === currentD || (currentD && assignedTo.includes(currentD)))) ||
+                        (assignedUser && (assignedUser === currentU || (currentU && assignedUser.includes(currentU))))
                     );
 
-                    if (isMyTask) {
+                    if (isMyTask && (w.assignmentStatus === 'مسند' || w.assignmentStatus === 'نشطة')) {
                         const cat = w.category || 'بنين';
                         const game = w.gameName || '';
                         const stage = w.stageName || '';
@@ -12807,44 +13034,13 @@
                 });
             }
 
-            // 2. استخراج المهام من الاستمارات المسندة للمراجع حالياً (cachedReviewerStudents)
-            if (Array.isArray(cachedReviewerStudents) && cachedReviewerStudents.length > 0) {
-                cachedReviewerStudents.forEach(s => {
-                    const cat = s.category || 'بنين';
-                    const game = s.gameName || '';
-                    const stage = s.stageName || '';
-                    const gov = s.governorate || '';
-                    if (!gov || !game || !stage) return;
-                    const key = `${cat}|${game}|${stage}|${gov}`;
-
-                    if (!tasksMap.has(key)) {
-                        tasksMap.set(key, {
-                            key: key,
-                            category: cat,
-                            gameName: game,
-                            stageName: stage,
-                            governorate: gov,
-                            taskId: '',
-                            taskNotes: '',
-                            assignedAt: '',
-                            students: [],
-                            totalCount: 0,
-                            approvedCount: 0,
-                            needsUpdateCount: 0,
-                            pendingCount: 0,
-                            isCompleted: false
-                        });
-                    }
-                });
-            }
-
-            // 3. ربط الاستمارات وحساب نسب الإنجاز والمتبقي لكل مهمة
+            // 2. ربط الطلاب بالمهام المعتمدة للمراجع فقط (ممنوع منعاً باتاً إنشاء تبويبات من استمارات عشوائية أو غير مخصصة له)
             tasksMap.forEach(task => {
                 const matchedStudents = (cachedReviewerStudents || []).filter(s => {
-                    const mGov = !task.governorate || s.governorate === task.governorate;
-                    const mGame = !task.gameName || s.gameName === task.gameName;
-                    const mStage = !task.stageName || s.stageName === task.stageName;
-                    const mCat = !task.category || !s.category || s.category === task.category;
+                    const mGov = !task.governorate || isGovMatchClient(task.governorate, s.governorate);
+                    const mGame = !task.gameName || normalizeArabicText(s.gameName) === normalizeArabicText(task.gameName);
+                    const mStage = !task.stageName || normalizeArabicText(s.stageName) === normalizeArabicText(task.stageName);
+                    const mCat = !task.category || !s.category || normalizeArabicText(s.category) === normalizeArabicText(task.category);
                     return mGov && mGame && mStage && mCat;
                 });
 
@@ -12889,9 +13085,14 @@
 
             if (total === 0) {
                 container.innerHTML = `
-                    <div style="padding:14px; text-align:center; color:#64748b; font-size:0.82rem; width:100%;">
-                        <i class="fas fa-folder-open" style="font-size:1.4rem; color:#94a3b8; display:block; margin-bottom:4px;"></i>
-                        لا توجد مهام مسندة لحسابك حالياً. يقوم المسؤول الأعلى بإسناد المحافظات والألعاب لك عبر شاشة "توزيع المهام".
+                    <div style="padding:22px 14px; text-align:center; color:#64748b; font-size:0.86rem; width:100%;">
+                        <div style="font-size:1.05rem; font-weight:800; color:#b45309; margin-bottom:6px;">
+                            <i class="fas fa-hourglass-half" style="font-size:1.5rem; color:#d97706; display:block; margin-bottom:8px;"></i>
+                            في انتظار التوجيه من خلال الأدمن السوبر
+                        </div>
+                        <div style="font-size:0.80rem; color:#64748b; line-height:1.4;">
+                            لم يتم إسناد أي مهام مراجعة لحسابك حالياً، أو أن التوزيع التلقائي لفئتك معطّل بانتظار توجيه المشرف العام.
+                        </div>
                     </div>
                 `;
                 const banner = document.getElementById('activeTaskBanner');
@@ -13158,6 +13359,14 @@
 
                 if (res && res.success && res.session && (res.session.role === 'REVIEWER' || res.session.role === 'SUPER_ADMIN')) {
                     currentReviewerSession = res.session;
+                    cachedReviewerMyTasks = [];
+                    cachedReviewerStudents = [];
+                    cachedAllReviewerStudents = [];
+                    try {
+                        Object.keys(sessionStorage).forEach(k => {
+                            if (k.startsWith('repChamps_reviewer_students_')) sessionStorage.removeItem(k);
+                        });
+                    } catch (eC) {}
                     sessionStorage.setItem('repChamps_activeReviewer', JSON.stringify(currentReviewerSession));
                     showToast(`مرحباً بك: ${res.session.displayName || res.session.username}`, 'success');
                     showReviewerDashboard();
@@ -13177,6 +13386,14 @@
 
         function handleReviewerLogout() {
             currentReviewerSession = null;
+            cachedReviewerMyTasks = [];
+            cachedReviewerStudents = [];
+            cachedAllReviewerStudents = [];
+            try {
+                Object.keys(sessionStorage).forEach(k => {
+                    if (k.startsWith('repChamps_reviewer_students_')) sessionStorage.removeItem(k);
+                });
+            } catch (eC) {}
             sessionStorage.removeItem('repChamps_activeReviewer');
             showReviewerLogin();
         }
@@ -13231,17 +13448,31 @@
             setSpinning('iconReviewerStudentsRefresh', true);
             populateReviewerFilterDropdowns();
             const tbody = document.getElementById('reviewerStudentsTableBody');
-            const u = currentReviewerSession ? currentReviewerSession.username : '';
+            const u = currentReviewerSession ? (currentReviewerSession.username || '') : '';
+            const dName = currentReviewerSession ? (currentReviewerSession.displayName || '') : '';
+            const cat = currentReviewerSession ? (currentReviewerSession.category || 'بنين') : 'بنين';
             const cacheKey = 'repChamps_reviewer_students_' + (u || 'all');
 
-            // 1. عرض فوري وسريع من الذاكرة المؤقتة (0ms Instant Load)
+            // 1. عرض فوري وسريع من الذاكرة المؤقتة (0ms Instant Load) مع الفلترة الوقائية
             try {
                 const cached = sessionStorage.getItem(cacheKey);
                 if (cached) {
                     const parsed = JSON.parse(cached);
                     if (Array.isArray(parsed) && parsed.length > 0) {
-                        cachedReviewerStudents = parsed;
-                        cachedAllReviewerStudents = parsed;
+                        let filteredParsed = parsed;
+                        if (Array.isArray(cachedReviewerMyTasks) && cachedReviewerMyTasks.length > 0) {
+                            filteredParsed = parsed.filter(s => {
+                                return cachedReviewerMyTasks.some(t => {
+                                    const mGov = isGovMatchClient(t.governorate, s.governorate);
+                                    const mGame = normalizeArabicText(t.gameName) === normalizeArabicText(s.gameName);
+                                    const mStage = normalizeArabicText(t.stageName) === normalizeArabicText(s.stageName);
+                                    const mCat = !t.category || !s.category || normalizeArabicText(t.category) === normalizeArabicText(s.category);
+                                    return mGov && mGame && mStage && mCat;
+                                });
+                            });
+                        }
+                        cachedReviewerStudents = filteredParsed;
+                        cachedAllReviewerStudents = filteredParsed;
                         updateReviewerStatsCounters();
                         renderReviewerTaskTabs();
                         filterReviewerTable();
@@ -13254,8 +13485,15 @@
             }
 
             const payload = { action: 'getStudentSubmissions' };
-            if (currentReviewerSession && currentReviewerSession.username) {
-                payload.reviewerUsername = currentReviewerSession.username;
+            if (u) {
+                payload.reviewerUsername = u;
+            }
+            if (dName) {
+                payload.reviewerName = dName;
+            }
+            if (cat) {
+                payload.category = cat;
+                payload.reviewerCategory = cat;
             }
             if (currentReviewerSession && currentReviewerSession.assignedGovs && currentReviewerSession.assignedGovs !== 'الكل') {
                 payload.assignedGovs = currentReviewerSession.assignedGovs;
@@ -13267,18 +13505,67 @@
             try {
                 const resSubs = await callBackendApi(payload);
 
-                if (resSubs && resSubs.submissions && resSubs.submissions.length > 0) {
-                    cachedReviewerStudents = resSubs.submissions;
-                    cachedAllReviewerStudents = resSubs.submissions;
-                    try { sessionStorage.setItem(cacheKey, JSON.stringify(resSubs.submissions)); } catch (eS) {}
-                } else if (!cachedReviewerStudents || cachedReviewerStudents.length === 0) {
-                    cachedReviewerStudents = [];
-                    cachedAllReviewerStudents = [];
+                // 2. تدقيق وحسم المهام المخصصة للمراجع حصراً (Active Tasks Verification)
+                let activeTasks = (resSubs && Array.isArray(resSubs.myTasks)) ? resSubs.myTasks : [];
+
+                if (activeTasks.length === 0 && currentReviewerSession && currentReviewerSession.role !== 'SUPER_ADMIN') {
+                    const uNorm = u.toLowerCase().trim();
+                    const dNorm = normalizeArabicText(dName);
+
+                    // البحث في كاش التوزيع المحلي إن كان متوفراً
+                    if (Array.isArray(cachedDistributionWorkloads) && cachedDistributionWorkloads.length > 0) {
+                        activeTasks = cachedDistributionWorkloads.filter(w => {
+                            const aUser = (w.assignedReviewerUsername || '').toLowerCase().trim();
+                            const aRev = normalizeArabicText(w.assignedReviewer || '');
+                            const isUser = (aUser && (aUser === uNorm || aUser.includes(uNorm) || uNorm.includes(aUser)));
+                            const isName = (aRev && (aRev === dNorm || aRev.includes(dNorm) || dNorm.includes(aRev)));
+                            return (isUser || isName) && (w.assignmentStatus === 'مسند' || w.assignmentStatus === 'نشطة');
+                        });
+                    }
+
+                    // في حال عدم توفر المهام، استعلام سريع عن نظرة التوزيع العامة
+                    if (activeTasks.length === 0) {
+                        try {
+                            const distRes = await callBackendApi({ action: 'getDistributionOverview' });
+                            if (distRes && Array.isArray(distRes.workloadList)) {
+                                cachedDistributionWorkloads = distRes.workloadList;
+                                activeTasks = distRes.workloadList.filter(w => {
+                                    const aUser = (w.assignedReviewerUsername || '').toLowerCase().trim();
+                                    const aRev = normalizeArabicText(w.assignedReviewer || '');
+                                    const isUser = (aUser && (aUser === uNorm || aUser.includes(uNorm) || uNorm.includes(aUser)));
+                                    const isName = (aRev && (aRev === dNorm || aRev.includes(dNorm) || dNorm.includes(aRev)));
+                                    return (isUser || isName) && (w.assignmentStatus === 'مسند' || w.assignmentStatus === 'نشطة');
+                                });
+                            }
+                        } catch (eDist) {}
+                    }
                 }
 
-                if (resSubs && Array.isArray(resSubs.myTasks)) {
-                    cachedReviewerMyTasks = resSubs.myTasks;
+                cachedReviewerMyTasks = activeTasks;
+
+                // 3. الفلترة الصارمة للاستمارات: منع تسريب أي استمارات لمحافظات أو ألعاب مسندة لزملاء آخرين أو غير مسندة
+                let rawSubmissions = (resSubs && Array.isArray(resSubs.submissions)) ? resSubs.submissions : [];
+
+                if (currentReviewerSession && currentReviewerSession.role !== 'SUPER_ADMIN') {
+                    if (cachedReviewerMyTasks.length > 0) {
+                        rawSubmissions = rawSubmissions.filter(s => {
+                            return cachedReviewerMyTasks.some(t => {
+                                const mGov = isGovMatchClient(t.governorate, s.governorate);
+                                const mGame = normalizeArabicText(t.gameName) === normalizeArabicText(s.gameName);
+                                const mStage = normalizeArabicText(t.stageName) === normalizeArabicText(s.stageName);
+                                const mCat = !t.category || !s.category || normalizeArabicText(t.category) === normalizeArabicText(s.category);
+                                return mGov && mGame && mStage && mCat;
+                            });
+                        });
+                    } else {
+                        // لا توجد مهام مسندة للمراجع نهائياً
+                        rawSubmissions = [];
+                    }
                 }
+
+                cachedReviewerStudents = rawSubmissions;
+                cachedAllReviewerStudents = rawSubmissions;
+                try { sessionStorage.setItem(cacheKey, JSON.stringify(rawSubmissions)); } catch (eS) {}
 
                 if (resSubs && typeof resSubs.resultsEntryUnlocked !== 'undefined') {
                     isResultsEntryUnlocked = !!resSubs.resultsEntryUnlocked;
@@ -13480,7 +13767,11 @@
             }
 
             if (filtered.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; padding:20px; color:#94a3b8;">لا توجد ملفات مطابقة للبحث المحدد.</td></tr>';
+                if (!cachedReviewerStudents || cachedReviewerStudents.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; padding:32px 18px; color:#64748b;"><div style="font-size:1.05rem; font-weight:800; color:#b45309; margin-bottom:6px;"><i class="fas fa-hourglass-half fa-spin"></i> في انتظار التوجيه من خلال الأدمن السوبر</div><div style="font-size:0.82rem; color:#64748b;">لم يتم إسناد أي محافظات أو ألعاب لحسابك حالياً، أو أن التوزيع التلقائي معطّل. يمكنك البدء في فحص الاستمارات فور توجيه المشرف العام.</div></td></tr>';
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; padding:20px; color:#94a3b8;">لا توجد ملفات مطابقة للبحث المحدد.</td></tr>';
+                }
                 return;
             }
 
@@ -14421,6 +14712,9 @@
                 if (res && res.success) {
                     cachedDistributionWorkloads = res.workloadList || [];
                     cachedDistributionReviewers = res.reviewersProgressList || [];
+                    if (typeof res.autoDistributeBoys !== 'undefined' || typeof res.autoDistributeGirls !== 'undefined') {
+                        updateAutoDistributionUI(res.autoDistributeBoys, res.autoDistributeGirls);
+                    }
                     try {
                         sessionStorage.setItem('repChamps_dist_workloads_cache', JSON.stringify(cachedDistributionWorkloads));
                         sessionStorage.setItem('repChamps_dist_reviewers_cache', JSON.stringify(cachedDistributionReviewers));
@@ -15090,8 +15384,6 @@
                 }
             });
         }
-            cbs.forEach(cb => { cb.checked = !!selectAll; });
-        }
 
         function closeAssignTaskModal() {
             const modal = document.getElementById('assignTaskModal');
@@ -15394,11 +15686,12 @@
                             <tbody>
                                 ${trail.map(item => {
                                     const badgeColor = item.resultingStatus.includes('السماح') ? '#059669' : (item.resultingStatus.includes('ضرورة') ? '#dc2626' : (item.resultingStatus.includes('تم التحديث') ? '#7e22ce' : '#0284c7'));
+                                    const dt = formatAuditDateTime(item.date, item.time);
                                     return `
                                         <tr>
                                             <td style="font-size:0.76rem; color:#64748b; white-space:nowrap;">
-                                                <i class="fas fa-calendar-day" style="margin-left:4px;"></i>${escapeHtml(item.date)}<br>
-                                                <i class="fas fa-clock" style="margin-left:4px;"></i>${escapeHtml(item.time)}
+                                                <span style="font-weight:700; color:#1e293b; display:inline-block; margin-bottom:2px;"><i class="fas fa-calendar-day" style="margin-left:4px; color:#0284c7;"></i>${escapeHtml(dt.date)}</span><br>
+                                                <span style="color:#64748b;"><i class="fas fa-clock" style="margin-left:4px; color:#94a3b8;"></i>${escapeHtml(dt.time)}</span>
                                             </td>
                                             <td style="font-weight:700; color:#0f172a;">
                                                 ${escapeHtml(item.actorName || '-')}<br>
@@ -15440,6 +15733,143 @@
         let superAdminAccountsData = { admins: [], reviewers: [], registrars: [], resultsEntryUnlocked: false };
         let activeAccountSubtab = 'reviewers';
 
+        // ==========================================
+        // منظومة التوزيع التلقائي للمهام (بنين / بنات)
+        // ==========================================
+        let autoDistributionState = {
+            boys: false,
+            girls: false
+        };
+
+        function updateAutoDistributionUI(boys, girls) {
+            if (typeof boys !== 'undefined') autoDistributionState.boys = (boys === true || boys === 'true');
+            if (typeof girls !== 'undefined') autoDistributionState.girls = (girls === true || girls === 'true');
+
+            // 1. تحديث لوحة الحسابات والصلاحيات (adminAccountsManageCard)
+            const textBoys = document.getElementById('statusTextAutoBoys');
+            const btnBoys = document.getElementById('btnToggleAutoBoys');
+            const textGirls = document.getElementById('statusTextAutoGirls');
+            const btnGirls = document.getElementById('btnToggleAutoGirls');
+
+            if (textBoys) {
+                if (autoDistributionState.boys) {
+                    textBoys.innerHTML = '<span style="color:#059669;"><i class="fas fa-circle-check"></i> مفعّل - توزيع تلقائي حصري للمراجعين البنين</span>';
+                } else {
+                    textBoys.innerHTML = '<span style="color:#dc2626;"><i class="fas fa-circle-xmark"></i> معطّل - بانتظار توجيه الأدمن السوبر</span>';
+                }
+            }
+            if (btnBoys) {
+                if (autoDistributionState.boys) {
+                    btnBoys.innerHTML = '<i class="fas fa-power-off"></i> <span>تعطيل البنين</span>';
+                    btnBoys.style.background = 'linear-gradient(135deg, #dc2626, #b91c1c)';
+                } else {
+                    btnBoys.innerHTML = '<i class="fas fa-bolt"></i> <span>تفعيل البنين</span>';
+                    btnBoys.style.background = 'linear-gradient(135deg, #0284c7, #0369a1)';
+                }
+            }
+
+            if (textGirls) {
+                if (autoDistributionState.girls) {
+                    textGirls.innerHTML = '<span style="color:#059669;"><i class="fas fa-circle-check"></i> مفعّل - توزيع تلقائي حصري للمراجعات البنات</span>';
+                } else {
+                    textGirls.innerHTML = '<span style="color:#dc2626;"><i class="fas fa-circle-xmark"></i> معطّل - بانتظار توجيه الأدمن السوبر</span>';
+                }
+            }
+            if (btnGirls) {
+                if (autoDistributionState.girls) {
+                    btnGirls.innerHTML = '<i class="fas fa-power-off"></i> <span>تعطيل البنات</span>';
+                    btnGirls.style.background = 'linear-gradient(135deg, #dc2626, #b91c1c)';
+                } else {
+                    btnGirls.innerHTML = '<i class="fas fa-bolt"></i> <span>تفعيل البنات</span>';
+                    btnGirls.style.background = 'linear-gradient(135deg, #db2777, #be185d)';
+                }
+            }
+
+            // 2. تحديث شريط التوزيع السريع (adminTaskDistributionCard)
+            const badgeDistBoys = document.getElementById('distBadgeAutoBoys');
+            const btnDistBoys = document.getElementById('btnDistToggleAutoBoys');
+            const badgeDistGirls = document.getElementById('distBadgeAutoGirls');
+            const btnDistGirls = document.getElementById('btnDistToggleAutoGirls');
+
+            if (badgeDistBoys) {
+                badgeDistBoys.textContent = autoDistributionState.boys ? 'مفعّل' : 'معطّل';
+                badgeDistBoys.style.color = autoDistributionState.boys ? '#059669' : '#dc2626';
+            }
+            if (btnDistBoys) {
+                btnDistBoys.textContent = autoDistributionState.boys ? 'تعطيل' : 'تفعيل';
+                btnDistBoys.style.color = autoDistributionState.boys ? '#dc2626' : '#0284c7';
+            }
+
+            if (badgeDistGirls) {
+                badgeDistGirls.textContent = autoDistributionState.girls ? 'مفعّل' : 'معطّل';
+                badgeDistGirls.style.color = autoDistributionState.girls ? '#059669' : '#dc2626';
+            }
+            if (btnDistGirls) {
+                btnDistGirls.textContent = autoDistributionState.girls ? 'تعطيل' : 'تفعيل';
+                btnDistGirls.style.color = autoDistributionState.girls ? '#dc2626' : '#db2777';
+            }
+        }
+
+        async function loadAutoDistributionStatus(showNotification) {
+            setSpinning('iconAutoDistRefresh', true);
+            try {
+                const res = await callBackendApi({ action: 'getAutoDistributionStatus' });
+                if (res && res.success) {
+                    updateAutoDistributionUI(res.boys, res.girls);
+                    if (showNotification) showToast('تم تحديث حالة صلاحيات التوزيع التلقائي من السيرفر.', 'info');
+                }
+            } catch (err) {
+                console.warn('Could not load auto distribution status:', err);
+            } finally {
+                setSpinning('iconAutoDistRefresh', false);
+            }
+        }
+
+        async function toggleAutoDistribution(category) {
+            const currentVal = category === 'بنين' ? autoDistributionState.boys : autoDistributionState.girls;
+            const newVal = !currentVal;
+            const catName = category === 'بنين' ? 'البنين' : 'البنات';
+
+            const btnId = category === 'بنين' ? 'btnToggleAutoBoys' : 'btnToggleAutoGirls';
+            const btn = document.getElementById(btnId);
+            const origHtml = btn ? btn.innerHTML : '';
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> جاري الحفظ...';
+            }
+
+            try {
+                const res = await callBackendApi({
+                    action: 'setAutoDistributionStatus',
+                    category: category,
+                    enabled: newVal
+                });
+
+                if (res && res.success) {
+                    updateAutoDistributionUI(res.boys, res.girls);
+                    const msg = newVal
+                        ? `تم تفعيل التوزيع التلقائي لمهام (${catName}) بنجاح. يتم الآن توجيه مهام ${catName} فقط وحصرياً للمراجعين التابعين للفئة بالتساوي.`
+                        : `تم تعطيل التوزيع التلقائي لمهام (${catName}). لن يتم توجيه أي مهام جديدة إلا بتكليف صريح من المشرف العام.`;
+                    showCustomAlert(newVal ? 'تم تفعيل التوزيع التلقائي' : 'تم تعطيل التوزيع التلقائي', msg, newVal ? 'success' : 'info');
+
+                    // تحديث بيانات التوزيع والحسابات فورياً
+                    if (typeof loadDistributionOverviewFromBackend === 'function') {
+                        loadDistributionOverviewFromBackend().catch(() => {});
+                    }
+                } else {
+                    showCustomAlert('خطأ', (res && res.message) ? res.message : 'تعذر تحديث حالة التوزيع التلقائي.', 'error');
+                }
+            } catch (err) {
+                showCustomAlert('خطأ في الاتصال', 'تعذر حفظ حالة التوزيع التلقائي مع السيرفر: ' + (err.message || err), 'error');
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = origHtml;
+                    updateAutoDistributionUI(autoDistributionState.boys, autoDistributionState.girls);
+                }
+            }
+        }
+
         function switchAccountSubtab(tab) {
             activeAccountSubtab = tab;
             const subtabs = ['accSubtabReviewers', 'accSubtabRegistrars', 'accSubtabAdmins'];
@@ -15477,6 +15907,9 @@
                     superAdminAccountsData = res;
                     isResultsEntryUnlocked = !!res.resultsEntryUnlocked;
                     updateResultsEntryPermissionUI(isResultsEntryUnlocked);
+                    if (typeof res.autoDistributeBoys !== 'undefined' || typeof res.autoDistributeGirls !== 'undefined') {
+                        updateAutoDistributionUI(res.autoDistributeBoys, res.autoDistributeGirls);
+                    }
                     renderAdminAccountsTables();
                 } else {
                     renderAdminAccountsTables();
